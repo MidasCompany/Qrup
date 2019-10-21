@@ -34,12 +34,13 @@ export default class Login extends React.Component {
         <TextInput 
         style ={ styles.input}
         placeholder= {'Senha'}
+        autoCapitalize = 'none'
+        secureTextEntry = {true}
         placeholderTextColor = 'white'
         underlineColorAndroid = 'white'/>
         <TouchableOpacity onPress={() => this.Loga()}>
         <Image source ={imgLogin} style ={styles.buttonLogin}/>
         </TouchableOpacity>    
-            <Text style ={styles.textLogin}>Login</Text>
             <TouchableOpacity>
               <Text style = {styles.textMin1}>Cadastre-se</Text>
               </TouchableOpacity>
@@ -68,13 +69,6 @@ text:{
    fontFamily: 'roboto',
    color: 'white',
  },
- textLogin:{
-  fontSize: wp('9%'),
-  fontFamily: 'roboto',
-  color: 'white',
-  marginTop: -wp('15%'),
-  marginRight: hp('25%'),
- },
  textMin1:{
    marginTop: wp('25%'),
    color: 'white',
@@ -101,5 +95,6 @@ text:{
    marginTop: wp('15%'),
   alignItems: 'center',
   alignContent:'center',
+  resizeMode: 'contain'
  },
 });

@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
-import { Text, 
-        StyleSheet,
-        View,
-        Image,    
-    } from 'react-native'
+import { Text, StyleSheet, View, Image } from 'react-native'
+import qrup from '../Images/qrup_semroda_semsombra.png'
+import exit from '../Images/exitIco.png'
+
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
-  import qrup from '../Images/qrup_semroda_semsombra.png'
-  import exit from '../Images/exitIco.png'
 
-export default class Profile extends Component {
+export default class Products extends Component {
     render() {
         return (
-            <View style = {styles.Cabeça}>
+            <View>
+                <View style = {styles.Cabeça}>
                 <Image  source = {qrup} style = {styles.Qrup}/>
-                <Text style = {styles.Titulo}>Profile </Text>
+                <Text style = {styles.Titulo}>Products </Text>
                 <Image source = {exit} style = {styles.Exit}/>
+                </View>
             </View>
         )
     }

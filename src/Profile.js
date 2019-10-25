@@ -10,43 +10,69 @@ import {
   } from 'react-native-responsive-screen';
   import qrup from '../Images/qrup_semroda_semsombra.png'
   import exit from '../Images/exitIco.png'
+  import Desgracado from '../Images/Profile.png'
 
 export default class Profile extends Component {
     render() {
         return (
-            <View style = {styles.Cabeça}>
-                <Image  source = {qrup} style = {styles.Qrup}/>
-                <Text style = {styles.Titulo}>Profile </Text>
-                <Image source = {exit} style = {styles.Exit}/>
+            <View >
+                <View style = {styles.Cabeça}>
+                    <Image  source = {qrup} style = {styles.Qrup}/>
+                    <Text style = {styles.Titulo}>Profile </Text>
+                    <Image source = {exit} style = {styles.Exit}/>
+                </View>
+                <View style= {styles.Perfil}>
+                    <Image source = {Desgracado} style = {styles.Disgraca}/>
+                    <Text  style = {styles.nameDesg}>BOLO</Text>
+                    <Text style= {styles.pontDesgr}> 21312 Pontos</Text>
+                </View>
             </View>
+            
         )
     }
 }
 
 const styles = StyleSheet.create({
 Cabeça:{
+    flexDirection: 'row',
     height: hp('6%'),
     width: wp('100%'),
     backgroundColor: '#677D35',
     alignContent: 'center',
     alignItems: 'center',
+    justifyContent: 'space-between'
 },
 Qrup:{
-    marginTop: -wp('2%'),
+    //marginTop: -wp('2%'),
     height: hp('8%'),
     width: wp('5%'),
-    marginRight: wp('90%')
+    marginStart: wp('2%')
 },
 Titulo:{
-    marginTop: -wp('12%'),
     fontSize: wp('5%'),
-
 },
 Exit:{
     height: hp('3%'),
     width: wp('6%'),
-    marginTop: -wp('7%'),
-    marginStart: wp('90%'),
-    resizeMode: 'stretch'
+    resizeMode: 'contain',
+    marginEnd: wp('2%')
+},
+Perfil:{
+    flexDirection: 'column',
+    alignItems: 'center',
+    alignContent: 'center',
+},
+Disgraca:{ 
+    marginTop: wp('10%'),
+    height: hp('20%'),
+    width: wp('30%'),
+   resizeMode: 'contain',
+},
+nameDesg:{
+    fontSize: wp('6%'),
+},
+pontDesgr:{
+    fontFamily:'Roboto',
+    marginTop: wp('5%')
 }
 })

@@ -5,18 +5,19 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from './Login'
 import Profile from './Profile'
 import Root from './Root'
-
+import Reader from './Reader'
 
 const App = createStackNavigator({
           Login: Login,
-          User: Root,
+          User: Root,  
+          Reader: Reader,
         },
         {
           initialRouteName: 'Login',
           headerMode: 'none',
-         navigationOptions: {
-             headerVisible: false,
-    }
+          navigationOptions: {
+            headerVisible: false,
+          }
         }
 );
 

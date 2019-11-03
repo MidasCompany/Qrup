@@ -15,6 +15,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+
 export default class Login extends React.Component {
    Loga = () => {
     this.props.navigation.navigate('User')
@@ -22,31 +23,33 @@ export default class Login extends React.Component {
   render() {
   return (
     <>
-  <StatusBar backgroundColor = "#677D35" barStyle="light-content" /> 
+<StatusBar backgroundColor = "#677D35" barStyle="light-content" /> 
       <View style = {styles.main}>
         <Image source = {Logo} style={styles.Logo}/>
         <Text style={styles.text}> QRUP</Text>
         <TextInput 
-        style ={ styles.input}
-        placeholder= {'Login'}
-        placeholderTextColor = 'white'
-        underlineColorAndroid = 'white'/>
+            style ={ styles.input}
+            placeholder= {'Login'}
+            placeholderTextColor = 'white'
+            underlineColorAndroid = 'white'/>
         <TextInput 
-        style ={ styles.input}
-        placeholder= {'Senha'}
-        autoCapitalize = 'none'
-        secureTextEntry = {true}
-        placeholderTextColor = 'white'
-        underlineColorAndroid = 'white'/>
-        <TouchableOpacity onPress={() => this.Loga()}>
-        <Image source ={imgLogin} style ={styles.buttonLogin}/>
-        </TouchableOpacity>    
-            <TouchableOpacity>
-              <Text style = {styles.textMin1}>Cadastre-se</Text>
-              </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style = {styles.textMin2}>Recupere Sua Senha</Text>
-            </TouchableOpacity>
+            style ={ styles.input}
+            placeholder= {'Senha'}
+            autoCapitalize = 'none'
+            secureTextEntry = {true}
+            placeholderTextColor = 'white'
+            underlineColorAndroid = 'white'/>
+        <View  style = {styles.buttonLogin}>                
+            <TouchableOpacity onPress={() => this.Loga()} >
+                <Image source = {imgLogin} style ={styles.btnImg}/>
+            </TouchableOpacity>    
+        </View>    
+        <TouchableOpacity style = {styles.textMin1}>
+            <Text style={styles.txtStyle}>Cadastre-se</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+            <Text style = {styles.textMin2}>Recupere Sua Senha</Text>
+        </TouchableOpacity>
 
       </View>
     </>
@@ -70,10 +73,13 @@ text:{
    color: 'white',
  },
  textMin1:{
-   marginTop: wp('25%'),
-   color: 'white',
-   fontSize: wp('4%'),
+   //marginTop: wp('25%'),
+
  },
+txtStyle:{
+    color: 'white',
+    fontSize: wp('4%'),
+},  
  textMin2:{
   marginTop: wp('5%'),
   color: 'white',
@@ -87,14 +93,26 @@ text:{
     fontSize: wp ('5%'),
     width: wp('85%'),
     color:'white',
+//    marginBottom: wp
  },
  buttonLogin:{
-   width: wp('20%'),
-   height: hp('10%'),
-   marginLeft: hp('29%'),
-   marginTop: wp('15%'),
-  alignItems: 'center',
-  alignContent:'center',
-  resizeMode: 'contain'
+    //width: wp('10%'),
+    height: hp('15%'),
+    marginLeft: hp('30%'),
+    borderRadius: wp('10%'),
+    //backgroundColor: 'white',
+    alignContent: 'center',
+    alignContent: 'flex-end',
+    textAlignVertical: 'center',
+    resizeMode: 'contain',
+    marginBottom: wp('15%')
  },
+ btnImg:{
+    //marginStart: hp('30%'),
+    //marginTop: wp('%'),
+    //marginStart: wp('45%'),
+    width: wp('25%'),
+    height: hp('25%'),
+    resizeMode: 'contain'
+ }
 });

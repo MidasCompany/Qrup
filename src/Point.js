@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
+import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import qrup from '../Images/qrup_semroda_semsombra.png'
-import exit from '../Images/exitIco.png'
-
+import Icon from 'react-native-vector-icons/Ionicons'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -11,39 +10,38 @@ import {
 export default class Point extends Component {
     render() {
         return (
-            <View style = {styles.Cabeça}>
+            <View style = {styles.Cabeca}>
                 <Image  source = {qrup} style = {styles.Qrup}/>
                 <Text style = {styles.Titulo}>Points </Text>
-                <Image source = {exit} style = {styles.Exit}/>
+                <TouchableOpacity>
+                        <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
+                </TouchableOpacity>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    Cabeça:{
+    Cabeca:{
+        flexDirection: 'row',
         height: hp('6%'),
         width: wp('100%'),
         backgroundColor: '#677D35',
         alignContent: 'center',
         alignItems: 'center',
+        justifyContent: 'space-between'
     },
     Qrup:{
-        marginTop: -wp('2%'),
+        //marginTop: -wp('2%'),
         height: hp('8%'),
         width: wp('5%'),
-        marginRight: wp('90%')
+        marginStart: wp('2%')
     },
     Titulo:{
-        marginTop: -wp('12%'),
         fontSize: wp('5%'),
-    
     },
     Exit:{
-        height: hp('3%'),
-        width: wp('6%'),
-        marginTop: -wp('7%'),
-        marginStart: wp('90%'),
-        resizeMode: 'stretch'
-    }
+        fontSize: wp('10%'),
+        marginEnd: wp('2%')
+    },
 })

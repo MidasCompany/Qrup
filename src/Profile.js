@@ -3,26 +3,29 @@ import { Text,
         StyleSheet,
         View,
         Image,    
+        TouchableOpacity
     } from 'react-native'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
   import qrup from '../Images/qrup_semroda_semsombra.png'
-  import exit from '../Images/exitIco.png'
-  import Desgracado from '../Images/Profile.png'
+  import Icon from 'react-native-vector-icons/Ionicons'
+  import Icon2 from 'react-native-vector-icons/FontAwesome'
 
 export default class Profile extends Component {
     render() {
         return (
             <View >
-                <View style = {styles.Cabeça}>
+                <View style = {styles.Cabeca}>
                     <Image  source = {qrup} style = {styles.Qrup}/>
                     <Text style = {styles.Titulo}>Profile </Text>
-                    <Image source = {exit} style = {styles.Exit}/>
+                    <TouchableOpacity>
+                        <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
+                    </TouchableOpacity>
                 </View>
                 <View style= {styles.Perfil}>
-                    <Image source = {Desgracado} style = {styles.Disgraca}/>
+                    <Icon2 name = 'user-circle-o'color ='#677D35' style = {styles.Disgraca}/>
                     <Text  style = {styles.nameDesg}>BOLO</Text>
                     <Text style= {styles.pontDesgr}> 21312 Pontos</Text>
                 </View>
@@ -33,7 +36,7 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-Cabeça:{
+Cabeca:{
     flexDirection: 'row',
     height: hp('6%'),
     width: wp('100%'),
@@ -52,9 +55,7 @@ Titulo:{
     fontSize: wp('5%'),
 },
 Exit:{
-    height: hp('3%'),
-    width: wp('6%'),
-    resizeMode: 'contain',
+    fontSize: wp('10%'),
     marginEnd: wp('2%')
 },
 Perfil:{
@@ -63,12 +64,12 @@ Perfil:{
     alignContent: 'center',
 },
 Disgraca:{ 
+    marginTop: wp('20%'),
     marginTop: wp('10%'),
-    height: hp('20%'),
-    width: wp('30%'),
-   resizeMode: 'contain',
+    fontSize: wp('35%'),
 },
 nameDesg:{
+    marginTop:wp('10%'),
     fontSize: wp('6%'),
 },
 pontDesgr:{

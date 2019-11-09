@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Profile from './Profile';
 import Point from './Point';
 import Products from './Products'
-import Reader from './Reader'
+
 const TabNavigator = createBottomTabNavigator({
   Profile: Profile,
   Point: Point,

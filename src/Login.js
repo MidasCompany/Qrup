@@ -20,6 +20,9 @@ export default class Login extends React.Component {
    Loga = () => {
     this.props.navigation.navigate('User')
   } 
+  Cadastra = () =>{
+    this.props.navigation.navigate('Register')
+  }
   render() {
   return (
     <>
@@ -44,7 +47,8 @@ export default class Login extends React.Component {
                 <Image source = {imgLogin} style ={styles.btnImg}/>
             </TouchableOpacity>    
         </View>    
-        <TouchableOpacity style = {styles.textMin1}>
+        <TouchableOpacity 
+          onPress = {()=>this.Cadastra()}>
             <Text style={styles.txtStyle}>Cadastre-se</Text>
         </TouchableOpacity>
         <TouchableOpacity>
@@ -72,10 +76,6 @@ text:{
    fontFamily: 'roboto',
    color: 'white',
  },
- textMin1:{
-   //marginTop: wp('25%'),
-
- },
 txtStyle:{
     color: 'white',
     fontSize: wp('4%'),
@@ -86,8 +86,9 @@ txtStyle:{
   fontSize: wp('4%'),
 },
  Logo:{
-   width: wp('60%'),
+   width: wp('40%'),
    height:hp('30%'),
+   resizeMode: 'contain'
  },
  input:{
     fontSize: wp ('5%'),

@@ -12,25 +12,22 @@ import {
   import qrup from '../Images/qrup_semroda_semsombra.png'
   import Icon from 'react-native-vector-icons/Ionicons'
   import Icon2 from 'react-native-vector-icons/FontAwesome'
-
+  import Card from './components/Card'
+import Header from './components/Header'
 export default class Profile extends Component {
-    render() {
+ 
+    render() {    
         return (
             <View >
-                <View style = {styles.Cabeca}>
-                    <Image  source = {qrup} style = {styles.Qrup}/>
-                    <Text style = {styles.Titulo}>Profile </Text>
-                    <TouchableOpacity>
-                        <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
-                    </TouchableOpacity>
-                </View>
+                <Header
+                    title = 'Perfil'
+                />
                 <View style= {styles.Perfil}>
                     <Icon2 name = 'user-circle-o'color ='#677D35' style = {styles.Disgraca}/>
-                    <Text  style = {styles.nameDesg}>BOLO</Text>
+                    <Text  style = {styles.nameDesg}>{this.props.navigation.getParam('user')}</Text>
                     <Text style= {styles.pontDesgr}> 21312 Pontos</Text>
                 </View>
-            </View>
-            
+            </View>            
         )
     }
 }

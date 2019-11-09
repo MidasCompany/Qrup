@@ -7,7 +7,8 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
-
+import { thisExpression } from '@babel/types'
+import Header from './components/Header'
 export default class Products extends Component {
     Scan = () =>{
         this.props.navigation.navigate('Reader')
@@ -15,15 +16,10 @@ export default class Products extends Component {
     render() {        
         return (
             <View>
-                <View style = {styles.Cabeca}>
-                    <Image  source = {qrup} style = {styles.Qrup}/>
-                    <Text style = {styles.Titulo}>Products </Text>
-                    <TouchableOpacity>
-                            <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
-                    </TouchableOpacity>
-                </View>
-                
-                <Text style = {styles.terte}>{this.props.navigation.getParam('leitura')}</Text>
+                <Header
+                    title = 'Produtos'
+                />
+                 <Text>{this.props.navigation.getParam('leitura')}</Text>
                 <View style= {styles.adView}>
                     <TouchableOpacity onPress = {()=> this.Scan()}>
                         <Icon2 name='add-circle' color='#677D35' style = {styles.ad}/>

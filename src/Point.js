@@ -8,7 +8,7 @@ const Point = createStackNavigator({
           Pick: PickCupons
         },
         {
-          initialRouteName: 'Pick',
+          initialRouteName: 'Chose',
           headerMode: 'none',
           navigationOptions: {
            headerVisible: false,

@@ -9,16 +9,15 @@ export default class Card extends Component {
         super(props);
     }
     trocaPorra =()=>{
-        return this.props.navigation.navigate('Pick')
+        return console.log('oi')
     }
     render() {
         return (
-        <>
-            <TouchableOpacity style = {styles.main} onPress = {()=>{this.trocaPorra}}>
+            <TouchableOpacity style = {styles.main} onPress = {this.props.onPress}>
                 <View style = {styles.terte}>
                     <View style = {styles.compLogo}/>
                     <View style = {styles.stats}>
-                        <Text style = {styles.title}>{this.props.title} </Text>
+                        <Text style = {styles.title}>{this.props.title}</Text>
                         <View style = {styles.descCont}>
                             <Text style = {styles.description}> {this.props.description} </Text>
                         </View>
@@ -26,7 +25,6 @@ export default class Card extends Component {
                     </View>
                 </View>
             </TouchableOpacity>                
-        </>
         )
     }
 }

@@ -23,6 +23,9 @@ export default class ChoseCupons extends Component {
             pontos: await AsyncStorage.getItem('@Point')
         }) 
     }
+    setCupon = ()=>{
+        this.props.navigation.navigate('Pick');
+    }
     render() {
         return (
         <>
@@ -34,24 +37,14 @@ export default class ChoseCupons extends Component {
                 </TouchableOpacity>  
             </View>
             <ScrollView>
-             {/*    <TouchableOpacity
-                    onPress = {()=>{this.props.navigation.navigate('Pick')}}
-                    style = {styles.tertePorra}
-                >
-
-                </TouchableOpacity> */}
                 <Icon2 name ='coins' color = '#677D35' style = {styles.Coin}/>
                 <Text style = {styles.Points}>{this.state.pontos} Points</Text>
-
-                <TouchableOpacity onPress = {()=>{this.props.navigation.navigate('Pick')}}
-                                   style = {styles.terte2}
-                >
-                    <Card
+                <Card
                         title = 'Retiro da Sé'
                         description = '10% de desconto aos sábados de neve em Belém'
                         points = '10'
-                    />
-                </TouchableOpacity>    
+                        onPress={()=>this.setCupon()}
+                    />  
                 <Card
                     title = 'Burguer King'
                     description = '20% de desconto quando o Amaury criar cabelo'

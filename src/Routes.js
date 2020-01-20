@@ -12,7 +12,7 @@ const App = createStackNavigator({
           Register: Register,
         },
         {
-          initialRouteName: 'User',
+          initialRouteName: 'Login',
           headerMode: 'none',
           navigationOptions: {
            headerVisible: false,

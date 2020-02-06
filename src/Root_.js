@@ -22,8 +22,8 @@ export default createMaterialTopTabNavigator(
         },
         Library: { screen: Point,
                     navigationOptions:{
-                        tabBarLabel: 'Points',
-                        tabBarIcon:({tintColor})=>(<Icon2 name='coins' size={ wp('5%')} color={tintColor} />)
+                        tabBarLabel: 'Cupons',
+                        tabBarIcon:({tintColor})=>(<Icon2 name='ticket-alt' size={ wp('5%')} color={tintColor} />)
                     } },
         History: { screen: Products,
                     navigationOptions:{
@@ -39,7 +39,7 @@ export default createMaterialTopTabNavigator(
             activeTintColor: 'white',
             inactiveTintColor: '#a9a9a9',
             style:{
-                backgroundColor: '#677D35',
+                backgroundColor: '#3a5108',
                 height: hp('7%')
             },
             labelStyle:{

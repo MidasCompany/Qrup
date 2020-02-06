@@ -5,23 +5,26 @@ import {
   Text,
   StatusBar,
   Image,
-  TextInput,
   TouchableOpacity,
-  Alert
 } from 'react-native';
-import Logo from '../Images/qrup_logo_sem_roda.png'
-import imgLogin  from '../Images/btnLogin.png'
+import {Button, Input} from 'react-native-elements'
+import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { TextField } from 'react-native-material-textfield';
 
 export default class Login extends React.Component {
+  loginRef = React.createRef();
+  passwordRef = React.createRef();
   constructor(props) {
-    super(props);
+    super(props);    
     this.state = {
         user:'',
+        password:'',
     };
   }
   async componentDidMount(){
@@ -30,6 +33,10 @@ export default class Login extends React.Component {
       this.props.navigation.navigate('User')
     }
   } 
+  
+  updateRef(name, ref) {
+    this[name] = ref;
+  }
   Loga = async() => {
     if (this.state.user === ''){
       alert('Campo Vazio')
@@ -38,43 +45,59 @@ export default class Login extends React.Component {
       await AsyncStorage.setItem('@User',this.state.user )
       this.props.navigation.navigate('User')
     }
-} 
+  }
+
   Cadastra = () =>{
     this.props.navigation.navigate('Register')
   }
   render() {
   return (
     <>
-      <StatusBar backgroundColor = "#677D35" barStyle="light-content" /> 
+      <StatusBar backgroundColor = "#3a5108" barStyle="light-content" /> 
             <View style = {styles.main}>
               <Image source = {Logo} style={styles.Logo}/>
               <Text style={styles.text}> QRUP</Text>
-              <TextInput 
-                  style ={ styles.input}
-                  placeholder= {'Login'}
-                  placeholderTextColor = 'white'
-                  underlineColorAndroid = 'white'
-                  onChangeText = {user =>{(this.setState({user}))}}
+              <View style = {styles.field}>
+                <TextField
+                    label = 'Login'
+                    tintColor = 'rgb(255,255,255)'
+                    baseColor = 'rgba(255,255,255,1)'
+                    textColor = 'rgba(255,255,255,1)'
+                    lineWidth = {2}
+                    fontSize = {20}
+                    labelFontSize = {20}
+                    onSubmitEditing={() => { this.password.focus(); }}
+                    onChangeText = {user =>{(this.setState({user}))}}
                   />
-              <TextInput 
-                  style ={ styles.input}
-                  placeholder= {'Senha'}
-                  autoCapitalize = 'none'
-                  secureTextEntry = {true}
-                  placeholderTextColor = 'white'
-                  underlineColorAndroid = 'white'/>
-              <View  style = {styles.buttonLogin}>                
-                  <TouchableOpacity onPress={() => this.Loga()} >
-                      <Image source = {imgLogin} style ={styles.btnImg}/>
-                  </TouchableOpacity>    
-              </View>    
-              <TouchableOpacity 
-                onPress = {()=>this.Cadastra()}>
-                  <Text style={styles.txtStyle}>Cadastre-se</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                  <Text style = {styles.textMin2}>Recupere Sua Senha</Text>
-              </TouchableOpacity>
+                <TextField                    
+                    ref={(input) => { this.password = input; }}
+                    label = 'Senha'
+                    tintColor = 'rgb(255,255,255)'
+                    baseColor = 'rgba(255,255,255,1)'
+                    textColor = 'rgba(255,255,255,1)'
+                    secureTextEntry = {true}
+                    lineWidth = {2}                    
+                    fontSize = {20}
+                    labelFontSize = {20}
+                    onSubmitEditing = {() => {this.Loga()}}
+                    onChangeText = {password =>{(this.setState({password}))}}/>
+                </View>
+                <View  style = {styles.buttonLogin}>             
+                  <Button
+                    type = 'outline'
+                    title = 'Login'
+                    titleStyle = {styles.btnLabel}
+                    buttonStyle = {styles.btnLogin}
+                    onPress = {()=>this.Loga()}
+                  />
+                </View>    
+                <TouchableOpacity 
+                  onPress = {()=>this.Cadastra()}>
+                    <Text style={styles.txtStyle}>Cadastre-se</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text style = {styles.textMin2}>Recupere Sua Senha</Text>
+                </TouchableOpacity>
 
             </View>
     </>
@@ -85,7 +108,7 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#677D35',
+    backgroundColor: '#006300',
     width : wp ('100%'),
     height: hp('100%'),
     alignContent: 'center',
@@ -94,7 +117,7 @@ const styles = StyleSheet.create({
 text:{
     marginTop: wp('3%'),
    fontSize: wp('9,70818%'),
-   fontFamily: 'roboto',
+   fontFamily: 'Roboto',
    color: 'white',
  },
 txtStyle:{
@@ -107,27 +130,35 @@ txtStyle:{
   fontSize: wp('4,85409%'),
 },
  Logo:{
-   width: wp('40%'),
-   height:hp('30%'),
+   marginTop: wp('15%'),
+   width: wp('35%'),
+   height:hp('20%'),
    resizeMode: 'contain'
  },
- input:{
-    fontSize: wp ('6,47212%'),
-    width: wp('85%'),
+ field:{
+    width: wp('80%'),
     color:'white',
 //    marginBottom: wp
  },
  buttonLogin:{
     //width: wp('10%'),
-    height: hp('15%'),
+    //height: hp('15%'),
+    marginTop: wp('5%'),
     marginLeft: hp('30%'),
     borderRadius: wp('11,32621%'),
-    //backgroundColor: 'white',
     alignContent: 'center',
     alignContent: 'flex-end',
     textAlignVertical: 'center',
     resizeMode: 'contain',
-    marginBottom: wp('15%')
+ },
+ btnLogin:{
+  borderColor: 'white',
+  borderWidth: 2,
+  backgroundColor: 'white'
+ },
+ btnLabel:{
+   color:'#006300',
+   fontSize: wp('5%'),
  },
  btnImg:{
     //marginStart: hp('30%'),
@@ -136,5 +167,5 @@ txtStyle:{
     width: wp('25%'),
     height: hp('25%'),
     resizeMode: 'contain'
- }
+ },
 });

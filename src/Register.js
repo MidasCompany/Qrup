@@ -156,7 +156,7 @@ export default class Register extends React.Component {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#677D35',
+    backgroundColor: '#3a5108',
     width : wp ('100%'),
     height: hp('100%'),
     alignContent: 'center',

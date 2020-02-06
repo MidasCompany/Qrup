@@ -31,7 +31,7 @@ export default class ChoseCupons extends Component {
         <>
             <View style = {styles.Cabeca}>
                 <Image  source = {qrup} style = {styles.Qrup}/>
-                <Text style = {styles.Titulo}> Points </Text>
+                <Text style = {styles.Titulo}> Cupons </Text>
                 <TouchableOpacity onPress = {()=>this.Exit()}>
                         <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
                 </TouchableOpacity>  
@@ -89,19 +89,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: hp('6%'),
         width: wp('100%'),
-        backgroundColor: '#677D35',
+        backgroundColor: '#3a5108',
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
     Qrup:{
         //marginTop: -wp('2%'),
-        height: hp('8%'),
-        width: wp('5%'),
-        marginStart: wp('3,23606%')
+        height: hp('7%'),
+        width: wp('7%'),
+        marginStart: wp('3,23606%'),
+        resizeMode: 'contain'
     },
     Titulo:{
         fontSize: wp('4,85409%'),
+        color: 'white'
     },
     Exit:{
         fontSize: wp('10%'),

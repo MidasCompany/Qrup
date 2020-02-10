@@ -29,13 +29,6 @@ export default class ChoseCupons extends Component {
     render() {
         return (
         <>
-            <View style = {styles.Cabeca}>
-                <Image  source = {qrup} style = {styles.Qrup}/>
-                <Text style = {styles.Titulo}> Cupons </Text>
-                <TouchableOpacity onPress = {()=>this.Exit()}>
-                        <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
-                </TouchableOpacity>  
-            </View>
             <ScrollView>
                 <Icon2 name ='coins' color = '#677D35' style = {styles.Coin}/>
                 <Text style = {styles.Points}>{this.state.pontos} Points</Text>

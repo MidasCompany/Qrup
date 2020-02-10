@@ -13,6 +13,8 @@ import qrup from '../Images/qrup_semroda_semsombra.png'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-community/async-storage'  
+import {Button} from 'react-native-elements'
+
 export default class Profile extends Component {
     state={
         user:''
@@ -29,17 +31,19 @@ export default class Profile extends Component {
     render() {    
         return (
             <View >
-                <View style = {styles.Cabeca}>
-                    <Image  source = {qrup} style = {styles.Qrup}/>
-                    <Text style = {styles.Titulo}> Perfil </Text>
-                    <TouchableOpacity onPress = {()=>this.Exit()}>
-                            <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
-                    </TouchableOpacity>  
-                </View>
                 <View style= {styles.Perfil}>
-                    <Icon2 name = 'user-circle-o'color ='#677D35' style = {styles.Disgraca}/>
+                    <Icon2 name = 'user-circle-o'color ='#006300' style = {styles.Disgraca}/>
                     <Text  style = {styles.nameDesg}>{this.state.user}</Text>
                     <Text style= {styles.pontDesgr}> 21312 Pontos</Text>
+                </View>
+                <View>
+                <Button
+                    type = 'outline'
+                    title = 'Logout'
+                    titleStyle = {styles.btnLabel}
+                    buttonStyle = {styles.btnLogin}
+                    onPress = {()=>this.Exit()}
+                /> 
                 </View>
             </View>            
         )
@@ -47,38 +51,12 @@ export default class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-    Cabeca:{
-        flexDirection: 'row',
-        height: hp('6%'),
-        width: wp('100%'),
-        backgroundColor: '#3a5108',
-        alignContent: 'center',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    Qrup:{
-        height: hp('7%'),
-        width: wp('7%'),
-        marginStart:wp('3,23606%'),
-        resizeMode: 'contain',
-        //backgroundColor: 'white'
-    },
-    Titulo:{
-        fontSize: wp('4,85409%'),
-        color: 'white'
-
-    },
-    Exit:{
-        fontSize: wp('10%'),
-        marginEnd: wp('3,23606%')
-    },
     Perfil:{
         flexDirection: 'column',
         alignItems: 'center',
         alignContent: 'center',
     },
     Disgraca:{ 
-        marginTop: wp('20%'),
         marginTop: wp('10%'),
         fontSize: wp('35%'),
     },
@@ -89,5 +67,18 @@ const styles = StyleSheet.create({
     pontDesgr:{
         fontFamily:'Roboto',
         marginTop: wp('5%')
-    }
+    },
+    
+	btnLogin:{
+        marginTop: wp('75%'),
+        width: '40%',
+        backgroundColor: 'white',
+        borderColor: '#006300',
+        borderWidth: 2,
+		alignSelf: 'center'
+    },
+	btnLabel:{
+		color:'#006300',
+		fontSize: wp('5%'),
+	},
 })

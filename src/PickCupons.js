@@ -17,13 +17,6 @@ export default class PickCupons extends Component {
     render() {
         return (
         <>
-            <View style = {styles.Cabeca}>
-                <Image  source = {qrup} style = {styles.Qrup}/>
-                <Text style = {styles.Titulo}> Cupons </Text>
-                <TouchableOpacity onPress = {()=>this.Exit()}>
-                        <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
-                </TouchableOpacity>  
-            </View>
             <Cupon
                 local = 'Retiro da Sé'
                 cuponTitle = '10% de desconto'

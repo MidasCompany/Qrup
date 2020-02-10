@@ -1,38 +1,41 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
-import Icon2 from 'react-native-vector-icons/MaterialIcons'
-import qrup from '../Images/qrup_semroda_semsombra.png'
+import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import AsyncStorage from '@react-native-community/async-storage'  
+import Icon2 from  'react-native-vector-icons/MaterialIcons'
+import ActionButton from 'react-native-action-button';
+import Card from './components/Card'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
-import { thisExpression } from '@babel/types'
 export default class Products extends Component {
     Scan = () =>{
-        this.props.navigation.navigate('Reader')
+        this.props.navigation.navigate('Add')
     }
-    Exit =async()=>{
-        await AsyncStorage.setItem('@User','' )
-        this.props.navigation.navigate('Login');
+    Terte =() =>{
+        alert("Testando Botão")
     }
     render() {        
         return (
             <>    
-                <View><View style = {styles.Cabeca}>
-                    <Image  source = {qrup} style = {styles.Qrup}/>
-                    <Text style = {styles.Titulo}> QRUPs </Text>
-                    <TouchableOpacity onPress = {()=>this.Exit()}>
-                            <Icon name ='ios-exit' color = 'white' style = {styles.Exit}/>  
-                    </TouchableOpacity>  
-                </View>
-                    <Text>{this.props.navigation.getParam('leitura')}</Text>
+                <View>
+                   {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
                     <View style= {styles.adView}>
                         <TouchableOpacity onPress = {()=> this.Scan()}>
-                            <Icon2 name='add-circle' color='#677D35' style = {styles.ad}/>
+                            <Icon2 name='add-circle' color='#006300' style = {styles.ad}/>
                         </TouchableOpacity>
-                    </View> 
+                        {/*<ActionButton buttonColor="#006300" position = 'right' radius = {90} degress = {20}>
+                            <ActionButton.Item buttonColor='#006300' onPress={() => console.log("notes tapped!")}>
+                                <Icon2 name="clear" style={styles.actionButtonIcon} />
+                            </ActionButton.Item>
+                            <ActionButton.Item buttonColor='#006300' onPress={() => {}}>
+                                <Icon2 name="create" style={styles.actionButtonIcon} />
+                            </ActionButton.Item>
+                            <ActionButton.Item buttonColor='#006300' onPress={() => alert('Share Post')}>
+                                 <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>
+                            </ActionButton.Item>
+                        </ActionButton> */ }           
+                    </View>                    
                 </View>
             </>
         )
@@ -40,40 +43,15 @@ export default class Products extends Component {
 }
 
 const styles = StyleSheet.create({
-    Cabeca:{
-        flexDirection: 'row',
-        height: hp('6%'),
-        width: wp('100%'),
-        backgroundColor: '#3a5108',
-        alignContent: 'center',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    Qrup:{
-        height: hp('7%'),
-        width: wp('7%'),
-        marginStart: wp('3,23606%'),
-        resizeMode: 'contain',
-        //backgroundColor: 'white'
-    },
-    Titulo:{
-        fontSize: wp('4,85409%'),
-        color: '#ffffff'
-    },
-    Exit:{
-        fontSize: wp('10%'),
-        marginEnd: wp('3,23606%')
-    },
     terte:{
         backgroundColor: 'red',
         fontSize: 20
     },
     ad:{
-        fontSize: wp('20%'),
+        fontSize: wp('15%'),
     },
     adView:{
-        marginTop: hp('70%'),
-        marginEnd: wp('5%'),
+        marginTop: hp('80%'),
         width: wp('20%'),
         height: hp('9%'),
         //backgroundColor: 'red',
@@ -82,5 +60,10 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         textAlignVertical: 'center',
         resizeMode: 'contain'
-    }
+    },
+    actionButtonIcon: {
+        fontSize: 22,
+        height: 30,
+        color: 'white',
+      },
 })

@@ -7,19 +7,16 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {Button, Input} from 'react-native-elements'
+import {Button} from 'react-native-elements'
 import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TextField } from 'react-native-material-textfield';
 
 export default class Login extends React.Component {
-  loginRef = React.createRef();
-  passwordRef = React.createRef();
   constructor(props) {
     super(props);    
     this.state = {
@@ -32,10 +29,6 @@ export default class Login extends React.Component {
     if (user){
       this.props.navigation.navigate('User')
     }
-  } 
-  
-  updateRef(name, ref) {
-    this[name] = ref;
   }
   Loga = async() => {
     if (this.state.user === ''){
@@ -59,7 +52,7 @@ export default class Login extends React.Component {
               <Text style={styles.text}>QRUP</Text>
               <View style = {styles.field}>
                 <TextField
-					style={styles.input}
+				          	style={styles.input}
                     label = 'Login'
                     tintColor = 'rgb(255,255,255)'
                     baseColor = 'rgba(255,255,255,1)'
@@ -69,8 +62,8 @@ export default class Login extends React.Component {
                     onSubmitEditing={() => { this.password.focus(); }}
                     onChangeText = {user =>{(this.setState({user}))}}
                   />
-				<TextField 
-					style={styles.input}    
+                <TextField 
+                  style={styles.input}    
                     ref={(input) => { this.password = input; }}
                     label = 'Senha'
                     tintColor = 'rgb(255,255,255)'
@@ -81,25 +74,24 @@ export default class Login extends React.Component {
                     fontSize = {17}
                     onSubmitEditing = {() => {this.Loga()}}
                     onChangeText = {password =>{(this.setState({password}))}}/>
-                </View>
+              </View>
                 <Button
                     type = 'outline'
                     title = 'Login'
                     titleStyle = {styles.btnLabel}
                     buttonStyle = {styles.btnLogin}
-                    onPress = {()=>this.Loga()}
+                    onPress = {()=>this.Cadastra()}
                 /> 
-				<View style={styles.footer}>
-					<TouchableOpacity 
-					onPress = {()=>this.Cadastra()}>
-						<Text style={styles.txtStyle}>Cadastre-se</Text>
-					</TouchableOpacity>
-					<TouchableOpacity>
-						<Text style = {styles.txtStyle}>Recupere Sua Senha</Text>
-					</TouchableOpacity>
-				</View>
-
-            </View>
+                <View style={styles.footer}>
+                  <TouchableOpacity 
+                      onPress = {()=>this.Cadastra()}>
+                    <Text style={styles.txtStyle}>Cadastre-se</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style = {styles.txtStyle}>Recupere Sua Senha</Text>
+                  </TouchableOpacity>
+                </View>
+          </View>
     </>
   );
   }

@@ -7,18 +7,18 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Keyboard,
+  ScrollView
 } from 'react-native';
-import Logo from '../Images/qrup_logo_sem_roda.png'
+import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import imgLogin  from '../Images/btnLogin.png'
 import {TextInputMask} from 'react-native-masked-text';
 import moment from 'moment';
 import DateTimePicker from "react-native-modal-datetime-picker";
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import {Button} from 'react-native-elements'
+import { TextField } from 'react-native-material-textfield';
 export default class Register extends React.Component {
    Login = () => {
     this.props.navigation.navigate('Login')
@@ -36,10 +36,6 @@ export default class Register extends React.Component {
         birhtDate: 'Nascimento',
         phoneBr: ''
     };
-  }
-  cpfChecker =()=>{        
-    const cpfIsValid = this.cpfField.isValid()
-    alert(cpfIsValid) // boolean
   }
   handlePicker =(date)=>{
     this.setState({
@@ -60,93 +56,121 @@ export default class Register extends React.Component {
   render() {
   return (
     <>
-      <StatusBar backgroundColor = "#677D35" barStyle="light-content" /> 
+      <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
         <View style = {styles.main}>
           <Image source = {Logo} style={styles.Logo}/>
           <Text style={styles.text}> QRUP</Text>
-          <TextInput 
-              style ={ styles.input1}
-              placeholder= {'Nome'}
-              placeholderTextColor = 'white'
-              underlineColorAndroid = 'white'
-              onChangeText={user =>{
-                this.setState({
-                  user
-                })}
-              }
-          />
-          <TextInput 
-              style ={ styles.input}
-              placeholder= {'E-mail'}
-              autoCapitalize = 'none'
-              placeholderTextColor = 'white'
-              underlineColorAndroid = 'white'/> 
-          <TextInput 
-              style ={ styles.input}
-              placeholder= {'Senha'}
-              secureTextEntry = {true}
-              autoCapitalize = 'none'
-              placeholderTextColor = 'white'
-              underlineColorAndroid = 'white'/>    
-          <TextInput 
-              style ={ styles.input}
-              placeholder= {'Confirme a senha'}
-              secureTextEntry = {true}
-              autoCapitalize = 'none'
-              placeholderTextColor = 'white'
-              underlineColorAndroid = 'white'/>
-          <TextInputMask
-              type={'cel-phone'}
-              value={this.state.phoneBR}
-              placeholder ={'Telefone'}
-              placeholderTextColor = 'white'
-              underlineColorAndroid = 'white'
-              onChangeText={text => {
-                this.setState({
-                  phoneBR: text
-                })
-              }}
+          <View style = {styles.field}>
+            <TextField
               style={styles.input}
-          />  
-          <TextInputMask
-              type={'cpf'}
-              placeholder = {'CPF'}            
-              placeholderTextColor = 'white'
-              underlineColorAndroid = 'white'
-              style ={ styles.input}
-              value={this.state.cpf}
-              onChangeText={text => {
-                  this.setState({
-                  cpf: text
-                  })
-              }}
-              // add the aux to a local var
-              aux={(aux) => this.cpfField = aux}
-          />
-          <TouchableOpacity 
-              style ={styles.birthDate2}
-              onPress ={()=>this.showPicker()} >
-              <Text
-                  style ={ styles.birthDate1}>
-                      {this.state.birhtDate}
-              </Text>
-          </TouchableOpacity>        
-          <DateTimePicker
-              isVisible={this.state.isVisible}
-              onConfirm={this.handlePicker}
-              onCancel={this.hidePicker}
-              mode = {'date'}
+              label = 'Nome'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              onSubmitEditing={() => { this.email.focus(); }}
+              onChangeText = {user =>{(this.setState({user}))}}
+            />
+            <TextField
+              style={styles.input}
+              ref={(input) => { this.email= input; }}
+              label = 'E-mail'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              onSubmitEditing={() => { this.password.focus(); }}
+            />            
+            <TextField
+              style={styles.input}
+              ref={(input) => { this.password= input; }}
+              label = 'Senha'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              onSubmitEditing={() => { this.confirm.focus(); }}
+            />
+            <TextField
+              style={styles.input}
+              ref={(input) => { this.confirm= input; }}
+              label = 'Confirme sua Senha'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              onSubmitEditing={() => { this.phone.focus(); }}
+            /> 
+            <TextField
+              style={styles.input}
+              ref={(input) => { this.phone = input; }}
+              label = 'Telefone'
+              keyboardType = 'phone-pad'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              onSubmitEditing={() => { this.cpf.focus(); }}
+            />             
+            <TextField
+              style={styles.input}
+              ref={(input) => { this.cpf = input; }}
+              label = 'CPF'
+              keyboardType = 'phone-pad'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              onSubmitEditing={() => {this.showPicker()}}
+            />             
+           { /*<TextField
+              style={styles.input}
+              ref={(input) => { this.birth = input; }}
+              onFocus = {() => {this.showPicker}}
+              label = 'Nascimento'
+              keyboardType = 'phone-pad'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              onSubmitEditing={() => { this.cpf.focus(); }}
+           /> */}
+            {/*<TouchableOpacity 
+                style ={styles.birthDate2}
+                onPress ={()=>this.showPicker()} >
+                <Text
+                    style ={ styles.birthDate1}>
+                        {this.state.birhtDate}
+                </Text>
+            </TouchableOpacity>*/}
+            <Button
+              type = 'outline'
+              title = {this.state.birhtDate}
+              titleStyle = {styles.birthDate1}
+              buttonStyle = {styles.birthDate2}
+              onPress = {()=>this.showPicker()}
+            />
+            <DateTimePicker
+                isVisible={this.state.isVisible}
+                onConfirm={this.handlePicker}
+                onCancel={this.hidePicker}
+                mode = {'date'}
+            />   
+          </View>
+          <Button
+            type = 'outline'
+            title = 'Cadastrar'
+            titleStyle = {styles.btnLabel}
+            buttonStyle = {styles.btnLogin}
+            onPress = {()=>this.Cadastra()}
           /> 
-          <View  style = {styles.buttonLogin}>                
-              <TouchableOpacity onPress={() => this.Cadastra()} >
-                  <Image source = {imgLogin} style ={styles.btnImg}/>
-              </TouchableOpacity>    
-          </View> 
-          <TouchableOpacity 
-            style = {styles.textMin1}
-            onPress = {()=> this.Login()}>
-              <Text style = {styles.textMin2}>Login</Text>
-          </TouchableOpacity>
         </View>
     </>
   );
@@ -156,65 +180,29 @@ export default class Register extends React.Component {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#3a5108',
-    width : wp ('100%'),
-    height: hp('100%'),
-    alignContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#006300',
+    flex:1
   },
 text:{
-   marginTop: wp('3%'),
+   alignSelf:'center',
    fontSize: wp('9%'),
    fontFamily: 'roboto',
    color: 'white',
  },
-txtStyle:{
-    color: 'white',
-    fontSize: wp('4%'),
-},  
- textMin2:{
-  marginTop: wp('5%'),
-  color: 'white',
-  fontSize: wp('4%'),
-},
- Logo:{
-    alignSelf: 'center',
-    marginEnd: wp('5%'),
-   width: wp('30%'),
+ field:{
+  color:'white',
+  width: '80%',
+  alignSelf: 'center',
+}, 
+ Logo:{  
+   alignSelf: 'center',
+   width: wp('20%'),
    height:hp('15%'),
    resizeMode: 'contain'
  },
- input:{
-    fontSize: wp ('5%'),
-    width: wp('85%'),
-    color:'white',
-//    marginBottom: wp
- },
-input1:{
-  marginTop: wp('10%'),
-  fontSize: wp ('5%'),
-  width: wp('85%'),
-  color:'white',
-//    marginBottom: wp
+ input: {
+  marginTop: 2
 },
-eye:{
-  flexDirection: 'row'
-},
-eyeIco:{
-  fontSize: wp('8%'),
-},
- buttonLogin:{
-    //width: wp('10%'),
-    height: hp('15%'),
-    marginLeft: hp('30%'),
-    borderRadius: wp('10%'),
-    //backgroundColor: 'white',
-    alignContent: 'center',
-    alignContent: 'flex-end',
-    textAlignVertical: 'center',
-    resizeMode: 'contain',
-    marginBottom: wp('15%')
- },
  btnImg:{
     //marginStart: hp('30%'),
     //marginTop: wp('%'),
@@ -223,15 +211,17 @@ eyeIco:{
     height: hp('25%'),
     resizeMode: 'contain'
  },
- birthDate1:{
-    fontSize: wp ('5%'),
-    width: wp('85%'),
-    color:'white',
-    borderBottomColor: 'white',
-    borderBottomWidth: wp('0.3%')
- },
  birthDate2:{
-     marginTop: wp('3%')
+     marginTop: wp('3%'),
+     justifyContent : 'flex-start',
+     borderBottomColor: 'white',
+     borderBottomWidth: 2,
+     borderWidth: 0,
+ },
+ birthDate1:{
+   color: 'white',
+   alignItems:'flex-start',
+   justifyContent:'flex-start'
  },
  buttonLogin:{
   //width: wp('10%'),
@@ -254,12 +244,23 @@ btnImg:{
   resizeMode: 'contain'
 },
 textMin1: {
-  marginEnd: wp('65%'),
-  marginTop: -hp('15%')
+//  marginEnd: wp('65%'),
+  //marginTop: hp('15%')
 },
 textMin2:{
  /* , */
   color: 'white',
   fontSize: wp('8%'),
+},
+btnLogin:{
+  marginTop: wp('5%'),
+  alignSelf: 'center',
+  width: '80%',
+  backgroundColor: 'white',
+},
+btnLabel:{
+  color:'#006300',
+  fontSize: wp('5%'),
+
 },
 });

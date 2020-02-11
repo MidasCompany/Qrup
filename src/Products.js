@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
 import ActionButton from 'react-native-action-button';
@@ -17,7 +17,8 @@ export default class Products extends Component {
     }
     render() {        
         return (
-            <>    
+            <>                
+                <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
                 <View>
                    {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
                     <View style= {styles.adView}>

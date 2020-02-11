@@ -8,19 +8,16 @@ export default class Card extends Component {
     constructor(props) {
         super(props);
     }
-    trocaPorra =()=>{
-        return console.log('oi')
-    }
     render() {
         return (
             <TouchableOpacity style = {styles.main} onPress = {this.props.onPress}>
                 <View style = {styles.terte}>
+                    {/* Logo da Empresa */ }
                     <View style = {styles.compLogo}/>
+                    {/* Info do Cupom */}
                     <View style = {styles.stats}>
                         <Text style = {styles.title}>{this.props.title}</Text>
-                        <View style = {styles.descCont}>
-                            <Text style = {styles.description}> {this.props.description} </Text>
-                        </View>
+                        <Text style = {styles.description}> {this.props.description} </Text>
                         <Text style = {styles.cost}>{this.props.points} Points</Text> 
                     </View>
                 </View>
@@ -32,43 +29,47 @@ export default class Card extends Component {
 const styles = StyleSheet.create({
     main:{
         marginTop: wp('5%'),
-        alignSelf: 'center',
         backgroundColor: '#F2F2F2',
         height: hp('15%'),
         width: wp('85%'),
-        borderRadius: wp('3%')
-    },
-    title:{
-        marginTop: wp('2%'),
+        borderRadius: wp('3%'),
+        flexDirection: 'row',
+        alignItems: 'center',
         alignSelf: 'center',
-        fontSize: wp('6,47212%')
-    },
-    description:{
-        marginStart: wp('20%'),
-        alignSelf: 'center',
-        fontSize: wp('3,23606%')
-    },
-    descCont:{
-        height: hp('5%'),
-        width: wp('80%'),
-        marginStart: -wp('7%')
-    },
-    cost:{
-        marginTop: wp('3%'),
-        fontSize: wp('3%'),
-        alignSelf: 'center'
+        elevation: wp('5%')
     },
     compLogo:{
         backgroundColor: 'gray',
-        height: hp('8%'),
+        height: hp('9%'),
         width: wp('15%'),
         marginStart: wp('5%')
     },
+    title:{
+        marginTop: wp('2%'),
+        fontSize: wp('6,47212%')
+    },
+    description:{
+        //marginStart: wp('20%'),
+        alignSelf: 'center',
+        fontSize: wp('3,23606%'),
+    },
+    descCont:{
+        width: 0,
+        flexGrow: 1,        
+    },
+    cost:{
+        //marginTop: wp('2%'),
+        fontSize: wp('4,12%'),
+        alignSelf: 'flex-end',
+        marginEnd: wp('4%'),
+    },
     terte:{
+        flexDirection: 'row',
         alignItems: 'center',
-        flexDirection: 'row'
     },
     stats:{
-        marginStart: -wp('10%')
+        marginStart: (wp('3%')),
+        flexGrow: 1,
+        width:0,
     }
 })

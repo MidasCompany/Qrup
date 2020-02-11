@@ -3,7 +3,8 @@ import { Text,
         StyleSheet,
         View,
         Image,    
-        TouchableOpacity
+        TouchableOpacity,
+        StatusBar
     } from 'react-native'
 import {
     widthPercentageToDP as wp,
@@ -30,7 +31,8 @@ export default class Profile extends Component {
     }
     render() {    
         return (
-            <View >
+            <View >                
+                <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
                 <View style= {styles.Perfil}>
                     <Icon2 name = 'user-circle-o'color ='#006300' style = {styles.Disgraca}/>
                     <Text  style = {styles.nameDesg}>{this.state.user}</Text>

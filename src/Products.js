@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
-import ActionButton from 'react-native-action-button';
-import Card from './components/Card'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
+import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
 import ActionButton from 'react-native-action-button';
 import {FloatingAction} from 'react-native-floating-action'
@@ -42,8 +41,12 @@ export default class Products extends Component {
       ];
     render() {        
         return (
+<<<<<<< HEAD
             <>                
                   
+=======
+            <>    
+>>>>>>> dfe40b1293c929f0dbe16121d059515e4f26e49a
                 <View>
                    {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
                     <View style= {styles.adView}>

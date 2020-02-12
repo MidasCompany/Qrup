@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
 import qrup from '../Images/qrup_semroda_semsombra.png'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
@@ -28,9 +28,10 @@ export default class ChoseCupons extends Component {
     }
     render() {
         return (
-        <>
+        <>        
+            <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
             <ScrollView>
-                <Icon2 name ='coins' color = '#677D35' style = {styles.Coin}/>
+                <Icon2 name ='coins' color = '#006300' style = {styles.Coin}/>
                 <Text style = {styles.Points}>{this.state.pontos} Points</Text>
                 <Card
                         title = 'Retiro da Sé'

@@ -80,7 +80,7 @@ export default class Login extends React.Component {
                     title = 'Login'
                     titleStyle = {styles.btnLabel}
                     buttonStyle = {styles.btnLogin}
-                    onPress = {()=>this.Cadastra()}
+                    onPress = {()=>this.Loga()}
                 /> 
                 <View style={styles.footer}>
                   <TouchableOpacity 

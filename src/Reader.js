@@ -34,7 +34,7 @@ import {
     render() {
         return (
             <View>                
-                <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
+                  
                 <QRCodeScanner
                 onRead={this.onSuccess}   
                 cameraStyle={styles.cameraContainer}

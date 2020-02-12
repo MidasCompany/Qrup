@@ -46,7 +46,7 @@ export default class Login extends React.Component {
   render() {
   return (
     <>
-      <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
+        
             <View style = {styles.main}>
               <Image source = {Logo} style={styles.Logo}/>
               <Text style={styles.text}>QRUP</Text>

@@ -17,7 +17,7 @@ export default class PickCupons extends Component {
     render() {
         return (
         <>            
-          <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
+            
             <Cupon
                 local = 'Retiro da Sé'
                 cuponTitle = '10% de desconto'

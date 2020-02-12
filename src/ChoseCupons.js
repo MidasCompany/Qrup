@@ -29,7 +29,7 @@ export default class ChoseCupons extends Component {
     render() {
         return (
         <>        
-            <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
+              
             <ScrollView>
                 <Icon2 name ='coins' color = '#006300' style = {styles.Coin}/>
                 <Text style = {styles.Points}>{this.state.pontos} Points</Text>

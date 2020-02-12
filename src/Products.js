@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView, StatusBar 
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
 import ActionButton from 'react-native-action-button';
-import Card from './components/Card'
+import {FloatingAction} from 'react-native-floating-action'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -15,16 +15,41 @@ export default class Products extends Component {
     Terte =() =>{
         alert("Testando Botão")
     }
+    func ={
+        pen :this.Scan,
+        exc: {},
+        scan: this.Scan
+    }
+    actions = [
+        {
+          text: "Write Code",
+          icon:  <Icon2 name="create" style={styles.actionButtonIcon}/>,
+          name: "pen",
+          position: 1
+        },
+        {
+          text: "Exclude Item",
+          icon: <Icon2 name="clear" style={styles.actionButtonIcon}/>,
+          name: "exc",
+          position: 1
+        },
+        {
+          text: "Scan Code",
+          icon: <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>,
+          name: "scan",
+          position: 3
+        },
+      ];
     render() {        
         return (
             <>                
-                <StatusBar backgroundColor = "#006300" barStyle="light-content" /> 
+                  
                 <View>
                    {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
                     <View style= {styles.adView}>
-                        <TouchableOpacity onPress = {()=> this.Scan()}>
+                        {/*<TouchableOpacity onPress = {()=> this.Scan()}>
                             <Icon2 name='add-circle' color='#006300' style = {styles.ad}/>
-                        </TouchableOpacity>
+                        </TouchableOpacity>*/}
                         {/*<ActionButton buttonColor="#006300" position = 'right' radius = {90} degress = {20}>
                             <ActionButton.Item buttonColor='#006300' onPress={() => console.log("notes tapped!")}>
                                 <Icon2 name="clear" style={styles.actionButtonIcon} />
@@ -32,12 +57,18 @@ export default class Products extends Component {
                             <ActionButton.Item buttonColor='#006300' onPress={() => {}}>
                                 <Icon2 name="create" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
-                            <ActionButton.Item buttonColor='#006300' onPress={() => alert('Share Post')}>
+                            <ActionButton.Item buttonColor='#006300' onPress={() => console.log('oi tudo')}>
                                  <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>
                             </ActionButton.Item>
-                        </ActionButton> */ }           
-                    </View>                    
-                </View>
+                        </ActionButton>   */}      
+                    </View>   
+                </View>                                 
+                <FloatingAction
+                            actions={this.actions}
+                            onPressItem={name => {
+                                this.func[name]()
+                            }}
+                        />
             </>
         )
     }
@@ -63,7 +94,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     actionButtonIcon: {
-        fontSize: 22,
+        fontSize: wp('6%'),
         height: 30,
         color: 'white',
       },

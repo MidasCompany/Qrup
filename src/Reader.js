@@ -10,7 +10,7 @@ import {
     state = {
         read: '',
         modeState: false,
-        success: false,
+        success: false, 
         num : 0, 
     };
     onSuccess = async (e) => {
@@ -33,8 +33,7 @@ import {
       };
     render() {
         return (
-            <View>                
-                  
+            <View>              
                 <QRCodeScanner
                 onRead={this.onSuccess}   
                 cameraStyle={styles.cameraContainer}
@@ -44,7 +43,7 @@ import {
                 checkAndroid6Permissions={true}
                 fadeIn = {false}
                  />
-                {this.state.modeState === true ? (
+               {/* {this.state.modeState === true ? (
                     <View>
                         <TextInput
                             placeholder = {'CÓDIGO'}
@@ -67,7 +66,7 @@ import {
                                       onPress = {this.alterMode}  >
                         <Text style = {styles.txtScanMode}>ENTER CODE</Text>
                     </TouchableOpacity>
-                </View>
+                </View>*/}
             </View>            
         );
     }
@@ -149,19 +148,6 @@ const styles = StyleSheet.create({
     txtScanMode:{
        alignItems: 'center',
        color: '#677D35'
-    },
-    inputCode:{
-        fontSize: wp('5%'),
-        alignSelf: 'center',
-        marginTop: wp('95%'),
-        backgroundColor: '#FFFFFF',
-        borderWidth: wp('0.3%'),
-        borderColor: '#677d35',
-        width: wp('60%'),
-        justifyContent: 'center',
-        textAlign: 'center',
-        borderRadius: wp('3%'),
-        color: '#677d35'
     },
     terteBtn:{
         //backgroundColor: 'red',

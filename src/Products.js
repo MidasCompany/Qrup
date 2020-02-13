@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, StyleSheet, View, TextInput} from 'react-native'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
 import ActionButton from 'react-native-action-button';
 import {FloatingAction} from 'react-native-floating-action'
@@ -14,8 +14,28 @@ export default class Products extends Component {
     Terte =() =>{
         alert("Testando Botão")
     }
+
+    constructor(props) {
+        super(props);    
+        this.state = {
+            insertCode: false,
+        };
+      }
+      
+    onTextInsert = () =>{
+        this.alterMode()
+        alert('Inseriu Código')
+    }
+    
+    alterMode = () =>{
+        if (this.state.insertCode=== true){
+           this.setState({insertCode: false});
+         } else if (this.state.insertCode === false){
+             this.setState({insertCode: true})
+         }
+     };
     func ={
-        pen :this.Scan,
+        pen :this.alterMode,
         exc: {},
         scan: this.Scan
     }
@@ -24,54 +44,52 @@ export default class Products extends Component {
           text: "Write Code",
           icon:  <Icon2 name="create" style={styles.actionButtonIcon}/>,
           name: "pen",
-          position: 1
+          position: 2,
+          color: '#006300'
         },
         {
           text: "Exclude Item",
           icon: <Icon2 name="clear" style={styles.actionButtonIcon}/>,
           name: "exc",
-          position: 1
+          position: 1,
+          color: '#006300'
         },
         {
           text: "Scan Code",
           icon: <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>,
           name: "scan",
-          position: 3
+          position: 3,
+          color: '#006300'
         },
       ];
     render() {        
         return (
-<<<<<<< HEAD
-            <>                
-                  
-=======
-            <>    
->>>>>>> dfe40b1293c929f0dbe16121d059515e4f26e49a
-                <View>
-                   {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
-                    <View style= {styles.adView}>
-                        {/*<TouchableOpacity onPress = {()=> this.Scan()}>
-                            <Icon2 name='add-circle' color='#006300' style = {styles.ad}/>
-                        </TouchableOpacity>*/}
-                        {/*<ActionButton buttonColor="#006300" position = 'right' radius = {90} degress = {20}>
-                            <ActionButton.Item buttonColor='#006300' onPress={() => console.log("notes tapped!")}>
-                                <Icon2 name="clear" style={styles.actionButtonIcon} />
-                            </ActionButton.Item>
-                            <ActionButton.Item buttonColor='#006300' onPress={() => {}}>
-                                <Icon2 name="create" style={styles.actionButtonIcon} />
-                            </ActionButton.Item>
-                            <ActionButton.Item buttonColor='#006300' onPress={() => console.log('oi tudo')}>
-                                 <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>
-                            </ActionButton.Item>
-                        </ActionButton>   */}      
-                    </View>   
-                </View>                                 
+            <>     
+                {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
+                <View style= {styles.adView}>
+                    {this.state.insertCode === true ? (
+                        <View style = {styles.insertCode}>                            
+                            <TextInput
+                                placeholder = {'Insert Your Qrup Code Here'}
+                                autoCapitalize = 'characters'
+                                placeholderTextColor = '#006300'
+                                style = {styles.inputCode}
+                                onChangeText = {(read)=>this.setState({read})}
+                                onSubmitEditing = {()=>this.onTextInsert()}
+                            />
+                        </View>
+                    ):(
+                    <View></View>
+                    ) }
+                </View>                              
                 <FloatingAction
-                            actions={this.actions}
-                            onPressItem={name => {
-                                this.func[name]()
-                            }}
-                        />
+                    actions={this.actions}
+                    onPressItem={name => {
+                        this.func[name]()
+                    }}
+                    color= '#006300'
+                    dismissKeyboardOnPress = {true}
+                 />
             </>
         )
     }
@@ -85,7 +103,7 @@ const styles = StyleSheet.create({
     ad:{
         fontSize: wp('15%'),
     },
-    adView:{
+    /*adView:{
         marginTop: hp('80%'),
         width: wp('20%'),
         height: hp('9%'),
@@ -95,10 +113,28 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         textAlignVertical: 'center',
         resizeMode: 'contain'
-    },
+    },*/
     actionButtonIcon: {
         fontSize: wp('6%'),
         height: 30,
         color: 'white',
-      },
+    },
+    insertCode:{
+        backgroundColor: 'rgba(68, 68, 68, 0.6)',
+        width: wp('100%'),
+        height: hp('100%')
+    },
+    inputCode:{
+        fontSize: wp('3%'),
+        alignSelf: 'center',
+        marginTop: wp('95%'),
+        backgroundColor: '#FFFFFF',
+        borderWidth: wp('0.3%'),
+        borderColor: '#006300',
+        width: wp('60%'),
+        justifyContent: 'center',
+        textAlign: 'center',
+        borderRadius: wp('1%'),
+        color: '#006300'
+    }
 })

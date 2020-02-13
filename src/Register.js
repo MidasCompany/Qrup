@@ -14,7 +14,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {TextInputMask} from 'react-native-masked-text';
 import moment from 'moment';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import {Button} from 'react-native-elements'
@@ -90,6 +89,7 @@ export default class Register extends React.Component {
               tintColor = 'rgb(255,255,255)'
               baseColor = 'rgba(255,255,255,1)'
               textColor = 'rgba(255,255,255,1)'
+              secureTextEntry = {true}
               lineWidth = {2}
               fontSize = {17}
               onSubmitEditing={() => { this.confirm.focus(); }}
@@ -102,6 +102,7 @@ export default class Register extends React.Component {
               baseColor = 'rgba(255,255,255,1)'
               textColor = 'rgba(255,255,255,1)'
               lineWidth = {2}
+              secureTextEntry = {true}
               fontSize = {17}
               onSubmitEditing={() => { this.phone.focus(); }}
             /> 

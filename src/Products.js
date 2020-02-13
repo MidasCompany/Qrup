@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TextInput} from 'react-native'
+import {Button} from 'react-native-elements'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
-import ActionButton from 'react-native-action-button';
 import {FloatingAction} from 'react-native-floating-action'
 import {
     widthPercentageToDP as wp,
@@ -34,9 +34,12 @@ export default class Products extends Component {
              this.setState({insertCode: true})
          }
      };
+     Close =()=>{
+         this.setState({insertCode : false})
+     }
     func ={
         pen :this.alterMode,
-        exc: {},
+        exc: this.Close,
         scan: this.Scan
     }
     actions = [
@@ -77,6 +80,20 @@ export default class Products extends Component {
                                 onChangeText = {(read)=>this.setState({read})}
                                 onSubmitEditing = {()=>this.onTextInsert()}
                             />
+                            <View style = {styles.buttons}>
+                                <Button
+                                    type = "solid"
+                                    title = "Cancel"                                    
+                                    buttonStyle = {styles.btn}
+                                    onPress = {()=>this.alterMode()}
+                                />
+                                <Button
+                                    type = "solid"
+                                    title = "Ok"
+                                    buttonStyle = {styles.btn}
+                                    onPress = {()=> this.onTextInsert()}
+                                />
+                            </View>
                         </View>
                     ):(
                     <View></View>
@@ -122,7 +139,7 @@ const styles = StyleSheet.create({
     insertCode:{
         backgroundColor: 'rgba(68, 68, 68, 0.6)',
         width: wp('100%'),
-        height: hp('100%')
+        height: hp('100%'),
     },
     inputCode:{
         fontSize: wp('3%'),
@@ -136,5 +153,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderRadius: wp('1%'),
         color: '#006300'
+    },
+    buttons:{
+        //backgroundColor: 'rgba(68, 68, 68, 0.6)',
+        width: wp('55%'),
+        flexDirection: 'row',
+        alignSelf: 'center',
+        justifyContent: 'space-between'
+    },
+    btn:{
+        marginTop: wp('4%'),
+        backgroundColor: '#006300',
+        width: wp('20%'),
+		alignSelf: 'center'
     }
 })

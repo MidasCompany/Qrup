@@ -34,7 +34,7 @@ export default class Profile extends Component {
             <View >                
                   
                 <View style= {styles.Perfil}>
-                    <Icon2 name = 'user-circle-o'color ='#006300' style = {styles.Disgraca}/>
+                    <Icon2 name = 'user-circle-o'color ='#50A488' style = {styles.Disgraca}/>
                     <Text  style = {styles.nameDesg}>{this.state.user}</Text>
                     <Text style= {styles.pontDesgr}> 21312 Pontos</Text>
                 </View>
@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
         marginTop: wp('75%'),
         width: '40%',
         backgroundColor: 'white',
-        borderColor: '#006300',
+        borderColor: '#50A488',
         borderWidth: 2,
 		alignSelf: 'center'
     },
 	btnLabel:{
-		color:'#006300',
+		color:'#50A488',
 		fontSize: wp('5%'),
 	},
 })

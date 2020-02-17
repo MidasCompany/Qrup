@@ -6,7 +6,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
-} from 'react-native';
+} from 'react-native';3
 import {Button} from 'react-native-elements'
 import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
@@ -100,7 +100,7 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
 	main: {
-		backgroundColor: '#006300',
+		backgroundColor: '#50a488',
 		flex: 1,
   	},
 	text:{
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center'
 	},
 	btnLabel:{
-		color:'#006300',
+		color:'#50A488',
 		fontSize: wp('5%'),
 	},
 	btnImg:{

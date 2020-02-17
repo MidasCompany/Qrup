@@ -181,7 +181,7 @@ export default class Register extends React.Component {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#006300',
+    backgroundColor: '#50A488',
     flex:1
   },
 text:{
@@ -260,7 +260,7 @@ btnLogin:{
   backgroundColor: 'white',
 },
 btnLabel:{
-  color:'#006300',
+  color:'#50A488',
   fontSize: wp('5%'),
 
 },

@@ -69,9 +69,9 @@ const User = createMaterialTopTabNavigator(
             order: ['Cupons', 'Products', 'Profile'],
             tabBarOptions:{
                 activeTintColor: 'white',
-                inactiveTintColor: '#a9a9a9',
+                inactiveTintColor: '#004832',
                 style:{
-                    backgroundColor: '#006300',
+                    backgroundColor: '#50A488',
                     height: hp('7%')
                 },
                 labelStyle:{

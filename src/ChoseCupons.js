@@ -31,7 +31,7 @@ export default class ChoseCupons extends Component {
         <>        
               
             <ScrollView>
-                <Icon2 name ='coins' color = '#006300' style = {styles.Coin}/>
+                <Icon2 name ='coins' color = '#50A488' style = {styles.Coin}/>
                 <Text style = {styles.Points}>{this.state.pontos} Points</Text>
                 <Card
                         title = 'Retiro da Sé'

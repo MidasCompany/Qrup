@@ -11,10 +11,6 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Card from './components/Card'
 
 export default class ChoseCupons extends Component {
-    Exit =async()=>{
-        await AsyncStorage.setItem('@User','' )
-        this.props.navigation.navigate('Login');
-    }
     state= {
         pontos: '',
     }
@@ -31,7 +27,7 @@ export default class ChoseCupons extends Component {
         <>        
               
             <ScrollView>
-                <Icon2 name ='coins' color = '#50A488' style = {styles.Coin}/>
+                <Icon2 name ='coins' color = '#006300' style = {styles.Coin}/>
                 <Text style = {styles.Points}>{this.state.pontos} Points</Text>
                 <Card
                         title = 'Retiro da Sé'

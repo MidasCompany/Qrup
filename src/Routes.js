@@ -8,6 +8,7 @@ import Profile from './Profile'
 import Products from './Products'
 import ChoseCupons from './ChoseCupons'
 import PickCupons from './PickCupons'
+import Extract from './Extract'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
 import {
     widthPercentageToDP as wp,
@@ -16,6 +17,19 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import Icon3 from 'react-native-vector-icons/Entypo'
+
+const ProfileNav = createStackNavigator({
+        MainProf:Profile,
+        Extract: Extract
+    },{
+      initialRouteName: 'MainProf',
+      headerMode:'none',
+      navigationOptions: {
+        headerVisible: false
+      }
+    }
+
+);
 
 const cupon = createStackNavigator({
         Chose: ChoseCupons,
@@ -45,7 +59,7 @@ const Qrups = createStackNavigator (
 
 const User = createMaterialTopTabNavigator(
         {
-            Profile: { screen: Profile,
+            Profile: { screen: ProfileNav,
                     navigationOptions: {
                         tabBarLabel: 'Profile',
                         tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')}/>)
@@ -71,7 +85,7 @@ const User = createMaterialTopTabNavigator(
                 activeTintColor: 'white',
                 inactiveTintColor: '#004832',
                 style:{
-                    backgroundColor: '#50A488',
+                    backgroundColor: '#006300',
                     height: hp('7%')
                 },
                 labelStyle:{

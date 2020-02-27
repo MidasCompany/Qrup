@@ -48,21 +48,21 @@ export default class Products extends Component {
           icon:  <Icon2 name="create" style={styles.actionButtonIcon}/>,
           name: "pen",
           position: 2,
-          color: '#50A488'
+          color: '#006300'
         },
         {
           text: "Exclude Item",
           icon: <Icon2 name="clear" style={styles.actionButtonIcon}/>,
           name: "exc",
           position: 1,
-          color: '#50A488'
+          color: '#006300'
         },
         {
           text: "Scan Code",
           icon: <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>,
           name: "scan",
           position: 3,
-          color: '#50A488'
+          color: '#006300'
         },
       ];
     render() {        
@@ -75,7 +75,7 @@ export default class Products extends Component {
                             <TextInput
                                 placeholder = {'Insert Your Qrup Code Here'}
                                 autoCapitalize = 'characters'
-                                placeholderTextColor = '#50A488'
+                                placeholderTextColor = '#006300'
                                 style = {styles.inputCode}
                                 onChangeText = {(read)=>this.setState({read})}
                                 onSubmitEditing = {()=>this.onTextInsert()}
@@ -104,7 +104,7 @@ export default class Products extends Component {
                     onPressItem={name => {
                         this.func[name]()
                     }}
-                    color= '#50A488'
+                    color= '#006300'
                     dismissKeyboardOnPress = {true}
                  />
             </>
@@ -147,12 +147,12 @@ const styles = StyleSheet.create({
         marginTop: wp('95%'),
         backgroundColor: '#FFFFFF',
         borderWidth: wp('0.3%'),
-        borderColor: '#50A488',
+        borderColor: '#006300',
         width: wp('60%'),
         justifyContent: 'center',
         textAlign: 'center',
         borderRadius: wp('1%'),
-        color: '#50A488'
+        color: '#006300'
     },
     buttons:{
         //backgroundColor: 'rgba(68, 68, 68, 0.6)',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     },
     btn:{
         marginTop: wp('4%'),
-        backgroundColor: '#50A488',
+        backgroundColor: '#006300',
         width: wp('20%'),
 		alignSelf: 'center'
     }

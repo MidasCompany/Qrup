@@ -94,7 +94,7 @@ export default class Register extends React.Component {
               fontSize = {17}
               onSubmitEditing={() => { this.confirm.focus(); }}
             />
-            <TextField
+            {/*<TextField
               style={styles.input}
               ref={(input) => { this.confirm= input; }}
               label = 'Confirme sua Senha'
@@ -117,7 +117,7 @@ export default class Register extends React.Component {
               lineWidth = {2}
               fontSize = {17}
               onSubmitEditing={() => { this.cpf.focus(); }}
-            />             
+            /> */}            
             <TextField
               style={styles.input}
               ref={(input) => { this.cpf = input; }}
@@ -181,7 +181,7 @@ export default class Register extends React.Component {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#50A488',
+    backgroundColor: '#006300',
     flex:1
   },
 text:{
@@ -260,7 +260,7 @@ btnLogin:{
   backgroundColor: 'white',
 },
 btnLabel:{
-  color:'#50A488',
+  color:'#006300',
   fontSize: wp('5%'),
 
 },

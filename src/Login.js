@@ -3,10 +3,9 @@ import {
   StyleSheet,
   View,
   Text,
-  StatusBar,
   Image,
   TouchableOpacity,
-} from 'react-native';3
+} from 'react-native';
 import {Button} from 'react-native-elements'
 import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
@@ -16,7 +15,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { TextField } from 'react-native-material-textfield';
 
-export default class Login extends React.Component {
+export default class Login extends React.Component {  
   constructor(props) {
     super(props);    
     this.state = {
@@ -45,8 +44,7 @@ export default class Login extends React.Component {
   }
   render() {
   return (
-    <>
-        
+    <>        
             <View style = {styles.main}>
               <Image source = {Logo} style={styles.Logo}/>
               <Text style={styles.text}>QRUP</Text>
@@ -70,6 +68,7 @@ export default class Login extends React.Component {
                     baseColor = 'rgba(255,255,255,1)'
                     textColor = 'rgba(255,255,255,1)'
                     secureTextEntry = {true}
+                    keyboardType = 'twitter'
                     lineWidth = {2}                    
                     fontSize = {17}
                     onSubmitEditing = {() => {this.Loga()}}
@@ -100,7 +99,7 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
 	main: {
-		backgroundColor: '#50a488',
+		backgroundColor: '#006300',
 		flex: 1,
   	},
 	text:{
@@ -134,10 +133,11 @@ const styles = StyleSheet.create({
 	btnLogin:{
 		width: '80%',
 		backgroundColor: 'white',
-		alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: hp('10%')
 	},
 	btnLabel:{
-		color:'#50A488',
+		color:'#006300',
 		fontSize: wp('5%'),
 	},
 	btnImg:{

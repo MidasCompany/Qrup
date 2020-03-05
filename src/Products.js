@@ -70,7 +70,11 @@ export default class Products extends Component {
             <>     
                 {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
                 <View style= {styles.adView}>
-                    {this.state.insertCode === true ? (
+                    <Modal
+                        animationType = 'fade'
+                        transparent = {true}
+                        visible = {this.state.insertCode}
+                    >
                         <View style = {styles.insertCode}>                            
                             <TextInput
                                 placeholder = {'Insert Your Qrup Code Here'}
@@ -95,9 +99,7 @@ export default class Products extends Component {
                                 />
                             </View>
                         </View>
-                    ):(
-                    <View></View>
-                    ) }
+                   </Modal>
                 </View>                              
                 <FloatingAction
                     actions={this.actions}

@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  ActionSheetIOS,
 } from 'react-native';
 import {Button} from 'react-native-elements'
 import Logo from '../Images/qrup_semroda_semsombra.png'
@@ -14,6 +15,8 @@ import {
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
 import { TextField } from 'react-native-material-textfield';
+import axios from 'axios';
+import api from './services/api'
 
 export default class Login extends React.Component {  
   constructor(props) {
@@ -28,16 +31,27 @@ export default class Login extends React.Component {
     if (user){
       this.props.navigation.navigate('User')
     }
-  }
+  }    
   Loga = async() => {
-    if (this.state.user === ''){
-      alert('Campo Vazio')
-    } else{        
-      await AsyncStorage.setItem('@Point', '30' )
-      await AsyncStorage.setItem('@User',this.state.user )
-      this.props.navigation.navigate('User')
-    }
-  }
+      if (this.state.user === ''){
+        alert('Campo Vazio')
+      } else{        
+             try {
+              const response = api.post('/sessions', {
+                email: this.state.user,
+                password: this.state.password
+              }) ;
+              //await AsyncStorage.setItem('@Qrup:toke', response.token)
+              } catch (_err){
+                alert(_err)
+              }
+              alert('logado')
+             } 
+        
+        await AsyncStorage.setItem('@Point', '30' )
+        //await AsyncStorage.setItem('@User',this.state.user )
+        //this.props.navigation.navigate('User')
+      }
 
   Cadastra = () =>{
     this.props.navigation.navigate('Register')

@@ -7,6 +7,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
+import Modal from 'react-native-modal'
 export default class Products extends Component {
     Scan = () =>{
         this.props.navigation.navigate('Add')
@@ -168,5 +169,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#006300',
         width: wp('20%'),
 		alignSelf: 'center'
-    }
+    },
 })

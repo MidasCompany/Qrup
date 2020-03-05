@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "react-native-community/async-storage",
     "add": "^2.0.6",
+    "axios": "^0.19.2",
     "moment": "^2.24.0",
     "react": "16.9.0",
     "react-native": "0.61.2",

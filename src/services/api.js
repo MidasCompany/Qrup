@@ -7,4 +7,7 @@ const api = axios.create({
     }
 })
 
+/*api.addResponseTransform(response =>{
+    if (!response.ok) throw response;  
+})*/
 export default api;

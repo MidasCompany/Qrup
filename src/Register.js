@@ -18,24 +18,47 @@ import moment from 'moment';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import {Button} from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
+import api from './services/api'
 export default class Register extends React.Component {
-   Login = () => {
-    this.props.navigation.navigate('Login')
-  }
-  Cadastra = () => {
-    this.props.navigation.navigate('User', {user: this.state.user})
-  } 
   constructor(props) {
     super(props);
     this.state = {
         isVisible: false,
-        user:'',
-        aux:'',
-        cpf:'',
-        birhtDate: 'Nascimento',
-        phoneBr: ''
+        user:'Bolo',
+        email: 'Bolo@decalça.com',
+        cpf:'00000000000',
+        birhtDate: '18/05/1995',
+        password: 'Datebayo',
+        contact: '651951'
     };
+  }  
+  Login = () => {
+    this.props.navigation.navigate('Login')
   }
+  Cadastra = async () => {
+    if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.cpf.length === 0 || this.state.contact.length === 0 ){
+      alert('Campo Vazio')
+    } else{ 
+    console.log('SICARALHO')   
+      try{
+        const response = await api.post('/users',{
+          email: this.state.email,
+          password: this.state.password,
+          name: this.state.user,
+          cpf: this.state.cpf,
+          birth: this.state.birhtDate,
+          contact: this.state.contact
+        }) ;
+          alert('Cadastro Efetuado com Sucesso')
+          this.props.navigation.navigate('Login')
+      } catch (response){
+        //this.setState({errorMessage: response.data.error });
+        console.log(response)
+        alert("Cadastro não efetuado com sucesso, virifique seus dados")
+      }                        
+    }   
+  } 
+  
   handlePicker =(date)=>{
     this.setState({
         isVisible: false,
@@ -80,7 +103,8 @@ export default class Register extends React.Component {
               textColor = 'rgba(255,255,255,1)'
               lineWidth = {2}
               fontSize = {17}
-              onSubmitEditing={() => { this.password.focus(); }}
+              onSubmitEditing={() => { this.password.focus(); }}              
+              onChangeText = {email =>{(this.setState({email}))}}
             />            
             <TextField
               style={styles.input}
@@ -92,7 +116,8 @@ export default class Register extends React.Component {
               secureTextEntry = {true}
               lineWidth = {2}
               fontSize = {17}
-              onSubmitEditing={() => { this.confirm.focus(); }}
+              onSubmitEditing={() => { this.confirm.focus(); }}              
+              onChangeText = {password =>{(this.setState({password}))}}
             />
             {/*<TextField
               style={styles.input}
@@ -105,7 +130,7 @@ export default class Register extends React.Component {
               secureTextEntry = {true}
               fontSize = {17}
               onSubmitEditing={() => { this.phone.focus(); }}
-            /> 
+            /> */} 
             <TextField
               style={styles.input}
               ref={(input) => { this.phone = input; }}
@@ -116,8 +141,9 @@ export default class Register extends React.Component {
               textColor = 'rgba(255,255,255,1)'
               lineWidth = {2}
               fontSize = {17}
-              onSubmitEditing={() => { this.cpf.focus(); }}
-            /> */}            
+              onSubmitEditing={() => { this.cpf.focus(); }}                
+              onChangeText = {contact =>{(this.setState({contact}))}}
+            />            
             <TextField
               style={styles.input}
               ref={(input) => { this.cpf = input; }}
@@ -129,6 +155,7 @@ export default class Register extends React.Component {
               lineWidth = {2}
               fontSize = {17}
               onSubmitEditing={() => {this.showPicker()}}
+              onChangeText = {cpf =>{(this.setState({cpf}))}}
             />             
            { /*<TextField
               style={styles.input}
@@ -165,6 +192,7 @@ export default class Register extends React.Component {
                 mode = {'date'}
             />   
           </View>
+          <View style= {styles.divider}/>
           <Button
             type = 'outline'
             title = 'Cadastrar'
@@ -180,6 +208,9 @@ export default class Register extends React.Component {
 
 
 const styles = StyleSheet.create({
+  divider:{
+    height: wp('5%')
+  },
   main: {
     backgroundColor: '#006300',
     flex:1
@@ -262,6 +293,5 @@ btnLogin:{
 btnLabel:{
   color:'#006300',
   fontSize: wp('5%'),
-
 },
 });

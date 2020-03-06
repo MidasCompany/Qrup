@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ActionSheetIOS,
 } from 'react-native';
 import {Button} from 'react-native-elements'
 import Logo from '../Images/qrup_semroda_semsombra.png'
@@ -22,8 +21,9 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);    
     this.state = {
-        user:'',
+        email:'',
         password:'',
+        errorMessage: null,
     };
   }
   async componentDidMount(){
@@ -33,25 +33,24 @@ export default class Login extends React.Component {
     }
   }    
   Loga = async() => {
-      if (this.state.user === ''){
-        alert('Campo Vazio')
-      } else{        
-             try {
-              const response = api.post('/sessions', {
-                email: this.state.user,
-                password: this.state.password
-              }) ;
-              //await AsyncStorage.setItem('@Qrup:toke', response.token)
-              } catch (_err){
-                alert(_err)
-              }
-              alert('logado')
-             } 
-        
-        await AsyncStorage.setItem('@Point', '30' )
-        //await AsyncStorage.setItem('@User',this.state.user )
-        //this.props.navigation.navigate('User')
-      }
+  if (this.state.email.length === 0 || this.state.password.length === 0 ){
+      alert('Campo Vazio')
+    } else{ 
+    console.log('SICARALHO')   
+      try{
+        const response = await api.post('/sessions',{
+          email: this.state.email,
+          password: this.state.password
+        }) ;
+          await AsyncStorage.setItem('@Qrup:token',response.data.token )
+          await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
+          this.props.navigation.navigate('User')
+      } catch (response){
+        //this.setState({errorMessage: response.data.error });
+        alert("Credenciais não conferem")
+      }                        
+    }   
+  }
 
   Cadastra = () =>{
     this.props.navigation.navigate('Register')
@@ -65,14 +64,14 @@ export default class Login extends React.Component {
               <View style = {styles.field}>
                 <TextField
 				          	style={styles.input}
-                    label = 'Login'
+                    label = 'Email'
                     tintColor = 'rgb(255,255,255)'
                     baseColor = 'rgba(255,255,255,1)'
                     textColor = 'rgba(255,255,255,1)'
                     lineWidth = {2}
                     fontSize = {17}
                     onSubmitEditing={() => { this.password.focus(); }}
-                    onChangeText = {user =>{(this.setState({user}))}}
+                    onChangeText = {email =>{(this.setState({email}))}}
                   />
                 <TextField 
                   style={styles.input}    

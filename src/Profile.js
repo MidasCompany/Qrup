@@ -19,12 +19,12 @@ export default class Profile extends Component {
     }
     async componentDidMount(){
     this.setState ({
-        user: await AsyncStorage.getItem('@User'),
+        user:  await AsyncStorage.getItem('@Qrup:user'),       
         pontos: await AsyncStorage.getItem('@Point')
     })
     }
     Exit =async()=>{
-        await AsyncStorage.setItem('@User','' )
+        await AsyncStorage.clear();
         this.props.navigation.navigate('Login');
     }
     render() {    

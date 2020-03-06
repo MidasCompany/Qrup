@@ -15,7 +15,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { TextField } from 'react-native-material-textfield';
 import axios from 'axios';
-import api from './services/api'
+import api from './services/api';
+import LoadingScreen from './components/LoadingScreen';
 
 export default class Login extends React.Component {  
   constructor(props) {
@@ -24,6 +25,7 @@ export default class Login extends React.Component {
         email:'',
         password:'',
         errorMessage: null,
+        load: false
     };
   }
   async componentDidMount(){
@@ -36,6 +38,7 @@ export default class Login extends React.Component {
   if (this.state.email.length === 0 || this.state.password.length === 0 ){
       alert('Campo Vazio')
     } else{ 
+      this.setState({load:true})
     console.log('SICARALHO')   
       try{
         const response = await api.post('/sessions',{
@@ -46,7 +49,8 @@ export default class Login extends React.Component {
           await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
           this.props.navigation.navigate('User')
       } catch (response){
-        //this.setState({errorMessage: response.data.error });
+        //this.setState({errorMessage: response.data.error });        
+         this.setState({load:false})
         alert("Credenciais não conferem")
       }                        
     }   
@@ -58,6 +62,7 @@ export default class Login extends React.Component {
   render() {
   return (
     <>        
+      <LoadingScreen enabled = {this.state.load}/>
             <View style = {styles.main}>
               <Image source = {Logo} style={styles.Logo}/>
               <Text style={styles.text}>QRUP</Text>

@@ -3,11 +3,14 @@ import { Text, StyleSheet, View, TextInput} from 'react-native'
 import {Button} from 'react-native-elements'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
 import {FloatingAction} from 'react-native-floating-action'
+import AsyncStorage from '@react-native-community/async-storage'  
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
 import Modal from 'react-native-modal'
+import api from './services/api';
+import LoadingScreen from './components/LoadingScreen';
 export default class Products extends Component {
     Scan = () =>{
         this.props.navigation.navigate('Add')
@@ -19,13 +22,45 @@ export default class Products extends Component {
     constructor(props) {
         super(props);    
         this.state = {
+            descryption: 'copo do dakkee',
+            type: '550ml',
+            qr:'',
+            user_id:'',
             insertCode: false,
+            load: false,
+            token: ''
         };
       }
-      
-    onTextInsert = () =>{
-        this.alterMode()
-        alert('Inseriu Código')
+      async componentDidMount(){
+        this.setState ({
+            user_id:  await AsyncStorage.getItem('@Qrup:u_id'),
+            token: await AsyncStorage.getItem('@Qrup:token')
+        })
+    }
+    onTextInsert = async() =>{
+        if (this.state.qr.length === 0 ){
+            alert('Insira o Código do Copo')
+          } else{ 
+            this.setState({load:true})
+            try{
+              const response = await api.post('/users/'+this.state.user_id+'/cups',{
+                descryption : this.state.descryption,
+                type: this.state.type,
+                qr: this.state.qr,
+              },
+              {
+                  headers:{
+                      Authorization : "Bearer " + this.state.token
+                  }
+              }) ;
+              this.setState({load:false, insertCode: false})
+            } catch (response){
+              //this.setState({errorMessage: response.data.error });     
+              console.log(response)   
+               this.setState({load:false})
+              alert("Código não confere")
+            }                        
+          } 
     }
     
     alterMode = () =>{
@@ -70,38 +105,36 @@ export default class Products extends Component {
         return (
             <>     
                 {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
-                <View style= {styles.adView}>
                     <Modal
-                        animationType = 'fade'
                         transparent = {true}
                         visible = {this.state.insertCode}
                     >
-                        <View style = {styles.insertCode}>                            
-                            <TextInput
-                                placeholder = {'Insert Your Qrup Code Here'}
-                                autoCapitalize = 'characters'
-                                placeholderTextColor = '#006300'
-                                style = {styles.inputCode}
-                                onChangeText = {(read)=>this.setState({read})}
-                                onSubmitEditing = {()=>this.onTextInsert()}
+                    <LoadingScreen enabled = {this.state.load}/>
+                    <View style = {styles.insertCode}>                            
+                        <TextInput
+                            placeholder = {'Insert Your Qrup Code Here'}
+                            autoCapitalize = 'characters'
+                            placeholderTextColor = '#006300'
+                            style = {styles.inputCode}
+                            onChangeText = {(qr)=>this.setState({qr})}
+                            onSubmitEditing = {()=>this.onTextInsert()}
+                        />
+                        <View style = {styles.buttons}>
+                            <Button
+                                type = "solid"
+                                title = "Cancel"                                    
+                                buttonStyle = {styles.btn}
+                                onPress = {()=>this.alterMode()}
                             />
-                            <View style = {styles.buttons}>
-                                <Button
-                                    type = "solid"
-                                    title = "Cancel"                                    
-                                    buttonStyle = {styles.btn}
-                                    onPress = {()=>this.alterMode()}
-                                />
-                                <Button
-                                    type = "solid"
-                                    title = "Ok"
-                                    buttonStyle = {styles.btn}
-                                    onPress = {()=> this.onTextInsert()}
-                                />
-                            </View>
+                            <Button
+                                type = "solid"
+                                title = "Ok"
+                                buttonStyle = {styles.btn}
+                                onPress = {()=> this.onTextInsert()}
+                            />
                         </View>
-                   </Modal>
-                </View>                              
+                    </View>
+                   </Modal>                      
                 <FloatingAction
                     actions={this.actions}
                     onPressItem={name => {
@@ -143,6 +176,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(68, 68, 68, 0.6)',
         width: wp('100%'),
         height: hp('100%'),
+        marginLeft: -wp('5%')
     },
     inputCode:{
         fontSize: wp('3%'),

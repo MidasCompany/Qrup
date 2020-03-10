@@ -11,17 +11,34 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons'
 import AsyncStorage from '@react-native-community/async-storage'  
 import {Button} from 'react-native-elements'
+import api from './services/api';
 
 export default class Profile extends Component {
     state={
         user:'',
-        pontos: ''
+        pontos: '',
+        id:'',
+        token:''
     }
     async componentDidMount(){
-    this.setState ({
-        user:  await AsyncStorage.getItem('@Qrup:user'),       
-        pontos: await AsyncStorage.getItem('@Point')
-    })
+        this.setState ({
+            user:  await AsyncStorage.getItem('@Qrup:user'),       
+            id: await AsyncStorage.getItem('@Qrup:u_id'),
+            token: await AsyncStorage.getItem('Qrup:token')
+        })
+        try{
+            const response = await api.get('/users/'+this.state.id,{},{
+                headers:{
+                    Authorization : "Bearer " + this.state.token
+                }
+            }) ;
+              await AsyncStorage.setItem('@Qrup:u_points', response.data.points)
+              this.setState({load:false, pontos: await AsyncStorage.getItem('@Qrup:u_points')})
+              this.props.navigation.navigate('User')
+          } catch (response){
+            //this.setState({errorMessage: response.data.error });     
+            console.log(response)   
+          }     
     }
     Exit =async()=>{
         await AsyncStorage.clear();

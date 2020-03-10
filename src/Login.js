@@ -39,7 +39,6 @@ export default class Login extends React.Component {
       alert('Campo Vazio')
     } else{ 
       this.setState({load:true})
-    console.log('SICARALHO')   
       try{
         const response = await api.post('/sessions',{
           email: this.state.email,
@@ -47,9 +46,12 @@ export default class Login extends React.Component {
         }) ;
           await AsyncStorage.setItem('@Qrup:token',response.data.token )
           await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
+          await AsyncStorage.setItem('@Qrup:u_id', response.data.user.id)
+          this.setState({load:false})
           this.props.navigation.navigate('User')
       } catch (response){
-        //this.setState({errorMessage: response.data.error });        
+        //this.setState({errorMessage: response.data.error });     
+        console.log(response)   
          this.setState({load:false})
         alert("Credenciais não conferem")
       }                        
@@ -86,10 +88,9 @@ export default class Login extends React.Component {
                     baseColor = 'rgba(255,255,255,1)'
                     textColor = 'rgba(255,255,255,1)'
                     secureTextEntry = {true}
-                    keyboardType = 'twitter'
                     lineWidth = {2}                    
                     fontSize = {17}
-                    onSubmitEditing = {() => {this.Loga()}}
+                    onSubmitEditing = {() => this.Loga()}
                     onChangeText = {password =>{(this.setState({password}))}}/>
               </View>
                 <Button

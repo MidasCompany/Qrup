@@ -17,7 +17,6 @@ export default class PickCupons extends Component {
     render() {
         return (
         <>            
-            
             <Cupon
                 local = 'Retiro da Sé'
                 cuponTitle = '10% de desconto'

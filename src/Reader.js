@@ -5,32 +5,61 @@ import { heightPercentageToDP } from 'react-native-responsive-screen';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
-  } from 'react-native-responsive-screen';
+  } from 'react-native-responsive-screen';  
+import api from './services/api';
+import AsyncStorage from '@react-native-community/async-storage'  
   export default class Reader extends Component {
     state = {
-        read: '',
         modeState: false,
         success: false, 
         num : 0, 
+        descryption: 'copo do dakkee',
+        type: '550ml',
+        qr:'',
+        user_id:'',
     };
     onSuccess = async (e) => {
-        await this.setState({read: e.data, success: true });
-        if(this.state.read === ' '){
-            alert ('Código Invalido')
-        }else{
-            this.props.navigation.navigate('Products', {leitura: this.state.read})
-        }
+        await this.setState({qr: e.data, success: true });
+        if (this.state.qr.length === 0 ){
+            alert('Insira o Código do Copo')
+          } else{ 
+            this.setState({load:true})
+            try{
+              const response = await api.post('/users/'+this.state.user_id+'/cups',{
+                descryption : this.state.descryption,
+                type: this.state.type,
+                qr: this.state.qr,
+              },
+              {
+                  headers:{
+                      Authorization : "Bearer " + this.state.token
+                  }
+              }) ;
+              this.props.navigation.navigate('Qrup')
+            } catch (response){
+              //this.setState({errorMessage: response.data.error });     
+              console.log(response)   
+              this.props.navigation.navigate('Qrup')
+              alert('Copo já Cadastrado')
+            }                        
+          } 
     };
     onTextInsert = () =>{
         this.props.navigation.navigate ('Products', {leitura: this.state.read})
     }
     alterMode = () =>{
-         if (this.state.modeState === true){
-            this.setState({modeState: false});
-          } else if (this.state.modeState === false){
-              this.setState({modeState: true})
-          }
-      };
+        if (this.state.modeState === true){
+        this.setState({modeState: false});
+        } else if (this.state.modeState === false){
+            this.setState({modeState: true})
+        }
+    };
+    async componentDidMount(){
+        this.setState ({
+            user_id:  await AsyncStorage.getItem('@Qrup:u_id'),
+            token: await AsyncStorage.getItem('@Qrup:token')
+        }) 
+    };
     render() {
         return (
             <View>              
@@ -39,7 +68,7 @@ import {
                 cameraStyle={styles.cameraContainer}
                 showMarker = {this.state.modeState === true ? (false): (true)}
                 reactivate ={true}
-                reactivateTimeout = {1000}
+                reactivateTimeout = {10000}
                 checkAndroid6Permissions={true}
                 fadeIn = {false}
                  />

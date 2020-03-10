@@ -3,9 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
-  StatusBar,
   Image,
-  TextInput,
   TouchableOpacity,
   ScrollView
 } from 'react-native';
@@ -14,6 +12,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/Ionicons'
 import moment from 'moment';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import {Button} from 'react-native-elements'
@@ -24,12 +23,12 @@ export default class Register extends React.Component {
     super(props);
     this.state = {
         isVisible: false,
-        user:'Bolo',
-        email: 'Bolo@decalça.com',
-        cpf:'00000000000',
-        birhtDate: '18/05/1995',
-        password: 'Datebayo',
-        contact: '651951'
+        user:'',
+        email: '',
+        cpf:'',
+        birhtDate: 'Birthday',
+        password: '',
+        contact: ''
     };
   }  
   Login = () => {
@@ -77,9 +76,11 @@ export default class Register extends React.Component {
   }
   render() {
   return (
-    <>
-        
-        <View style = {styles.main}>
+    <ScrollView style = {{ backgroundColor: "#006300"}}>      
+        <View style = {styles.main}>          
+          <TouchableOpacity style = {{marginLeft: wp('5%'), marginTop: wp('5%')}} onPress={()=>this.props.navigation.navigate('Login')}>
+              <Icon name = "md-arrow-round-back" color = "white" size = {wp('10%')}/>
+          </TouchableOpacity>   
           <Image source = {Logo} style={styles.Logo}/>
           <Text style={styles.text}> QRUP</Text>
           <View style = {styles.field}>
@@ -201,7 +202,7 @@ export default class Register extends React.Component {
             onPress = {()=>this.Cadastra()}
           /> 
         </View>
-    </>
+    </ScrollView>  
   );
   }
 };

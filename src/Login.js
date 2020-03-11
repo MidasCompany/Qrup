@@ -14,18 +14,23 @@ import {
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
 import { TextField } from 'react-native-material-textfield';
-import axios from 'axios';
+import Icon from 'react-native-vector-icons/Feather'
 import api from './services/api';
 import LoadingScreen from './components/LoadingScreen';
 
 export default class Login extends React.Component {  
   constructor(props) {
     super(props);    
+
+    this.renderPasswordAccessory = this.renderPasswordAccessory.bind(this);
+    this.onAccessoryPress = this.onAccessoryPress.bind(this);
+
     this.state = {
         email:'',
         password:'',
         errorMessage: null,
-        load: false
+        load: false,
+        secureTextEntry: true        
     };
   }
   async componentDidMount(){
@@ -57,6 +62,21 @@ export default class Login extends React.Component {
       }                        
     }   
   }
+  renderPasswordAccessory() {
+    let { secureTextEntry } = this.state;
+
+    let name = secureTextEntry?
+      'eye':
+      'eye-off';
+
+    return (
+      <Icon size={24} name={name}  color='white' onPress={this.onAccessoryPress}/>
+    );
+  }
+
+  onAccessoryPress() {
+    this.setState(({ secureTextEntry }) => ({ secureTextEntry: !secureTextEntry }));
+  }
 
   Cadastra = () =>{
     this.props.navigation.navigate('Register')
@@ -79,6 +99,7 @@ export default class Login extends React.Component {
                     fontSize = {17}
                     onSubmitEditing={() => { this.password.focus(); }}
                     onChangeText = {email =>{(this.setState({email}))}}
+                    autoCapitalize = 'none'
                   />
                 <TextField 
                   style={styles.input}    
@@ -87,11 +108,14 @@ export default class Login extends React.Component {
                     tintColor = 'rgb(255,255,255)'
                     baseColor = 'rgba(255,255,255,1)'
                     textColor = 'rgba(255,255,255,1)'
-                    secureTextEntry = {true}
+                    secureTextEntry= {this.state.secureTextEntry}
                     lineWidth = {2}                    
                     fontSize = {17}
                     onSubmitEditing = {() => this.Loga()}
-                    onChangeText = {password =>{(this.setState({password}))}}/>
+                    autoCapitalize = "none"
+                    onChangeText = {password =>{(this.setState({password}))}}
+                    renderRightAccessory = {this.renderPasswordAccessory}
+                  />
               </View>
                 <Button
                     type = 'outline'

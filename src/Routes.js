@@ -61,7 +61,7 @@ const User = createMaterialTopTabNavigator(
         {
             Profile: { screen: ProfileNav,
                     navigationOptions: {
-                        tabBarLabel: 'Profile',
+                        tabBarLabel: 'Perfil',
                         tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')}/>)
                     }
             },
@@ -106,7 +106,7 @@ const Main = createStackNavigator(
     Login: Login,
     Register: Register
   },{
-    initialRouteName: 'Login',
+    initialRouteName: 'Register',
     headerMode: 'none',
     navigationOptions: {
      headerVisible: false,
@@ -119,7 +119,7 @@ export default createAppContainer (
           User: User
         },
         {
-          initialRouteName: 'Login',
+          initialRouteName: 'User',
           headerMode: 'none',
           navigationOptions: {
            headerVisible: false,

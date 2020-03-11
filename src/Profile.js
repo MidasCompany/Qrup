@@ -50,7 +50,7 @@ export default class Profile extends Component {
                 <View style= {styles.Perfil}>
                     <Icon name = 'md-person'color ='#006300' style = {styles.Disgraca}/>
                     <Text  style = {styles.nameDesg}>{this.state.user}</Text>
-                    <Text style= {styles.pontDesgr}> {this.state.pontos} Points</Text>
+                    <Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>
                     <View style = {styles.Butons}>
                         <TouchableOpacity 
                             onPress = {()=>this.props.navigation.navigate('Extract')}>
@@ -63,12 +63,7 @@ export default class Profile extends Component {
                             <Text style = {styles.btnTxt}>Editar</Text>
                             <Text  style ={styles.subTxt}>Nome de Preferência, Telefone, Email</Text>                            
                         </TouchableOpacity>
-                    </View>        
-                    <View style = {styles.Sbutons}>
-                        <TouchableOpacity>
-                            <Text style = {styles.btnTxtnS}>Impactos Previnidos</Text>                         
-                        </TouchableOpacity>
-                    </View>        
+                    </View>             
                     <View style = {styles.Sbutons}>
                         <TouchableOpacity>
                             <Text style = {styles.btnTxtnS}>Me Ajuda</Text>                         
@@ -78,7 +73,7 @@ export default class Profile extends Component {
                 <View>
                 <Button
                     type = 'outline'
-                    title = 'Logout'
+                    title = 'Sair'
                     titleStyle = {styles.btnLabel}
                     buttonStyle = {styles.btnLogout}
                     onPress = {()=>this.Exit()}

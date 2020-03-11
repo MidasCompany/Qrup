@@ -75,29 +75,21 @@ export default class Products extends Component {
      }
     func ={
         pen :this.alterMode,
-        exc: this.Close,
         scan: this.Scan
     }
     actions = [
         {
-          text: "Write Code",
+          text: "Escrever Código",
           icon:  <Icon2 name="create" style={styles.actionButtonIcon}/>,
           name: "pen",
-          position: 2,
-          color: '#006300'
-        },
-        {
-          text: "Exclude Item",
-          icon: <Icon2 name="clear" style={styles.actionButtonIcon}/>,
-          name: "exc",
           position: 1,
           color: '#006300'
         },
         {
-          text: "Scan Code",
+          text: "Escanear Código",
           icon: <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>,
           name: "scan",
-          position: 3,
+          position: 2,
           color: '#006300'
         },
       ];

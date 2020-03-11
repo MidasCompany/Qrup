@@ -5,7 +5,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
@@ -13,6 +14,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/Ionicons'
+import Icon2 from 'react-native-vector-icons/Feather'
 import moment from 'moment';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import {Button} from 'react-native-elements'
@@ -21,14 +23,19 @@ import api from './services/api'
 export default class Register extends React.Component {
   constructor(props) {
     super(props);
+
+    this.renderPasswordAccessory = this.renderPasswordAccessory.bind(this);
+    this.onAccessoryPress = this.onAccessoryPress.bind(this);
+
     this.state = {
         isVisible: false,
         user:'',
         email: '',
         cpf:'',
-        birhtDate: 'Birthday',
+        birhtDate: '',
         password: '',
-        contact: ''
+        contact: '',
+        secureTextEntry: true  
     };
   }  
   Login = () => {
@@ -36,7 +43,7 @@ export default class Register extends React.Component {
   }
   Cadastra = async () => {
     if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.cpf.length === 0 || this.state.contact.length === 0 ){
-      alert('Campo Vazio')
+      Alert.alert('Campo Vazio')
     } else{ 
     console.log('SICARALHO')   
       try{
@@ -48,16 +55,53 @@ export default class Register extends React.Component {
           birth: this.state.birhtDate,
           contact: this.state.contact
         }) ;
-          alert('Cadastro Efetuado com Sucesso')
+          Alert.alert('Cadastro Efetuado com Sucesso')
           this.props.navigation.navigate('Login')
       } catch (response){
         //this.setState({errorMessage: response.data.error });
         console.log(response)
-        alert("Cadastro não efetuado com sucesso, virifique seus dados")
+        Alert.alert("Cadastro não efetuado com sucesso, virifique seus dados")
       }                        
     }   
   } 
-  
+  _addMaskContactBr(contact: string){  
+    try {
+      contact =  contact.replace(/[^\d]+/g,'');
+      this.setState({ contact: contact });
+      if(contact.length == 10){
+        contact = (contact.length > 1 ? "(" : "")+contact.substring(0, 2) + (contact.length > 2 ? ")" : "")+(contact.length > 2 ? " " : "") + contact.substring(2,6) + (contact.length > 3 ? "-" : "") + contact.substring(6, 10);
+      } else {
+        contact = (contact.length > 1 ? "(" : "")+contact.substring(0, 2) + (contact.length > 2 ? ")" : "")+(contact.length > 2 ? " " : "") + contact.substring(3,2) + (contact.length > 3 ? " " : "") + contact.substring(3, 7) + (contact.length > 7 ? "-" : "") + contact.substring(7, 12);
+      }
+      console.log(contact)
+    } catch(e){
+      this.setState({ contact: contact });
+    }
+    return contact;
+  }
+  cpfMask = value => {
+    return value
+      .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+      .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
+  }
+  renderPasswordAccessory() {
+    let { secureTextEntry } = this.state;
+
+    let name = secureTextEntry?
+      'eye':
+      'eye-off';
+
+    return (
+      <Icon2 size={24} name={name}  color='white' onPress={this.onAccessoryPress}/>
+    );
+  }
+
+  onAccessoryPress() {
+    this.setState(({ secureTextEntry }) => ({ secureTextEntry: !secureTextEntry }));
+  }
   handlePicker =(date)=>{
     this.setState({
         isVisible: false,
@@ -104,6 +148,7 @@ export default class Register extends React.Component {
               textColor = 'rgba(255,255,255,1)'
               lineWidth = {2}
               fontSize = {17}
+              autoCapitalize ='none'
               onSubmitEditing={() => { this.password.focus(); }}              
               onChangeText = {email =>{(this.setState({email}))}}
             />            
@@ -114,11 +159,13 @@ export default class Register extends React.Component {
               tintColor = 'rgb(255,255,255)'
               baseColor = 'rgba(255,255,255,1)'
               textColor = 'rgba(255,255,255,1)'
-              secureTextEntry = {true}
+              secureTextEntry = {this.state.secureTextEntry}
               lineWidth = {2}
+              autoCapitalize = 'none'
               fontSize = {17}
               onSubmitEditing={() => { this.confirm.focus(); }}              
               onChangeText = {password =>{(this.setState({password}))}}
+              renderRightAccessory = {this.renderPasswordAccessory}
             />
             {/*<TextField
               style={styles.input}
@@ -142,8 +189,8 @@ export default class Register extends React.Component {
               textColor = 'rgba(255,255,255,1)'
               lineWidth = {2}
               fontSize = {17}
-              onSubmitEditing={() => { this.cpf.focus(); }}                
-              onChangeText = {contact =>{(this.setState({contact}))}}
+              onSubmitEditing={() => { this.cpf.focus(); }}           
+              formatText={value => this._addMaskContactBr(value)}
             />            
             <TextField
               style={styles.input}
@@ -157,6 +204,7 @@ export default class Register extends React.Component {
               fontSize = {17}
               onSubmitEditing={() => {this.showPicker()}}
               onChangeText = {cpf =>{(this.setState({cpf}))}}
+              formatText = {value =>this.cpfMask(value)}
             />             
            { /*<TextField
               style={styles.input}
@@ -179,13 +227,19 @@ export default class Register extends React.Component {
                         {this.state.birhtDate}
                 </Text>
             </TouchableOpacity>*/}
-            <Button
-              type = 'outline'
-              title = {this.state.birhtDate}
-              titleStyle = {styles.birthDate1}
-              buttonStyle = {styles.birthDate2}
-              onPress = {()=>this.showPicker()}
-            />
+            <TextField
+              style={styles.input}
+              ref={(input) => { this.cpf = input; }}
+              label = 'Aniversário'
+              keyboardType = 'phone-pad'
+              tintColor = 'rgb(255,255,255)'
+              baseColor = 'rgba(255,255,255,1)'
+              textColor = 'rgba(255,255,255,1)'
+              lineWidth = {2}
+              fontSize = {17}
+              placeholder = {this.state.birhtDate}
+              onFocus = {()=>this.showPicker()}
+            />  
             <DateTimePicker
                 isVisible={this.state.isVisible}
                 onConfirm={this.handlePicker}

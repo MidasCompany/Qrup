@@ -8,6 +8,7 @@ import {
   } from 'react-native-responsive-screen';  
 import api from './services/api';
 import AsyncStorage from '@react-native-community/async-storage'  
+import LoadingScreen from './components/LoadingScreen';
   export default class Reader extends Component {
     state = {
         modeState: false,
@@ -63,6 +64,7 @@ import AsyncStorage from '@react-native-community/async-storage'
     render() {
         return (
             <View>              
+                <LoadingScreen enabled = {this.state.load}/>
                 <QRCodeScanner
                 onRead={this.onSuccess}   
                 cameraStyle={styles.cameraContainer}

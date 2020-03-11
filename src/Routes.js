@@ -106,7 +106,7 @@ const Main = createStackNavigator(
     Login: Login,
     Register: Register
   },{
-    initialRouteName: 'Register',
+    initialRouteName: 'Login',
     headerMode: 'none',
     navigationOptions: {
      headerVisible: false,

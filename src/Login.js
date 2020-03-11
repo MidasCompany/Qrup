@@ -100,6 +100,7 @@ export default class Login extends React.Component {
                     onSubmitEditing={() => { this.password.focus(); }}
                     onChangeText = {email =>{(this.setState({email}))}}
                     autoCapitalize = 'none'
+                    returnKeyType = 'next'
                   />
                 <TextField 
                   style={styles.input}    

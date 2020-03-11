@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity, ScrollView, StatusBar } from 'react-native'
-import qrup from '../Images/qrup_semroda_semsombra.png'
-import Icon from 'react-native-vector-icons/Ionicons'
+import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';  
 import AsyncStorage from '@react-native-community/async-storage'  
-import Card from './components/Card'
+const DATA =[
+    {
+        id: '1',
+        title : 'Retiro da Sé',
+        description: '10% DE DESCONTO ALGUM DIA',
+        pontos: '30',
+    },
+    {
+        id: '2',
+        title : 'Retiro da Sé',
+        description: '10% DE DESCONTO ALGUM DIA',
+        pontos: '30',
+    }
+
+];
 
 export default class ChoseCupons extends Component {
     state= {
@@ -21,92 +33,88 @@ export default class ChoseCupons extends Component {
     }
     setCupon = ()=>{
         this.props.navigation.navigate('Pick');
-    }
+    };
     render() {
         return (
-        <>        
-              
-            <ScrollView>
-                <Icon2 name ='coins' color = '#006300' style = {styles.Coin}/>
-                <Text style = {styles.Points}>{this.state.pontos} Points</Text>
-                <Card
-                        title = 'Retiro da Sé'
-                        description = '10% de desconto aos sábados de neve em Belém'
-                        points = '10'
-                        onPress={()=>this.setCupon()}
-                    />  
-                <Card
-                    title = 'Burguer King'
-                    description = '20% de desconto quando o Amaury criar cabelo'
-                    points = '20'
-                />
-                <Card
-                    title = 'Mc Donalds'
-                    description = '60% de desconto quando o De Masi parar de ser Nazista'
-                    points = '40'
-                />
-                <Card
-                    title = 'Vikings'
-                    description = '20% de desconto quando o Murilo falar pq chamam ele de bibo'
-                    points = '2'
-                />
-                <Card
-                    title = 'Burguer Spot'
-                    description = 'Qualquer item de graça quando o Caio cortar o Cabelo'
-                    points = '20'
-                />
-            </ScrollView>
+        <> 
+            <Icon2 name ='coins' color = '#006300' style = {styles.Coin}/>
+            <Text style = {styles.Points}>{this.state.pontos} Points</Text>       
+            <FlatList
+                data={DATA}
+                renderItem={({ item }) =>   <TouchableOpacity style = {styles.main} onPress = {() => {this.props.navigation.navigate('Pick', item.id)}}> 
+                                                <View style = {styles.terte}>
+                                                    {/* Logo da Empresa */ }
+                                                    <View style = {styles.compLogo}/>
+                                                    {/* Info do Cupom */}
+                                                    <View style = {styles.stats}>
+                                                        <Text style = {styles.title}>{item.title}</Text>
+                                                        <Text style = {styles.description}> {item.description} </Text>
+                                                        <Text style = {styles.cost}>{item.pontos} Points</Text> 
+                                                    </View>
+                                                </View>
+                                            </TouchableOpacity> }
+                keyExtractor={item => item.id}
+            />  
         </>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    tertePorra:{
-        height: 40,
-        width: 40,
-        backgroundColor: 'black'
-    },
-    terte2:{
-        marginBottom: wp('5%'),
-        alignSelf: 'center',
+    main:{
+        marginTop: wp('5%'),
+        backgroundColor: '#fff',
         height: hp('15%'),
         width: wp('85%'),
         borderRadius: wp('3%'),
-        backgroundColor: 'red'
-    },
-    Cabeca:{
         flexDirection: 'row',
-        height: hp('6%'),
-        width: wp('100%'),
-        backgroundColor: '#3a5108',
-        alignContent: 'center',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        alignSelf: 'center',
+        elevation: wp('3%'),
+        marginBottom: wp('5%')
     },
-    Qrup:{
-        //marginTop: -wp('2%'),
-        height: hp('7%'),
-        width: wp('7%'),
-        marginStart: wp('3,23606%'),
-        resizeMode: 'contain'
+    compLogo:{
+        backgroundColor: 'gray',
+        height: hp('9%'),
+        width: wp('15%'),
+        marginStart: wp('5%')
     },
-    Titulo:{
-        fontSize: wp('4,85409%'),
-        color: 'white'
+    title:{
+        marginTop: wp('2%'),
+        fontSize: wp('6,47212%')
     },
-    Exit:{
-        fontSize: wp('10%'),
-        marginEnd: wp('3,23606%')
+    description:{
+        //marginStart: wp('20%'),
+        alignSelf: 'center',
+        fontSize: wp('3,23606%'),
+    },
+    descCont:{
+        width: 0,
+        flexGrow: 1,        
+    },
+    cost:{
+        //marginTop: wp('2%'),
+        fontSize: wp('4,12%'),
+        alignSelf: 'flex-end',
+        marginEnd: wp('4%'),
+    },
+    terte:{
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    stats:{
+        marginStart: (wp('3%')),
+        flexGrow: 1,
+        width:0,
     },
     Coin:{
         alignSelf: 'center',
         marginTop: wp('10%'),
-        fontSize: wp('20%')
+        fontSize: wp('15%')
     },
     Points:{
         alignSelf: 'center',
-        fontSize: wp('10%'),
+        fontSize: wp('8%'),
         marginTop: wp('2%')
     }
 })

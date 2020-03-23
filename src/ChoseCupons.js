@@ -18,6 +18,12 @@ const DATA =[
         title : 'Retiro da Sé',
         description: '10% DE DESCONTO ALGUM DIA',
         pontos: '30',
+    },
+    {
+        id: '3',
+        title: 'Algum Restaurante',
+        description: '20% DE DESCONTO SE NÃO TIVER CORONGA',
+        pontos: '20'
     }
 
 ];

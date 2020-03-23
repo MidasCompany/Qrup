@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput} from 'react-native'
+import { Text, StyleSheet, View, TextInput, FlatList, TouchableOpacity, Image} from 'react-native'
+import QrupLogo from '../Images/qrup_semroda_semsombra.png'
 import {Button} from 'react-native-elements'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
 import {FloatingAction} from 'react-native-floating-action'
@@ -11,6 +12,16 @@ import {
 import Modal from 'react-native-modal'
 import api from './services/api';
 import LoadingScreen from './components/LoadingScreen';
+import Icon from 'react-native-vector-icons/Entypo'
+
+const DATA =[
+    {
+        id: '1',
+        title : 'QRUP 1',
+        pontos: '30',
+    },
+];
+
 export default class Products extends Component {
     Scan = () =>{
         this.props.navigation.navigate('Add')
@@ -77,6 +88,7 @@ export default class Products extends Component {
         pen :this.alterMode,
         scan: this.Scan
     }
+    
     actions = [
         {
           text: "Escrever Código",
@@ -96,7 +108,24 @@ export default class Products extends Component {
     render() {        
         return (
             <>     
-                {/*<Text>{this.props.navigation.getParam('leitura')}</Text>*/}
+                <Icon name ='cup' color = '#006300' style = {styles.Cup}/>
+                <Text style = {styles.Qrup}>QRUPs</Text>   
+                <FlatList
+                    data={DATA}
+                    renderItem={({ item }) =>   <TouchableOpacity style = {styles.main}> 
+                                                    <View style = {styles.terte}>
+                                                        {/* Logo da Empresa */ }
+                                                        <View style = {styles.qrupIcon}>
+                                                            <Image source = {QrupLogo} style = {{height: hp('7%'), width: wp('10%'), alignSelf: 'center', justifyContent: 'center'}}/>
+                                                        </View>
+                                                        {/* Info do Cupom */}
+                                                        <View style = {styles.stats}>
+                                                            <Text style = {styles.title}>{item.title}</Text>
+                                                        </View>
+                                                    </View>
+                                                </TouchableOpacity> }
+                    keyExtractor={item => item.id}
+                />  
                     <Modal
                         transparent = {true}
                         visible = {this.state.insertCode}
@@ -158,7 +187,17 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         textAlignVertical: 'center',
         resizeMode: 'contain'
-    },*/
+    },*/    
+    Cup:{
+        alignSelf: 'center',
+        marginTop: wp('10%'),
+        fontSize: wp('15%')
+    },
+    Qrup:{
+        alignSelf: 'center',
+        fontSize: wp('8%'),
+        marginTop: wp('2%')
+    },
     actionButtonIcon: {
         fontSize: wp('6%'),
         height: 30,
@@ -195,5 +234,52 @@ const styles = StyleSheet.create({
         backgroundColor: '#006300',
         width: wp('20%'),
 		alignSelf: 'center'
+    }, main:{
+        marginTop: wp('5%'),
+        backgroundColor: '#fff',
+        height: hp('15%'),
+        width: wp('85%'),
+        borderRadius: wp('3%'),
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'center',
+        elevation: wp('3%'),
+        marginBottom: wp('5%')
+    },
+    qrupIcon:{
+        backgroundColor: '#94a272',
+        height: hp('9%'),
+        width: wp('15%'),
+        marginStart: wp('5%'),
+        justifyContent: 'center',
+        borderRadius: wp('1%')
+    },
+    title:{
+        marginTop: wp('2%'),
+        fontSize: wp('6,47212%')
+    },
+    description:{
+        //marginStart: wp('20%'),
+        alignSelf: 'center',
+        fontSize: wp('3,23606%'),
+    },
+    descCont:{
+        width: 0,
+        flexGrow: 1,        
+    },
+    cost:{
+        //marginTop: wp('2%'),
+        fontSize: wp('4,12%'),
+        alignSelf: 'flex-end',
+        marginEnd: wp('4%'),
+    },
+    terte:{
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    stats:{
+        marginStart: (wp('3%')),
+        flexGrow: 1,
+        width:0,
     },
 })

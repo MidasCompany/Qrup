@@ -27,7 +27,7 @@ export default class Profile extends Component {
             token: await AsyncStorage.getItem('Qrup:token')
         })
         try{
-            const response = await api.get('/users/'+this.state.id,{},{
+            const response = await api.get('/users/'+this.state.id,{
                 headers:{
                     Authorization : "Bearer " + this.state.token
                 }
@@ -37,7 +37,7 @@ export default class Profile extends Component {
               this.props.navigation.navigate('User')
           } catch (response){
             //this.setState({errorMessage: response.data.error });     
-            console.log(response)   
+            //console.log(response)   
           }     
     }
     Exit =async()=>{

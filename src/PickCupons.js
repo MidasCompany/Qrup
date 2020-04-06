@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity, StatusBar } from 'react-native'
+import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import qrup from '../Images/qrup_semroda_semsombra.png'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'

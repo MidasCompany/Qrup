@@ -119,7 +119,7 @@ export default createAppContainer (
           User: User
         },
         {
-          initialRouteName: 'Login',
+          initialRouteName: 'User',
           headerMode: 'none',
           navigationOptions: {
            headerVisible: false,

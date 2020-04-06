@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity,Dimensions, TextInput, StatusBar } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity,Dimensions, TextInput} from 'react-native'
 import QRCodeScanner from 'react-native-qrcode-scanner'
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import {

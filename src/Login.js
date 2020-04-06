@@ -17,6 +17,7 @@ import { TextField } from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/Feather'
 import api from './services/api';
 import LoadingScreen from './components/LoadingScreen';
+import LinearGradient from 'react-native-linear-gradient'
 
 export default class Login extends React.Component {  
   constructor(props) {
@@ -30,7 +31,7 @@ export default class Login extends React.Component {
         password:'',
         errorMessage: null,
         load: false,
-        secureTextEntry: true        
+        secureTextEntry: false      
     };
   }
   async componentDidMount(){
@@ -85,7 +86,7 @@ export default class Login extends React.Component {
   return (
     <>        
       <LoadingScreen enabled = {this.state.load}/>
-            <View style = {styles.main}>
+            <View style={styles.main}>
               <Image source = {Logo} style={styles.Logo}/>
               <Text style={styles.text}>QRUP</Text>
               <View style = {styles.field}>
@@ -120,7 +121,7 @@ export default class Login extends React.Component {
               </View>
                 <Button
                     type = 'outline'
-                    title = 'Login'
+                    title = 'Acessar'
                     titleStyle = {styles.btnLabel}
                     buttonStyle = {styles.btnLogin}
                     onPress = {()=>this.Loga()}
@@ -143,7 +144,7 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
 	main: {
-		backgroundColor: '#006300',
+    backgroundColor: '#01A83E',
 		flex: 1,
   	},
 	text:{
@@ -169,16 +170,19 @@ const styles = StyleSheet.create({
 		color:'white',
 		width: '80%',
 		alignSelf: 'center',
-		marginVertical: 20
+    marginVertical: 20,
+    marginTop: wp('10%')
 	},
 	input: {
 		paddingHorizontal: 10
 	},
 	btnLogin:{
-		width: '80%',
+		width: wp('40%'),
 		backgroundColor: 'white',
     alignSelf: 'center',
-    marginBottom: hp('10%')
+    marginTop:wp('10%'),
+    marginBottom: hp('10%'),
+    borderRadius: wp('2%')
 	},
 	btnLabel:{
 		color:'#006300',

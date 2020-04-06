@@ -1,41 +1,31 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native'
+import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, TouchableHighlightBase } from 'react-native'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';  
 import AsyncStorage from '@react-native-community/async-storage'  
-const DATA =[
-    {
-        id: '1',
-        title : 'Retiro da Sé',
-        description: '10% DE DESCONTO ALGUM DIA',
-        pontos: '30',
-    },
-    {
-        id: '2',
-        title : 'Retiro da Sé',
-        description: '10% DE DESCONTO ALGUM DIA',
-        pontos: '30',
-    },
-    {
-        id: '3',
-        title: 'Algum Restaurante',
-        description: '20% DE DESCONTO SE NÃO TIVER CORONGA',
-        pontos: '20'
-    }
-
-];
+import api from './services/api';
 
 export default class ChoseCupons extends Component {
     state= {
         pontos: '',
+        cuponsList: [],
     }
     async componentDidMount(){
         this.setState({
             pontos: await AsyncStorage.getItem('@Point')
         }) 
+            try{
+                const response = await api.get('/user-coupons') ;
+                this.setState({cuponsList: response.data})
+            } catch (response){
+            //this.setState({errorMessage: response.data.error });     
+            //console.log(response)   
+            this.setState({load:false})
+            alert("Problemas para carregar cupons, feche o App para solucionar")
+        } 
     }
     setCupon = ()=>{
         this.props.navigation.navigate('Pick');
@@ -46,16 +36,16 @@ export default class ChoseCupons extends Component {
             <Icon2 name ='coins' color = '#006300' style = {styles.Coin}/>
             <Text style = {styles.Points}>{this.state.pontos} Points</Text>       
             <FlatList
-                data={DATA}
+                data={this.state.cuponsList}
                 renderItem={({ item }) =>   <TouchableOpacity style = {styles.main} onPress = {() => {this.props.navigation.navigate('Pick', item.id)}}> 
                                                 <View style = {styles.terte}>
                                                     {/* Logo da Empresa */ }
                                                     <View style = {styles.compLogo}/>
                                                     {/* Info do Cupom */}
                                                     <View style = {styles.stats}>
-                                                        <Text style = {styles.title}>{item.title}</Text>
+                                                        <Text style = {styles.title}>{item.name}</Text>
                                                         <Text style = {styles.description}> {item.description} </Text>
-                                                        <Text style = {styles.cost}>{item.pontos} Points</Text> 
+                                                        <Text style = {styles.cost}>{item.points} Points</Text> 
                                                     </View>
                                                 </View>
                                             </TouchableOpacity> }
@@ -68,7 +58,7 @@ export default class ChoseCupons extends Component {
 
 const styles = StyleSheet.create({
     main:{
-        marginTop: wp('5%'),
+        marginTop: wp('1%'),
         backgroundColor: '#fff',
         height: hp('15%'),
         width: wp('85%'),
@@ -121,6 +111,7 @@ const styles = StyleSheet.create({
     Points:{
         alignSelf: 'center',
         fontSize: wp('8%'),
-        marginTop: wp('2%')
+        marginTop: wp('2%'),
+        marginBottom: wp('2%')
     }
 })

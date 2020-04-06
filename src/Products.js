@@ -14,13 +14,13 @@ import api from './services/api';
 import LoadingScreen from './components/LoadingScreen';
 import Icon from 'react-native-vector-icons/Entypo'
 
-const DATA =[
+/*const DATA =[
     {
         id: '1',
         title : 'QRUP 1',
         pontos: '30',
     },
-];
+];*/
 
 export default class Products extends Component {
     Scan = () =>{
@@ -28,6 +28,9 @@ export default class Products extends Component {
     }
     Terte =() =>{
         alert("Testando Botão")
+    }
+    state = {
+        cupsList: []
     }
 
     constructor(props) {
@@ -39,7 +42,7 @@ export default class Products extends Component {
             user_id:'',
             insertCode: false,
             load: false,
-            token: ''
+            token: '',            
         };
       }
       async componentDidMount(){
@@ -47,6 +50,16 @@ export default class Products extends Component {
             user_id:  await AsyncStorage.getItem('@Qrup:u_id'),
             token: await AsyncStorage.getItem('@Qrup:token')
         })
+        try{
+            const response = await api.get('/users/'+this.state.user_id+'/cups') ;
+            this.setState({cupsList: response.data})
+            console.log(this.state.cupsList);
+        } catch (response){
+            //this.setState({errorMessage: response.data.error });     
+            console.log(response)   
+            this.setState({load:false})
+            alert("Problemas para carregar copos, feche o App para solucionar")
+        } 
     }
     onTextInsert = async() =>{
         if (this.state.qr.length === 0 ){
@@ -111,7 +124,7 @@ export default class Products extends Component {
                 <Icon name ='cup' color = '#006300' style = {styles.Cup}/>
                 <Text style = {styles.Qrup}>QRUPs</Text>   
                 <FlatList
-                    data={DATA}
+                    data={this.state.cupsList}
                     renderItem={({ item }) =>   <TouchableOpacity style = {styles.main}> 
                                                     <View style = {styles.terte}>
                                                         {/* Logo da Empresa */ }
@@ -120,11 +133,11 @@ export default class Products extends Component {
                                                         </View>
                                                         {/* Info do Cupom */}
                                                         <View style = {styles.stats}>
-                                                            <Text style = {styles.title}>{item.title}</Text>
+                                                            <Text style = {styles.title}>{item.description}</Text>
                                                         </View>
                                                     </View>
                                                 </TouchableOpacity> }
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.qr}
                 />  
                     <Modal
                         transparent = {true}

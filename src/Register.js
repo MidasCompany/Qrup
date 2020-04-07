@@ -95,7 +95,7 @@ export default class Register extends React.Component {
       'eye-off';
 
     return (
-      <Icon2 size={24} name={name}  color='white' onPress={this.onAccessoryPress}/>
+      <Icon2 size={24} name={name}  color='#01A83E' onPress={this.onAccessoryPress}/>
     );
   }
 
@@ -120,143 +120,141 @@ export default class Register extends React.Component {
   }
   render() {
   return (
-    <ScrollView style = {{ backgroundColor: "#006300"}}>      
-        <View style = {styles.main}>          
-          <TouchableOpacity style = {{marginLeft: wp('5%'), marginTop: wp('5%')}} onPress={()=>this.props.navigation.navigate('Login')}>
-              <Icon name = "md-arrow-round-back" color = "white" size = {wp('10%')}/>
-          </TouchableOpacity>   
-          <Image source = {Logo} style={styles.Logo}/>
-          <Text style={styles.text}> QRUP</Text>
-          <View style = {styles.field}>
-            <TextField
-              style={styles.input}
-              label = 'Nome'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              lineWidth = {2}
-              fontSize = {17}
-              onSubmitEditing={() => { this.email.focus(); }}
-              onChangeText = {user =>{(this.setState({user}))}}
-            />
-            <TextField
-              style={styles.input}
-              ref={(input) => { this.email= input; }}
-              label = 'E-mail'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              lineWidth = {2}
-              fontSize = {17}
-              autoCapitalize ='none'
-              onSubmitEditing={() => { this.password.focus(); }}              
-              onChangeText = {email =>{(this.setState({email}))}}
-            />            
-            <TextField
-              style={styles.input}
-              ref={(input) => { this.password= input; }}
-              label = 'Senha'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              secureTextEntry = {this.state.secureTextEntry}
-              lineWidth = {2}
-              autoCapitalize = 'none'
-              fontSize = {17}
-              onSubmitEditing={() => { this.confirm.focus(); }}              
-              onChangeText = {password =>{(this.setState({password}))}}
-              renderRightAccessory = {this.renderPasswordAccessory}
-            />
-            {/*<TextField
-              style={styles.input}
-              ref={(input) => { this.confirm= input; }}
-              label = 'Confirme sua Senha'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              lineWidth = {2}
-              secureTextEntry = {true}
-              fontSize = {17}
-              onSubmitEditing={() => { this.phone.focus(); }}
-            /> */} 
-            <TextField
-              style={styles.input}
-              ref={(input) => { this.phone = input; }}
-              label = 'Telefone'
-              keyboardType = 'phone-pad'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              lineWidth = {2}
-              fontSize = {17}
-              onSubmitEditing={() => { this.cpf.focus(); }}           
-              formatText={value => this._addMaskContactBr(value)}
-            />            
-            <TextField
-              style={styles.input}
-              ref={(input) => { this.cpf = input; }}
-              label = 'CPF'
-              keyboardType = 'phone-pad'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              lineWidth = {2}
-              fontSize = {17}
-              onSubmitEditing={() => {this.showPicker()}}
-              onChangeText = {cpf =>{(this.setState({cpf}))}}
-              formatText = {value =>this.cpfMask(value)}
-            />             
-           { /*<TextField
-              style={styles.input}
-              ref={(input) => { this.birth = input; }}
-              onFocus = {() => {this.showPicker}}
-              label = 'Nascimento'
-              keyboardType = 'phone-pad'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              lineWidth = {2}
-              fontSize = {17}
-              onSubmitEditing={() => { this.cpf.focus(); }}
-           /> */}
-            {/*<TouchableOpacity 
-                style ={styles.birthDate2}
-                onPress ={()=>this.showPicker()} >
-                <Text
-                    style ={ styles.birthDate1}>
-                        {this.state.birhtDate}
-                </Text>
-            </TouchableOpacity>*/}
-            <TextField
-              style={styles.input}
-              ref={(input) => { this.cpf = input; }}
-              label = 'Aniversário'
-              keyboardType = 'phone-pad'
-              tintColor = 'rgb(255,255,255)'
-              baseColor = 'rgba(255,255,255,1)'
-              textColor = 'rgba(255,255,255,1)'
-              lineWidth = {2}
-              fontSize = {17}
-              placeholder = {this.state.birhtDate}
-              onFocus = {()=>this.showPicker()}
-            />  
-            <DateTimePicker
-                isVisible={this.state.isVisible}
-                onConfirm={this.handlePicker}
-                onCancel={this.hidePicker}
-                mode = {'date'}
-            />   
-          </View>
-          <View style= {styles.divider}/>
-          <Button
-            type = 'outline'
-            title = 'Cadastrar'
-            titleStyle = {styles.btnLabel}
-            buttonStyle = {styles.btnLogin}
-            onPress = {()=>this.Cadastra()}
-          /> 
-        </View>
-    </ScrollView>  
+    <>
+      <View style = {{flexGrow:1, backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
+        <Text style={{fontSize: wp('4%'), color:'white', alignSelf:'center', marginHorizontal: wp('10%')}}> Faça seu cadastro para aproveitar os descontos dos parceiros participantes</Text>
+      </View>
+      <ScrollView style = {{ backgroundColor: "white"}}>         
+            <View style = {styles.field}>
+              <TextField
+                style={styles.input}
+                label = 'Nome'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                lineWidth = {2}
+                fontSize = {17}
+                onSubmitEditing={() => { this.email.focus(); }}
+                onChangeText = {user =>{(this.setState({user}))}}
+              />
+              <TextField
+                style={styles.input}
+                ref={(input) => { this.email= input; }}
+                label = 'E-mail'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                lineWidth = {2}
+                fontSize = {17}
+                autoCapitalize ='none'
+                onSubmitEditing={() => { this.password.focus(); }}              
+                onChangeText = {email =>{(this.setState({email}))}}
+              />            
+              <TextField
+                style={styles.input}
+                ref={(input) => { this.password= input; }}
+                label = 'Senha'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                secureTextEntry = {this.state.secureTextEntry}
+                lineWidth = {2}
+                autoCapitalize = 'none'
+                fontSize = {17}
+                onSubmitEditing={() => { this.confirm.focus(); }}              
+                onChangeText = {password =>{(this.setState({password}))}}
+                renderRightAccessory = {this.renderPasswordAccessory}
+              />
+              {/*<TextField
+                style={styles.input}
+                ref={(input) => { this.confirm= input; }}
+                label = 'Confirme sua Senha'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                lineWidth = {2}
+                secureTextEntry = {true}
+                fontSize = {17}
+                onSubmitEditing={() => { this.phone.focus(); }}
+              /> */} 
+              <TextField
+                style={styles.input}
+                ref={(input) => { this.phone = input; }}
+                label = 'Telefone'
+                keyboardType = 'phone-pad'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                lineWidth = {2}
+                fontSize = {17}
+                onSubmitEditing={() => { this.cpf.focus(); }}           
+                formatText={value => this._addMaskContactBr(value)}
+              />            
+              <TextField
+                style={styles.input}
+                ref={(input) => { this.cpf = input; }}
+                label = 'CPF'
+                keyboardType = 'phone-pad'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                lineWidth = {2}
+                fontSize = {17}
+                onSubmitEditing={() => {this.showPicker()}}
+                onChangeText = {cpf =>{(this.setState({cpf}))}}
+                formatText = {value =>this.cpfMask(value)}
+              />             
+            { /*<TextField
+                style={styles.input}
+                ref={(input) => { this.birth = input; }}
+                onFocus = {() => {this.showPicker}}
+                label = 'Nascimento'
+                keyboardType = 'phone-pad'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                lineWidth = {2}
+                fontSize = {17}
+                onSubmitEditing={() => { this.cpf.focus(); }}
+            /> */}
+              {/*<TouchableOpacity 
+                  style ={styles.birthDate2}
+                  onPress ={()=>this.showPicker()} >
+                  <Text
+                      style ={ styles.birthDate1}>
+                          {this.state.birhtDate}
+                  </Text>
+              </TouchableOpacity>*/}
+              <TextField
+                style={styles.input}
+                ref={(input) => { this.cpf = input; }}
+                label = 'Aniversário'
+                keyboardType = 'phone-pad'
+                tintColor = 'rgba(1, 168, 62, 1)'
+                baseColor = 'rgba(1, 168, 62, 1)'
+                textColor = 'rgba(1, 168, 62, 1)'
+                lineWidth = {2}
+                fontSize = {17}
+                placeholder = {this.state.birhtDate}
+                onFocus = {()=>this.showPicker()}
+              />  
+              <DateTimePicker
+                  isVisible={this.state.isVisible}
+                  onConfirm={this.handlePicker}
+                  onCancel={this.hidePicker}
+                  mode = {'date'}
+              />   
+            </View>
+            <View style= {styles.divider}/>
+            <Button
+              type = 'outline'
+              title = 'Cadastrar'
+              titleStyle = {styles.btnLabel}
+              buttonStyle = {styles.btnLogin}
+              onPress = {()=>this.Cadastra()}
+            /> 
+      </ScrollView>  
+    </>
   );
   }
 };
@@ -267,7 +265,7 @@ const styles = StyleSheet.create({
     height: wp('5%')
   },
   main: {
-    backgroundColor: '#006300',
+    backgroundColor: '#01A83E',
     flex:1
   },
 text:{
@@ -342,11 +340,11 @@ textMin2:{
 btnLogin:{
   marginTop: wp('5%'),
   alignSelf: 'center',
-  width: '80%',
-  backgroundColor: 'white',
+  width: '40%',
+  backgroundColor: '#01A83E',
 },
 btnLabel:{
-  color:'#006300',
-  fontSize: wp('5%'),
+  color:'white',
+  fontSize: wp('3%'),
 },
 });

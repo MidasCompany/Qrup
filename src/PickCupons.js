@@ -1,34 +1,46 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
-import qrup from '../Images/qrup_semroda_semsombra.png'
-import Icon from 'react-native-vector-icons/Ionicons'
-import Icon2 from 'react-native-vector-icons/FontAwesome5'
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';  
 import AsyncStorage from '@react-native-community/async-storage'  
-import Cupon from './components/Cupon'
+import QRCode from 'react-native-qrcode-svg'
+import QrupLogo from '../Images/qrup_semroda_semsombra.png'
 
 export default class PickCupons extends Component {
-    state= {
-        pontos: this.props.navigation.state.params
+    constructor (props){
+        super(props);
+        this.state={
+            cuponName: '',
+            cuponPoints: '',
+            cuponId : '',
+        }
+    }
+    async componentDidMount (){
+        console.log(this.props.navigation)
+        const cuponId = this.props.navigation.getParam('cuponId');
+        const cuponName = this.props.navigation.getParam('cuponName');
+        const cuponPoints = this.props.navigation.getParam('cuponPoints');
+        
+        this.setState({
+            cuponName: cuponName,
+            cuponPoints: cuponPoints,
+            cuponId: cuponId
+        })
     }
     render() {        
-        return (
-        <>         
+        return (         
             <View style = {styles.main}>     
-                <Text style = {styles.title}>Retiro da Sé</Text>
-                <View style = {styles.imageSim}></View>
-                <Text style = {styles.cost}>10 Points</Text>
-                <Text style = {styles.cuponTitle}>10% de Desconto na Coca</Text>
-                <Text style = {styles.description}>10% de Desconto na Coca, valido pra quando o Arnaldo perceber que ele é foda de mais</Text>
-                <Text style = {{marginBottom: -wp('10%'), fontSize : wp('4%'), marginTop: wp('5%')}}>Cupom: </Text>
-                <Text style = {styles.cupon}>RetiroCoca10Naldo</Text>
-                <TouchableOpacity></TouchableOpacity>
+                <Text style={styles.title}>{this.state.cuponName}</Text>
+                <Text style={styles.description}>Esse Cupom custa {this.state.cuponPoints}</Text>
+                <Text style = {{marginTop : wp('5%'), fontSize: wp('3.5%'), marginBottom: wp('5%'), alignSelf: 'center'}}>Apresente esse QRCode no caixa para receber seu desconto</Text>
+                <QRCode
+                    value = {this.state.cupxonId}
+                    size = {wp('40%')}
+                    color = '#006300'             
+                /> 
             </View>
-            <Text>{this.state.pontos}</Text>
-        </>
         )
     }
 }
@@ -47,7 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: wp('5%')
     },
     title:{
-        marginTop: wp('4,85409%'),
+        marginTop: wp('20%'),
         fontSize: wp('9,70818%')
     },
     cost: {

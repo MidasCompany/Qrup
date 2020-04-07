@@ -127,13 +127,16 @@ export default class Login extends React.Component {
                     onPress = {()=>this.Loga()}
                 /> 
                 <View style={styles.footer}>
-                  <TouchableOpacity 
-                      onPress = {()=>this.Cadastra()}>
-                    <Text style={styles.txtStyle}>Cadastre-se</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
+                  <View style ={{flexDirection: 'row'}}>
+                    <Text style ={{color: 'white',fontSize: wp('4,85409%'),	textAlign: "center",marginBottom: 20}}>Novo por aqui? </Text>
+                    <TouchableOpacity 
+                        onPress = {()=>this.Cadastra()}>
+                      <Text style={styles.txtStyle}>pressione aqui</Text>
+                    </TouchableOpacity>
+                  </View>
+                  {/*<TouchableOpacity>
                     <Text style = {styles.txtStyle}>Recupere Sua Senha</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity>*/}
                 </View>
           </View>
     </>
@@ -157,7 +160,8 @@ const styles = StyleSheet.create({
 		color: 'white',
 		fontSize: wp('4,85409%'),
 		textAlign: "center",
-		marginBottom: 20
+    marginBottom: 20,
+    textDecorationLine: 'underline',
 	},  
 	Logo:{
 		marginTop: 20,

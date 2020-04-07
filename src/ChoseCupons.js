@@ -7,7 +7,14 @@ import {
   } from 'react-native-responsive-screen';  
 import AsyncStorage from '@react-native-community/async-storage'  
 import api from './services/api';
-
+const Data = [
+    {
+        id: 1,
+        name: 'sicaralho',
+        description: 'avadaocú',
+        points: '500'
+    }
+]
 export default class ChoseCupons extends Component {
     state= {
         pontos: '',
@@ -37,7 +44,11 @@ export default class ChoseCupons extends Component {
             <Text style = {styles.Points}>{this.state.pontos} Points</Text>       
             <FlatList
                 data={this.state.cuponsList}
-                renderItem={({ item }) =>   <TouchableOpacity style = {styles.main} onPress = {() => {this.props.navigation.navigate('Pick', item.id)}}> 
+                renderItem={({ item }) =>   <TouchableOpacity style = {styles.main} 
+                                             onPress = {() => {this.props.navigation.navigate('Pick', {cuponId: item.id,
+                                                                                                       cuponName: item.name,
+                                                                                                       cuponPoints: item.points
+                                                                                                       })}}> 
                                                 <View style = {styles.terte}>
                                                     {/* Logo da Empresa */ }
                                                     <View style = {styles.compLogo}/>

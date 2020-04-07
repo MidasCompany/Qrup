@@ -60,10 +60,10 @@ const Qrups = createStackNavigator (
 const User = createMaterialTopTabNavigator(
         {
             Profile: { screen: ProfileNav,
-                    navigationOptions: {
-                        tabBarLabel: 'Perfil',
-                        tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')}/>)
-                    }
+                      navigationOptions: {
+                          tabBarLabel: 'Perfil',
+                          tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')}/>)
+                      }
             },
             Cupons: { screen: cupon,
                         navigationOptions:{
@@ -103,14 +103,31 @@ const User = createMaterialTopTabNavigator(
 );
 const Main = createStackNavigator(
   {
-    Login: Login,
-    Register: Register
+    Login: {
+      screen: Login,
+      navigationOptions:{
+        headerVisible: false,
+        headerShown: false
+      }
+    },
+    Register: {
+      screen: Register,
+      navigationOptions:{
+        headerTintColor: 'white',
+        title: 'Cadastro',
+        headerStyle:{
+          backgroundColor: '#01A83E',
+          elevation: 0,
+        },
+        headerBackImage:(<Icon name='ios-arrow-back' size={ wp('10%')} color='white' style = {{marginLeft: wp('2%')}} />),
+        headerTitleStyle: {
+          fontSize: wp('7%')
+        }
+      }
+    },
   },{
     initialRouteName: 'Login',
-    headerMode: 'none',
-    navigationOptions: {
-     headerVisible: false,
-    }
+    
   }  
 );
 export default createAppContainer (
@@ -119,7 +136,7 @@ export default createAppContainer (
           User: User
         },
         {
-          initialRouteName: 'User',
+          initialRouteName: 'Login',
           headerMode: 'none',
           navigationOptions: {
            headerVisible: false,

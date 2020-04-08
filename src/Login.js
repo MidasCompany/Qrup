@@ -31,7 +31,7 @@ export default class Login extends React.Component {
         password:'',
         errorMessage: null,
         load: false,
-        secureTextEntry: false      
+        secureTextEntry: true      
     };
   }
   async componentDidMount(){
@@ -48,7 +48,8 @@ export default class Login extends React.Component {
       try{
         const response = await api.post('/sessions',{
           email: this.state.email,
-          password: this.state.password
+          password: this.state.password,
+          type: 'user'
         }) ;
           await AsyncStorage.setItem('@Qrup:token',response.data.token )
           await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
@@ -58,7 +59,7 @@ export default class Login extends React.Component {
       } catch (response){
         //this.setState({errorMessage: response.data.error });     
         console.log(response)   
-         this.setState({load:false})
+        this.setState({load:false})
         alert("Credenciais não conferem")
       }                        
     }   

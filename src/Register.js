@@ -73,7 +73,6 @@ export default class Register extends React.Component {
       } else {
         contact = (contact.length > 1 ? "(" : "")+contact.substring(0, 2) + (contact.length > 2 ? ")" : "")+(contact.length > 2 ? " " : "") + contact.substring(3,2) + (contact.length > 3 ? " " : "") + contact.substring(3, 7) + (contact.length > 7 ? "-" : "") + contact.substring(7, 12);
       }
-      console.log(contact)
     } catch(e){
       this.setState({ contact: contact });
     }
@@ -122,7 +121,7 @@ export default class Register extends React.Component {
   return (
     <>
       <View style = {{flexGrow:1, backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
-        <Text style={{fontSize: wp('4%'), color:'white', alignSelf:'center', marginHorizontal: wp('10%')}}> Faça seu cadastro para aproveitar os descontos dos parceiros participantes</Text>
+        <Text style={{fontSize: wp('4%'), color:'white', marginHorizontal: wp('15%')}}> Faça seu cadastro para aproveitar os descontos dos parceiros participantes</Text>
       </View>
       <ScrollView style = {{ backgroundColor: "white"}}>         
             <View style = {styles.field}>
@@ -345,6 +344,6 @@ btnLogin:{
 },
 btnLabel:{
   color:'white',
-  fontSize: wp('3%'),
+  fontSize: wp('5%'),
 },
 });

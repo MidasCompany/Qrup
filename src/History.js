@@ -7,7 +7,7 @@ import {
   } from 'react-native-responsive-screen';
 import {Header} from 'react-native-elements'
 import ExtractCard from './components/ExtractCard'
-export default class Extract extends Component {
+export default class History extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -14,14 +14,13 @@ import api from './services/api';
 import LoadingScreen from './components/LoadingScreen';
 import Icon from 'react-native-vector-icons/Entypo'
 
-/*const DATA =[
+const DATA =[
     {
         id: '1',
-        title : 'QRUP 1',
+        description : 'QRUP 1',
         pontos: '30',
     },
-];*/
-
+];
 export default class Products extends Component {
     Scan = () =>{
         this.props.navigation.navigate('Add')
@@ -36,8 +35,7 @@ export default class Products extends Component {
     constructor(props) {
         super(props);    
         this.state = {
-            descryption: 'copo do dakkee',
-            type: '550ml',
+            description: '',
             qr:'',
             user_id:'',
             insertCode: false,
@@ -53,7 +51,7 @@ export default class Products extends Component {
         try{
             const response = await api.get('/users/'+this.state.user_id+'/cups') ;
             this.setState({cupsList: response.data})
-            console.log(this.state.cupsList);
+            //console.log(this.state.cupsList);
         } catch (response){
             //this.setState({errorMessage: response.data.error });     
             console.log(response)   
@@ -62,14 +60,14 @@ export default class Products extends Component {
         } 
     }
     onTextInsert = async() =>{
-        if (this.state.qr.length === 0 ){
-            alert('Insira o Código do Copo')
+        if (this.state.qr.length === 0 || this.state.description.length === 0){
+            alert('Preencha todos os campos para adicionar Copo')
           } else{ 
             this.setState({load:true})
             try{
               const response = await api.post('/users/'+this.state.user_id+'/cups',{
-                descryption : this.state.descryption,
-                type: this.state.type,
+                description : this.state.description,
+                type: '550ml',
                 qr: this.state.qr,
               },
               {
@@ -78,6 +76,7 @@ export default class Products extends Component {
                   }
               }) ;
               this.setState({load:false, insertCode: false})
+              this.componentDidMount();
             } catch (response){
               //this.setState({errorMessage: response.data.error });     
               console.log(response)   
@@ -146,13 +145,21 @@ export default class Products extends Component {
                     <LoadingScreen enabled = {this.state.load}/>
                     <View style = {styles.insertCode}>                            
                         <TextInput
-                            placeholder = {'Insert Your Qrup Code Here'}
+                            placeholder = {'Insira seu código Qrup Aqui'}
                             autoCapitalize = 'characters'
                             placeholderTextColor = '#006300'
                             style = {styles.inputCode}
                             onChangeText = {(qr)=>this.setState({qr})}
                             onSubmitEditing = {()=>this.onTextInsert()}
                         />
+                        <TextInput
+                            placeholder = {'De um nome para o seu Qrup'}
+                            autoCapitalize = 'characters'
+                            placeholderTextColor = '#006300'
+                            style = {styles.inputCode2}
+                            onChangeText = {(description)=>this.setState({description})}
+                            onSubmitEditing = {()=>this.onTextInsert()}
+                         />                        
                         <View style = {styles.buttons}>
                             <Button
                                 type = "solid"
@@ -225,7 +232,20 @@ const styles = StyleSheet.create({
     inputCode:{
         fontSize: wp('3%'),
         alignSelf: 'center',
-        marginTop: wp('95%'),
+        marginTop: wp('90%'),
+        backgroundColor: '#FFFFFF',
+        borderWidth: wp('0.3%'),
+        borderColor: '#006300',
+        width: wp('60%'),
+        justifyContent: 'center',
+        textAlign: 'center',
+        borderRadius: wp('1%'),
+        color: '#006300'
+    },
+    inputCode2:{
+        fontSize: wp('3%'),
+        alignSelf: 'center',
+        marginTop: wp('2%'),
         backgroundColor: '#FFFFFF',
         borderWidth: wp('0.3%'),
         borderColor: '#006300',

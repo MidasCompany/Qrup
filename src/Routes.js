@@ -8,8 +8,11 @@ import Profile from './Profile'
 import Products from './Products'
 import ChoseCupons from './ChoseCupons'
 import PickCupons from './PickCupons'
-import Extract from './Extract'
+import AllHistory from './History/AllHistory'
+import UsedHistory from './History/UsedHistory'
+import WonHistory from './History/WonHistory'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -18,15 +21,61 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import Icon3 from 'react-native-vector-icons/Entypo'
 
+const History = createMaterialTopTabNavigator({
+        Todos: AllHistory,
+        Ganhos: UsedHistory,
+        Usados: WonHistory
+    },{
+      initialRouteName: 'Todos',
+      tabBarOptions:{
+        activeTintColor: 'white',
+        style:{
+            backgroundColor: '#01A83E',
+            height: hp('7%')
+        },
+        labelStyle:{
+            fontSize: wp('3.5%'),
+            marginTop: -wp('2%'),
+            fontWeight:'bold'
+        },
+        indicatorStyle:{
+            backgroundColor: '#ffffff',
+            height: wp('1%'),
+        },
+        showIcon: true,
+    }
+})
+
 const ProfileNav = createStackNavigator({
-        MainProf:Profile,
-        Extract: Extract
+        MainProf: {
+          screen:Profile,
+          navigationOptions:{
+            headerVisible: false,
+            headerShown: false
+          }
+        },
+        History: {
+          screen:History,
+          navigationOptions:{
+            headerTintColor: 'white',
+            title: 'Histórico',
+            headerStyle:{
+              backgroundColor: '#01A83E',
+              elevation: 0,
+            },
+            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' style = {{marginLeft: wp('2%'), marginTop:wp('5%')}} />),
+            headerTitleContainerStyle:{
+              justifyContent:'center'
+            },
+            headerTitleStyle: {
+              fontSize: wp('7%'),
+              marginTop: wp('5%'),
+              marginLeft: -wp('4%')
+            },
+          }
+        }
     },{
       initialRouteName: 'MainProf',
-      headerMode:'none',
-      navigationOptions: {
-        headerVisible: false
-      }
     }
 
 );
@@ -62,17 +111,20 @@ const User = createMaterialTopTabNavigator(
             Profile: { screen: ProfileNav,
                       navigationOptions: {
                           tabBarLabel: 'Perfil',
+                          title: 'Perfil',
                           tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')}/>)
                       }
             },
             Cupons: { screen: cupon,
                         navigationOptions:{
                             tabBarLabel: 'Cupons',
+                            title: 'Cupons',
                             tabBarIcon:({tintColor})=>(<Icon2 name='ticket-alt' size={ wp('5%')} color={tintColor} />)
                         } },
             Products: { screen: Qrups,
                         navigationOptions:{
                             tabBarLabel: 'Qrups',
+                            title: "Meus Qrup's",
                             tabBarIcon:({tintColor})=>(<Icon3 name="cup" size={wp('5%')} color={tintColor}/>)
                         }
                      },
@@ -85,7 +137,7 @@ const User = createMaterialTopTabNavigator(
                 activeTintColor: 'white',
                 inactiveTintColor: '#004832',
                 style:{
-                    backgroundColor: '#006300',
+                    backgroundColor: '#01A83E',
                     height: hp('7%')
                 },
                 labelStyle:{
@@ -98,7 +150,7 @@ const User = createMaterialTopTabNavigator(
                 },
                 showIcon: true,
             },
-            shifting: true
+            shifting: true,
           }
 );
 const Main = createStackNavigator(
@@ -119,10 +171,15 @@ const Main = createStackNavigator(
           backgroundColor: '#01A83E',
           elevation: 0,
         },
-        headerBackImage:(<Icon name='ios-arrow-back' size={ wp('10%')} color='white' style = {{marginLeft: wp('2%')}} />),
+        headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' style = {{marginLeft: wp('2%'), marginTop:wp('5%')}} />),
+        headerTitleContainerStyle:{
+          justifyContent:'center'
+        },
         headerTitleStyle: {
-          fontSize: wp('7%')
-        }
+          fontSize: wp('7%'),
+          marginTop: wp('5%'),
+          marginLeft: -wp('4%')
+        },
       }
     },
   },{

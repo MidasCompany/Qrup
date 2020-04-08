@@ -53,8 +53,8 @@ export default class Profile extends Component {
                     <Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>
                     <View style = {styles.Butons}>
                         <TouchableOpacity 
-                            onPress = {()=>this.props.navigation.navigate('Extract')}>
-                            <Text style = {styles.btnTxt}>Extrato</Text>
+                            onPress = {()=>this.props.navigation.navigate('History')}>
+                            <Text style = {styles.btnTxt}>Histórico</Text>
                             <Text style = {styles.subTxt}>Pontos Ganhos e Pontos Gastos</Text>
                         </TouchableOpacity>
                     </View>    

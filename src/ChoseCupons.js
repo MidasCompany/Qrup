@@ -10,8 +10,8 @@ import api from './services/api';
 const Data = [
     {
         id: 1,
-        name: 'sicaralho',
-        description: 'avadaocú',
+        name: 'Empresa 1',
+        description: 'Cupon de Desconto',
         points: '500'
     }
 ]

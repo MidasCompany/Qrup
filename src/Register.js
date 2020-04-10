@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Alert
+  ToastAndroid
 } from 'react-native';
 import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
@@ -20,6 +20,7 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import {Button} from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
 import api from './services/api'
+import LoadingScreen from './components/LoadingScreen';
 export default class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +36,8 @@ export default class Register extends React.Component {
         birhtDate: '',
         password: '',
         contact: '',
-        secureTextEntry: true  
+        secureTextEntry: true  ,
+        load: false
     };
   }  
   Login = () => {
@@ -44,8 +46,9 @@ export default class Register extends React.Component {
   Cadastra = async () => {
     if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.cpf.length === 0 || this.state.contact.length === 0 ){
       Alert.alert('Campo Vazio')
-    } else{ 
-    console.log('SICARALHO')   
+    } else{       
+      this.setState({load:true})
+      console.log('SICARALHO')   
       try{
         const response = await api.post('/users',{
           email: this.state.email,
@@ -56,11 +59,20 @@ export default class Register extends React.Component {
           contact: this.state.contact
         }) ;
           Alert.alert('Cadastro Efetuado com Sucesso')
+          this.setState({load:false})
           this.props.navigation.navigate('Login')
       } catch (response){
         //this.setState({errorMessage: response.data.error });
         console.log(response)
-        Alert.alert("Cadastro não efetuado com sucesso, virifique seus dados")
+        this.setState({load:false})
+        ToastAndroid.showWithGravityAndOffset(
+          'Cadastro não efetuado com sucesso, virifique seus dados',
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          0,
+          200,
+        );
+        
       }                        
     }   
   } 
@@ -119,7 +131,8 @@ export default class Register extends React.Component {
   }
   render() {
   return (
-    <>
+    <>    
+      <LoadingScreen enabled = {this.state.load}/>
       <View style = {{flexGrow:1, backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
         <Text style={{fontSize: wp('4%'), color:'white', marginHorizontal: wp('15%')}}> Faça seu cadastro para aproveitar os descontos dos parceiros participantes</Text>
       </View>

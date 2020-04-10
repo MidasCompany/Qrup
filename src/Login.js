@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  ToastAndroid
 } from 'react-native';
 import {Button} from 'react-native-elements'
 import Logo from '../Images/qrup_semroda_semsombra.png'
@@ -17,7 +18,6 @@ import { TextField } from 'react-native-material-textfield';
 import Icon from 'react-native-vector-icons/Feather'
 import api from './services/api';
 import LoadingScreen from './components/LoadingScreen';
-import LinearGradient from 'react-native-linear-gradient'
 
 export default class Login extends React.Component {  
   constructor(props) {
@@ -35,7 +35,7 @@ export default class Login extends React.Component {
     };
   }
   async componentDidMount(){
-    const user = await AsyncStorage.getItem('@User')
+    const user = await AsyncStorage.getItem('@Qrup:user')
     if (user){
       this.props.navigation.navigate('User')
     }
@@ -53,14 +53,24 @@ export default class Login extends React.Component {
         }) ;
           await AsyncStorage.setItem('@Qrup:token',response.data.token )
           await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
-          await AsyncStorage.setItem('@Qrup:u_id', response.data.user.id)
+          await AsyncStorage.setItem('@Qrup:u_id', response.data.user.id)          
+          await AsyncStorage.setItem('@Qrup:u_contact', JSON.stringify(response.data.user.contact))
+          await AsyncStorage.setItem('@Qrup:u_avatar_id', JSON.stringify(response.data.user.avatar_id))
+          await AsyncStorage.setItem('@Qrup:u_points', JSON.stringify(response.data.user.points.total))
+          await AsyncStorage.setItem('@Qrup:u_bday', JSON.stringify(response.data.user.birth))
           this.setState({load:false})
           this.props.navigation.navigate('User')
       } catch (response){
         //this.setState({errorMessage: response.data.error });     
-        console.log(response)   
+        console.log(response)
         this.setState({load:false})
-        alert("Credenciais não conferem")
+        ToastAndroid.showWithGravityAndOffset(
+          'Credenciais não conferem',
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          0,
+          200,
+        );
       }                        
     }   
   }

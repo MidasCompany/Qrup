@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, FlatList, TouchableOpacity, Image} from 'react-native'
+import { Text, StyleSheet, View, TextInput, FlatList, TouchableOpacity, ToastAndroid} from 'react-native'
 import QrupLogo from '../Images/qrup_semroda_semsombra.png'
 import {Button} from 'react-native-elements'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
@@ -19,6 +19,7 @@ const DATA =[
         id: '1',
         description : 'QRUP 1',
         pontos: '30',
+        qr:'alefrango29'
     },
 ];
 export default class Products extends Component {
@@ -40,24 +41,52 @@ export default class Products extends Component {
             user_id:'',
             insertCode: false,
             load: false,
-            token: '',            
+            token: '',  
+            will_update: null   ,
+            refreshing: false       
         };
-      }
-      async componentDidMount(){
-        this.setState ({
-            user_id:  await AsyncStorage.getItem('@Qrup:u_id'),
-            token: await AsyncStorage.getItem('@Qrup:token')
-        })
+    }
+    async loadProducts (){
         try{
-            const response = await api.get('/users/'+this.state.user_id+'/cups') ;
-            this.setState({cupsList: response.data})
+            const response = await api.get('/users/'+this.state.user_id+'/cups',
+            {
+                headers:{
+                    Authorization : "Bearer " + this.state.token
+                }
+            }) ;
+            console.log(response)
+            this.setState({cupsList: response.data, refreshing:false})
             //console.log(this.state.cupsList);
         } catch (response){
             //this.setState({errorMessage: response.data.error });     
             console.log(response)   
-            this.setState({load:false})
-            alert("Problemas para carregar copos, feche o App para solucionar")
-        } 
+            this.setState({load:false, refreshing:false})
+            ToastAndroid.showWithGravityAndOffset(
+                'Problema para carregar os copos',
+                ToastAndroid.SHORT,
+                ToastAndroid.BOTTOM,
+                0,
+                200,
+            );
+        }
+    }
+    async componentDidMount(){
+        this.setState ({
+            user_id:  await AsyncStorage.getItem('@Qrup:u_id'),
+            token: await AsyncStorage.getItem('@Qrup:token')
+        })
+        this.state.will_focus = this.props.navigation.addListener('willFocus', async () => {             
+        })
+    }
+
+    handleRefresh = ()=>{
+        this.setState({
+            refreshing: true
+        })
+        this.loadProducts()
+    }
+    async componentWillUnmount(){
+        this.state.will_focus.remove();
     }
     onTextInsert = async() =>{
         if (this.state.qr.length === 0 || this.state.description.length === 0){
@@ -76,7 +105,7 @@ export default class Products extends Component {
                   }
               }) ;
               this.setState({load:false, insertCode: false})
-              this.componentDidMount();
+              this.loadProducts();
             } catch (response){
               //this.setState({errorMessage: response.data.error });     
               console.log(response)   
@@ -107,83 +136,87 @@ export default class Products extends Component {
           icon:  <Icon2 name="create" style={styles.actionButtonIcon}/>,
           name: "pen",
           position: 1,
-          color: '#006300'
+          color: '#01A83E'
         },
         {
           text: "Escanear Código",
           icon: <Icon2 name="add-a-photo" style={styles.actionButtonIcon}/>,
           name: "scan",
           position: 2,
-          color: '#006300'
+          color: '#01A83E'
         },
       ];
     render() {        
         return (
             <>     
-                <Icon name ='cup' color = '#006300' style = {styles.Cup}/>
-                <Text style = {styles.Qrup}>QRUPs</Text>   
-                <FlatList
-                    data={this.state.cupsList}
-                    renderItem={({ item }) =>   <TouchableOpacity style = {styles.main}> 
-                                                    <View style = {styles.terte}>
-                                                        {/* Logo da Empresa */ }
-                                                        <View style = {styles.qrupIcon}>
-                                                            <Image source = {QrupLogo} style = {{height: hp('7%'), width: wp('10%'), alignSelf: 'center', justifyContent: 'center'}}/>
+                <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
+                    <Text  style = {{marginVertical: wp('5%'), fontSize: wp('7%'), color:'white'}}>Meus Qrup's</Text>
+                    <Text style = {{fontSize: wp('4%'), color:'white', marginBottom: wp('3.5%')}}> Seus qrups cadastrados ficam aqui</Text>
+                </View>
+                <View style ={{marginTop: -wp('1%'),height: hp('75%'), backgroundColor: '#f5f5f5'}}> 
+                    <FlatList
+                        data={this.state.cupsList}
+                        //data = {DATA}
+                        renderItem={({ item }) =>   <TouchableOpacity style = {styles.main}> 
+                                                        <View style = {styles.terte}>
+                                                            <Icon size={wp('8%')} name= 'cup'  color='#01A83E' style ={{marginLeft: wp('4%')}}/>
+                                                            <View style = {styles.stats}>
+                                                                <Text style = {{marginTop: -wp('1%'), fontSize: wp('5%')}}>{item.description}</Text>
+                                                                <Text style = {{fontSize: wp('3%')}}>{item.qr}</Text>
+                                                            </View>
                                                         </View>
-                                                        {/* Info do Cupom */}
-                                                        <View style = {styles.stats}>
-                                                            <Text style = {styles.title}>{item.description}</Text>
-                                                        </View>
-                                                    </View>
-                                                </TouchableOpacity> }
-                    keyExtractor={item => item.qr}
-                />  
-                    <Modal
-                        transparent = {true}
-                        visible = {this.state.insertCode}
-                    >
-                    <LoadingScreen enabled = {this.state.load}/>
-                    <View style = {styles.insertCode}>                            
-                        <TextInput
-                            placeholder = {'Insira seu código Qrup Aqui'}
-                            autoCapitalize = 'characters'
-                            placeholderTextColor = '#006300'
-                            style = {styles.inputCode}
-                            onChangeText = {(qr)=>this.setState({qr})}
-                            onSubmitEditing = {()=>this.onTextInsert()}
-                        />
-                        <TextInput
-                            placeholder = {'De um nome para o seu Qrup'}
-                            autoCapitalize = 'characters'
-                            placeholderTextColor = '#006300'
-                            style = {styles.inputCode2}
-                            onChangeText = {(description)=>this.setState({description})}
-                            onSubmitEditing = {()=>this.onTextInsert()}
-                         />                        
-                        <View style = {styles.buttons}>
-                            <Button
-                                type = "solid"
-                                title = "Cancel"                                    
-                                buttonStyle = {styles.btn}
-                                onPress = {()=>this.alterMode()}
+                                                    </TouchableOpacity> }
+                        keyExtractor={item => item.qr}                        
+                        refreshing = {this.state.refreshing}
+                        onRefresh ={this.handleRefresh}
+                    />  
+                        <Modal
+                            transparent = {true}
+                            visible = {this.state.insertCode}
+                        >
+                        <LoadingScreen enabled = {this.state.load}/>
+                        <View style = {styles.insertCode}>                            
+                            <TextInput
+                                placeholder = {'Insira seu código Qrup Aqui'}
+                                autoCapitalize = 'characters'
+                                placeholderTextColor = '#006300'
+                                style = {styles.inputCode}
+                                onChangeText = {(qr)=>this.setState({qr})}
+                                onSubmitEditing = {()=>this.onTextInsert()}
                             />
-                            <Button
-                                type = "solid"
-                                title = "Ok"
-                                buttonStyle = {styles.btn}
-                                onPress = {()=> this.onTextInsert()}
-                            />
+                            <TextInput
+                                placeholder = {'De um nome para o seu Qrup'}
+                                autoCapitalize = 'characters'
+                                placeholderTextColor = '#006300'
+                                style = {styles.inputCode2}
+                                onChangeText = {(description)=>this.setState({description})}
+                                onSubmitEditing = {()=>this.onTextInsert()}
+                            />                        
+                            <View style = {styles.buttons}>
+                                <Button
+                                    type = "solid"
+                                    title = "Cancel"                                    
+                                    buttonStyle = {styles.btn}
+                                    onPress = {()=>this.alterMode()}
+                                />
+                                <Button
+                                    type = "solid"
+                                    title = "Ok"
+                                    buttonStyle = {styles.btn}
+                                    onPress = {()=> this.onTextInsert()}
+                                />
+                            </View>
                         </View>
-                    </View>
-                   </Modal>                      
-                <FloatingAction
-                    actions={this.actions}
-                    onPressItem={name => {
-                        this.func[name]()
-                    }}
-                    color= '#006300'
-                    dismissKeyboardOnPress = {true}
-                 />
+                    </Modal>                      
+                    <FloatingAction
+                        actions={this.actions}
+                        onPressItem={name => {
+                            this.func[name]()
+                        }}
+                        color= '#01A83E'
+                        dismissKeyboardOnPress = {true}
+                    />
+                </View>
             </>
         )
     }
@@ -196,18 +229,7 @@ const styles = StyleSheet.create({
     },
     ad:{
         fontSize: wp('15%'),
-    },
-    /*adView:{
-        marginTop: hp('80%'),
-        width: wp('20%'),
-        height: hp('9%'),
-        //backgroundColor: 'red',
-        alignContent: 'center',
-        alignContent: 'flex-end',
-        alignSelf: 'flex-end',
-        textAlignVertical: 'center',
-        resizeMode: 'contain'
-    },*/    
+    },   
     Cup:{
         alignSelf: 'center',
         marginTop: wp('10%'),
@@ -267,20 +289,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#006300',
         width: wp('20%'),
 		alignSelf: 'center'
-    }, main:{
+    }, 
+    main:{
         marginTop: wp('5%'),
         backgroundColor: '#fff',
-        height: hp('15%'),
+        height: hp('8%'),
         width: wp('85%'),
         borderRadius: wp('3%'),
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center',
         elevation: wp('3%'),
-        marginBottom: wp('5%')
+        marginBottom: wp('3%')
     },
     qrupIcon:{
-        backgroundColor: '#94a272',
         height: hp('9%'),
         width: wp('15%'),
         marginStart: wp('5%'),
@@ -289,7 +311,7 @@ const styles = StyleSheet.create({
     },
     title:{
         marginTop: wp('2%'),
-        fontSize: wp('6,47212%')
+        fontSize: wp('5%')
     },
     description:{
         //marginStart: wp('20%'),

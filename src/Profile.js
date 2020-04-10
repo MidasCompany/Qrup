@@ -8,10 +8,9 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-community/async-storage'  
 import {Button} from 'react-native-elements'
-import api from './services/api';
 
 export default class Profile extends Component {
     state={
@@ -24,21 +23,10 @@ export default class Profile extends Component {
         this.setState ({
             user:  await AsyncStorage.getItem('@Qrup:user'),       
             id: await AsyncStorage.getItem('@Qrup:u_id'),
-            token: await AsyncStorage.getItem('Qrup:token')
+            token: await AsyncStorage.getItem('@Qrup:token'),            
+            pontos: await AsyncStorage.getItem('@Qrup:u_points')
         })
-        try{
-            const response = await api.get('/users/'+this.state.id,{
-                headers:{
-                    Authorization : "Bearer " + this.state.token
-                }
-            }) ;
-              await AsyncStorage.setItem('@Qrup:u_points', response.data.points)
-              this.setState({load:false, pontos: await AsyncStorage.getItem('@Qrup:u_points')})
-              this.props.navigation.navigate('User')
-          } catch (response){
-            //this.setState({errorMessage: response.data.error });     
-            //console.log(response)   
-          }     
+        console.log(this.state.pontos)
     }
     Exit =async()=>{
         await AsyncStorage.clear();
@@ -46,11 +34,13 @@ export default class Profile extends Component {
     }
     render() {    
         return (
-            <View >             
+            <View style ={{backgroundColor: '#f5f5f5', height:hp('100%')}}>             
                 <View style= {styles.Perfil}>
-                    <Icon name = 'md-person'color ='#006300' style = {styles.Disgraca}/>
-                    <Text  style = {styles.nameDesg}>{this.state.user}</Text>
-                    <Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>
+                    <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
+                        <Icon name = 'user-circle'color ='white' style = {styles.Disgraca}/>
+                        <Text  style = {styles.nameDesg}>{this.state.user}</Text>
+                        <Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>
+                    </View>
                     <View style = {styles.Butons}>
                         <TouchableOpacity 
                             onPress = {()=>this.props.navigation.navigate('History')}>
@@ -59,7 +49,7 @@ export default class Profile extends Component {
                         </TouchableOpacity>
                     </View>    
                     <View style = {styles.Sbutons}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {()=>this.props.navigation.navigate('Edit')}>
                             <Text style = {styles.btnTxt}>Editar</Text>
                             <Text  style ={styles.subTxt}>Nome de Preferência, Telefone, Email</Text>                            
                         </TouchableOpacity>
@@ -70,14 +60,14 @@ export default class Profile extends Component {
                         </TouchableOpacity>
                     </View>           
                 </View>
-                <View>
-                <Button
-                    type = 'outline'
-                    title = 'Sair'
-                    titleStyle = {styles.btnLabel}
-                    buttonStyle = {styles.btnLogout}
-                    onPress = {()=>this.Exit()}
-                /> 
+                <View style = {{marginTop: wp('10%')}}> 
+                    <Button
+                        type = 'outline'
+                        title = 'Sair'
+                        titleStyle = {styles.btnLabel}
+                        buttonStyle = {styles.btnLogout}
+                        onPress = {()=>this.Exit()}
+                    /> 
                 </View>
             </View>            
         )
@@ -89,39 +79,39 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         alignContent: 'center',
+        backgroundColor: '#f5f5f5'
     },
     Disgraca:{ 
-        marginTop: wp('10%'),
+        marginTop: wp('3%'),
         fontSize: wp('35%'),
     },
     nameDesg:{
+        color:'white',
         marginTop:wp('5%'),
         fontSize: wp('6%'),
     },
     pontDesgr:{
-        fontFamily:'Roboto',
-        marginTop: wp('5%')
+        color:'white',
+        marginTop: wp('2%'),
+        fontSize:wp('5%'),
+        marginBottom: wp('2%')
     },
     Butons:{
         width: wp('90%'),
         marginTop:wp('5%'),
-        marginBottom: wp('2%'),
-        borderTopColor: '#707070',
-        borderBottomColor: '#707070',
-        borderWidth: wp('0.4%'),
-        borderLeftWidth: 0,
-        borderRightWidth: 0
+        marginBottom: wp('5%'),
+        borderRadius: wp('1%'),
+        backgroundColor: 'white',
+        elevation: 5
     },
     Sbutons:{        
         width: wp('90%'),
-       // marginTop:wp('5%'),
         marginBottom: wp('5%'),
-        //borderTopColor: '#707070',
-        borderBottomColor: '#707070',
-        borderWidth: wp('0.4%'),
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        borderTopWidth:0
+        elevation: 5,        
+        borderRadius: wp('1%'),
+        backgroundColor:'white',
+        height: wp('14%'),
+        justifyContent: 'center'
     },
     btnTxtnS:{
         fontSize: wp('4%'),

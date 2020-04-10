@@ -4,29 +4,24 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';  
-import AsyncStorage from '@react-native-community/async-storage'  
 import QRCode from 'react-native-qrcode-svg'
-import QrupLogo from '../Images/qrup_semroda_semsombra.png'
-
 export default class PickCupons extends Component {
     constructor (props){
         super(props);
         this.state={
             cuponName: '',
             cuponPoints: '',
-            cuponId : '',
         }
     }
     async componentDidMount (){
-        console.log(this.props.navigation)
-        const cuponId = this.props.navigation.getParam('cuponId');
+        const cuponId1 = JSON.stringify(this.props.navigation.getParam('cuponId'));
         const cuponName = this.props.navigation.getParam('cuponName');
         const cuponPoints = this.props.navigation.getParam('cuponPoints');
         
         this.setState({
             cuponName: cuponName,
             cuponPoints: cuponPoints,
-            cuponId: cuponId
+            cuponId: cuponId1,
         })
     }
     render() {        
@@ -34,11 +29,12 @@ export default class PickCupons extends Component {
             <View style = {styles.main}>     
                 <Text style={styles.title}>{this.state.cuponName}</Text>
                 <Text style={styles.description}>Esse Cupom custa {this.state.cuponPoints}</Text>
-                <Text style = {{marginTop : wp('5%'), fontSize: wp('3.5%'), marginBottom: wp('5%'), alignSelf: 'center'}}>Apresente esse QRCode no caixa para receber seu desconto</Text>
+                <Text style = {{marginTop : wp('5%'), fontSize: wp('3.5%'), marginBottom: wp('20%'), alignSelf: 'center', color:'white'}}>Apresente esse QRCode no caixa para receber seu desconto</Text>
                 <QRCode
-                    value = {this.state.cupxonId}
-                    size = {wp('40%')}
-                    color = '#006300'             
+                    value = {this.state.cuponId}
+                    size = {wp('70%')}
+                    color = 'white'             
+                    backgroundColor = '#01A83E'
                 /> 
             </View>
         )
@@ -48,36 +44,21 @@ export default class PickCupons extends Component {
 const styles = StyleSheet.create({
     main:{
         alignItems: 'center',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    imageSim:{
-        width: wp('76,04741%'),
-        height: hp('16,1803%'),
-        backgroundColor: '#F2F2F2',
-        alignSelf: 'center',
-        borderRadius: wp('5%')
+        //justifyContent: 'center',
+        alignItems: 'center',
+        height:hp('100%'), 
+        backgroundColor:'#01A83E',
     },
     title:{
         marginTop: wp('20%'),
-        fontSize: wp('9,70818%')
-    },
-    cost: {
-        marginTop: wp('4,85409%'),
-        fontSize: wp('6,47212%')
-    },
-    cuponTitle:{
-        marginTop: wp('3,23606%'),
-        fontSize: wp('4,85409%'),
-    },
+        fontSize: wp('9,70818%'),
+        color:'white',
+    },    
     description:{
         marginTop: wp('3,23606%'),
         fontSize: wp('3,23606%'),
         paddingHorizontal: wp('2%'),
         alignSelf:'center',
-    },
-    cupon:{
-        marginTop: wp('11,32621%'),
-        fontSize: wp('8%')
+        color:'white'
     }
 })

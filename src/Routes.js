@@ -12,7 +12,7 @@ import AllHistory from './History/AllHistory'
 import UsedHistory from './History/UsedHistory'
 import WonHistory from './History/WonHistory'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import EditProfile  from './EditProfile'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -50,8 +50,19 @@ const ProfileNav = createStackNavigator({
         MainProf: {
           screen:Profile,
           navigationOptions:{
-            headerVisible: false,
-            headerShown: false
+            headerTintColor: 'white',
+            title: 'Perfil',
+            headerStyle:{
+              backgroundColor: '#01A83E',
+              elevation: 0,
+            },
+            headerTitleContainerStyle:{
+              justifyContent:'center'
+            },
+            headerTitleStyle: {
+              fontSize: wp('7%'),
+              marginTop: wp('5%'),
+            },
           }
         },
         History: {
@@ -63,13 +74,33 @@ const ProfileNav = createStackNavigator({
               backgroundColor: '#01A83E',
               elevation: 0,
             },
-            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' style = {{marginLeft: wp('2%'), marginTop:wp('5%')}} />),
+            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' />),
             headerTitleContainerStyle:{
               justifyContent:'center'
             },
             headerTitleStyle: {
               fontSize: wp('7%'),
-              marginTop: wp('5%'),
+              //marginTop: wp('5%'),
+              marginLeft: -wp('4%')
+            },
+          }
+        },
+        Edit:{
+          screen: EditProfile,
+          navigationOptions:{
+            headerTintColor: 'white',
+            title: 'Edite seus Dados',
+            headerStyle:{
+              backgroundColor: '#01A83E',
+              elevation: 0,
+            },
+            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' />),
+            headerTitleContainerStyle:{
+              justifyContent:'center'
+            },
+            headerTitleStyle: {
+              fontSize: wp('7%'),
+              //marginTop: wp('5%'),
               marginLeft: -wp('4%')
             },
           }
@@ -81,15 +112,47 @@ const ProfileNav = createStackNavigator({
 );
 
 const cupon = createStackNavigator({
-        Chose: ChoseCupons,
-        Pick: PickCupons
+        Chose: {
+          screen: ChoseCupons,
+          navigationOptions:{
+            headerTintColor: 'white',
+            title: 'Cupons',
+            headerStyle:{
+              backgroundColor: '#01A83E',
+              elevation: 0,
+            },
+            headerTitleContainerStyle:{
+              justifyContent:'center'
+            },
+            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white'/>),
+            headerTitleStyle: {
+              fontSize: wp('7%'),
+            },
+          }
+        },
+        Pick: {
+          screen: PickCupons,
+          navigationOptions:{
+            headerTintColor: 'white',
+            title: 'Cupons',
+            headerStyle:{
+              backgroundColor: '#01A83E',
+              elevation: 0,
+            },
+            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white'/>),
+            headerTitleContainerStyle:{
+              justifyContent:'center'
+            },
+            headerTitleStyle: {
+              fontSize: wp('7%'),
+              marginTop: wp('5%'),              
+              marginLeft: -wp('5%')
+            },
+          }
+        }
       },
       {
         initialRouteName: 'Chose',
-        headerMode: 'none',
-        navigationOptions: {
-         headerVisible: false,
-      }
       }
 );
 
@@ -111,7 +174,6 @@ const User = createMaterialTopTabNavigator(
             Profile: { screen: ProfileNav,
                       navigationOptions: {
                           tabBarLabel: 'Perfil',
-                          title: 'Perfil',
                           tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')}/>)
                       }
             },
@@ -130,14 +192,14 @@ const User = createMaterialTopTabNavigator(
                      },
           },
           {
-            initialRouteName: 'Products',
+            initialRouteName: 'Profile',
             tabBarPosition: 'bottom',
             order: ['Cupons', 'Products', 'Profile'],
             tabBarOptions:{
-                activeTintColor: 'white',
-                inactiveTintColor: '#004832',
+                activeTintColor: '#01A83E',
+                inactiveTintColor: '#c4c4c4',
                 style:{
-                    backgroundColor: '#01A83E',
+                    backgroundColor: 'white',
                     height: hp('7%')
                 },
                 labelStyle:{
@@ -171,14 +233,13 @@ const Main = createStackNavigator(
           backgroundColor: '#01A83E',
           elevation: 0,
         },
-        headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' style = {{marginLeft: wp('2%'), marginTop:wp('5%')}} />),
+        headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white'/>),
         headerTitleContainerStyle:{
           justifyContent:'center'
         },
         headerTitleStyle: {
           fontSize: wp('7%'),
-          marginTop: wp('5%'),
-          marginLeft: -wp('4%')
+          marginLeft: -wp('5%')
         },
       }
     },

@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center',
-        elevation: wp('3%'),
+        elevation: wp('1%'),
         marginBottom: wp('5%')
     },
     compLogo:{

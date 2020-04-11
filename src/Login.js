@@ -39,7 +39,7 @@ export default class Login extends React.Component {
     if (user){
       this.props.navigation.navigate('User')
     }
-  }    
+  } 
   Loga = async() => {
   if (this.state.email.length === 0 || this.state.password.length === 0 ){
       alert('Campo Vazio')
@@ -55,7 +55,7 @@ export default class Login extends React.Component {
           await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
           await AsyncStorage.setItem('@Qrup:u_id', response.data.user.id)          
           await AsyncStorage.setItem('@Qrup:u_contact', JSON.stringify(response.data.user.contact))
-          await AsyncStorage.setItem('@Qrup:u_avatar_id', JSON.stringify(response.data.user.avatar_id))
+          await AsyncStorage.setItem('@Qrup:u_avatar_id', response.data.user.avatar_id)
           await AsyncStorage.setItem('@Qrup:u_points', JSON.stringify(response.data.user.points.total))
           await AsyncStorage.setItem('@Qrup:u_bday', JSON.stringify(response.data.user.birth))
           this.setState({load:false})

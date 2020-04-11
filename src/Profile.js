@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Text, 
         StyleSheet,
         View,
-        TouchableOpacity
+        TouchableOpacity,
+        Image
     } from 'react-native'
 import {
     widthPercentageToDP as wp,
@@ -10,34 +11,54 @@ import {
   } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-community/async-storage'  
-import {Button} from 'react-native-elements'
-
+import {Button, Avatar} from 'react-native-elements'
+import api from './services/api'
+import ImagePicker from 'react-native-image-crop-picker';
 export default class Profile extends Component {
     state={
         user:'',
         pontos: '',
         id:'',
-        token:''
+        token:'',
+        avatar: ''
     }
     async componentDidMount(){
         this.setState ({
             user:  await AsyncStorage.getItem('@Qrup:user'),       
             id: await AsyncStorage.getItem('@Qrup:u_id'),
             token: await AsyncStorage.getItem('@Qrup:token'),            
-            pontos: await AsyncStorage.getItem('@Qrup:u_points')
+            pontos: await AsyncStorage.getItem('@Qrup:u_points'),
+            avatar : await AsyncStorage.getItem('@Qrup:u_avatar_id')
         })
-        console.log(this.state.pontos)
+        console.log(api.defaults.baseURL + this.state.avatar)
     }
     Exit =async()=>{
         await AsyncStorage.clear();
         this.props.navigation.navigate('Login');
+    }
+    selectPick(){
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+          });
     }
     render() {    
         return (
             <View style ={{backgroundColor: '#f5f5f5', height:hp('100%')}}>             
                 <View style= {styles.Perfil}>
                     <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
-                        <Icon name = 'user-circle'color ='white' style = {styles.Disgraca}/>
+                        <Avatar
+                            rounded
+                            size= 'xlarge'
+                            source ={{
+                                uri : (api.defaults.baseURL + this.state.avatar)
+                            }}
+                            showEditButton
+                            onPress={()=>this.selectPick()}
+                        />
                         <Text  style = {styles.nameDesg}>{this.state.user}</Text>
                         <Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>
                     </View>
@@ -83,7 +104,10 @@ const styles = StyleSheet.create({
     },
     Disgraca:{ 
         marginTop: wp('3%'),
-        fontSize: wp('35%'),
+        width: wp('35%'),
+        height: wp('35%'),
+        borderRadius: wp('17.5%')
+        //backgroundColor: 'red'
     },
     nameDesg:{
         color:'white',

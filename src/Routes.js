@@ -23,8 +23,8 @@ import Icon3 from 'react-native-vector-icons/Entypo'
 
 const History = createMaterialTopTabNavigator({
         Todos: AllHistory,
-        Ganhos: UsedHistory,
-        Usados: WonHistory
+        Ganhos: WonHistory,
+        Usados: UsedHistory
     },{
       initialRouteName: 'Todos',
       tabBarOptions:{

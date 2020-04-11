@@ -42,7 +42,7 @@ export default class Products extends Component {
             insertCode: false,
             load: false,
             token: '',  
-            will_update: null   ,
+            will_update: null  ,
             refreshing: false       
         };
     }
@@ -75,8 +75,7 @@ export default class Products extends Component {
             user_id:  await AsyncStorage.getItem('@Qrup:u_id'),
             token: await AsyncStorage.getItem('@Qrup:token')
         })
-        this.state.will_focus = this.props.navigation.addListener('willFocus', async () => {             
-        })
+        this.state.will_focus = this.props.navigation.addListener('willFocus', async () =>(this.loadProducts()))
     }
 
     handleRefresh = ()=>{
@@ -299,7 +298,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center',
-        elevation: wp('3%'),
+        elevation: wp('1%'),
         marginBottom: wp('3%')
     },
     qrupIcon:{

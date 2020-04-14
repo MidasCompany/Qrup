@@ -58,11 +58,11 @@ export default class Login extends React.Component {
           await AsyncStorage.setItem('@Qrup:u_avatar_id', response.data.user.avatar_id)
           await AsyncStorage.setItem('@Qrup:u_points', JSON.stringify(response.data.user.points.total))
           await AsyncStorage.setItem('@Qrup:u_bday', JSON.stringify(response.data.user.birth))
+          await AsyncStorage.setItem('@Qrup:u_email', response.data.user.email)
           this.setState({load:false})
           this.props.navigation.navigate('User')
       } catch (response){
         //this.setState({errorMessage: response.data.error });     
-        console.log(response)
         this.setState({load:false})
         ToastAndroid.showWithGravityAndOffset(
           'Credenciais não conferem',

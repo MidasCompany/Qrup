@@ -76,7 +76,7 @@ export default class Register extends React.Component {
       }                        
     }   
   } 
-  _addMaskContactBr(contact: string){  
+  _addMaskContactBr(contact){  
     try {
       contact =  contact.replace(/[^\d]+/g,'');
       this.setState({ contact: contact });
@@ -173,22 +173,10 @@ export default class Register extends React.Component {
                 lineWidth = {2}
                 autoCapitalize = 'none'
                 fontSize = {17}
-                onSubmitEditing={() => { this.confirm.focus(); }}              
+                onSubmitEditing={() => { this.confirm.phone(); }}              
                 onChangeText = {password =>{(this.setState({password}))}}
                 renderRightAccessory = {this.renderPasswordAccessory}
               />
-              {/*<TextField
-                style={styles.input}
-                ref={(input) => { this.confirm= input; }}
-                label = 'Confirme sua Senha'
-                tintColor = 'rgba(1, 168, 62, 1)'
-                baseColor = 'rgba(1, 168, 62, 1)'
-                textColor = 'rgba(1, 168, 62, 1)'
-                lineWidth = {2}
-                secureTextEntry = {true}
-                fontSize = {17}
-                onSubmitEditing={() => { this.phone.focus(); }}
-              /> */} 
               <TextField
                 style={styles.input}
                 ref={(input) => { this.phone = input; }}
@@ -216,27 +204,6 @@ export default class Register extends React.Component {
                 onChangeText = {cpf =>{(this.setState({cpf}))}}
                 formatText = {value =>this.cpfMask(value)}
               />             
-            { /*<TextField
-                style={styles.input}
-                ref={(input) => { this.birth = input; }}
-                onFocus = {() => {this.showPicker}}
-                label = 'Nascimento'
-                keyboardType = 'phone-pad'
-                tintColor = 'rgba(1, 168, 62, 1)'
-                baseColor = 'rgba(1, 168, 62, 1)'
-                textColor = 'rgba(1, 168, 62, 1)'
-                lineWidth = {2}
-                fontSize = {17}
-                onSubmitEditing={() => { this.cpf.focus(); }}
-            /> */}
-              {/*<TouchableOpacity 
-                  style ={styles.birthDate2}
-                  onPress ={()=>this.showPicker()} >
-                  <Text
-                      style ={ styles.birthDate1}>
-                          {this.state.birhtDate}
-                  </Text>
-              </TouchableOpacity>*/}
               <TextField
                 style={styles.input}
                 ref={(input) => { this.cpf = input; }}

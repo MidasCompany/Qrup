@@ -13,6 +13,7 @@ import UsedHistory from './History/UsedHistory'
 import WonHistory from './History/WonHistory'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
 import EditProfile  from './EditProfile'
+import EditPassword from './EditPassword'
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -20,6 +21,29 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import Icon3 from 'react-native-vector-icons/Entypo'
+
+const EditNav = createStackNavigator({
+    editProfile : {
+      screen:EditProfile,
+      headerMode:'none',
+      title:'Editar Dados',
+      navigationOptions:{
+        headerVisible: false,
+        headerShown: false
+      }
+    },
+    EditPassword:{
+      screen: EditPassword,
+      headerMode:'none',
+      title:'Editar Dados',
+      navigationOptions:{
+        headerVisible: false,
+        headerShown: false
+      }
+    },
+  },
+  {initialRouteName : "editProfile"}
+)
 
 const History = createMaterialTopTabNavigator({
         Todos: AllHistory,
@@ -86,10 +110,10 @@ const ProfileNav = createStackNavigator({
           }
         },
         Edit:{
-          screen: EditProfile,
+          screen: EditNav,
           navigationOptions:{
             headerTintColor: 'white',
-            title: 'Edite seus Dados',
+            title: 'Editar Dados',
             headerStyle:{
               backgroundColor: '#01A83E',
               elevation: 0,
@@ -100,8 +124,8 @@ const ProfileNav = createStackNavigator({
             },
             headerTitleStyle: {
               fontSize: wp('7%'),
-              //marginTop: wp('5%'),
               marginLeft: -wp('4%')
+             // marginTop: wp('5%'),
             },
           }
         }

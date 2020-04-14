@@ -20,7 +20,28 @@ export default class Profile extends Component {
         pontos: '',
         id:'',
         token:'',
-        avatar: ''
+        avatar: '',   
+        will_update: null,
+    }
+    async updateUserData(){
+        try{
+            const response = await api.get('/users/'+this.state.id,
+                {
+                    headers:{
+                        Authorization : "Bearer " + this.state.token
+                    }
+                }) ;
+              await AsyncStorage.setItem('@Qrup:user',response.data.name)       
+              await AsyncStorage.setItem('@Qrup:u_contact', JSON.stringify(response.data.contact))
+              await AsyncStorage.setItem('@Qrup:u_avatar_id', response.data.avatar_id)
+              await AsyncStorage.setItem('@Qrup:u_points', JSON.stringify(response.data.points.total))
+              await AsyncStorage.setItem('@Qrup:u_email', response.data.email)
+              this.componentDidMount()
+          } catch (response){
+            //this.setState({errorMessage: response.data.error });     
+            console.log(response)
+            this.setState({load:false})
+          }
     }
     async componentDidMount(){
         this.setState ({
@@ -30,7 +51,7 @@ export default class Profile extends Component {
             pontos: await AsyncStorage.getItem('@Qrup:u_points'),
             avatar : await AsyncStorage.getItem('@Qrup:u_avatar_id')
         })
-        console.log(api.defaults.baseURL + this.state.avatar)
+        this.state.will_focus = this.props.navigation.addListener('willFocus', async () =>(this.updateUserData()))
     }
     Exit =async()=>{
         await AsyncStorage.clear();
@@ -40,11 +61,41 @@ export default class Profile extends Component {
         ImagePicker.openPicker({
             width: 300,
             height: 400,
-            cropping: true
+            cropping: true,
+            includeBase64: true,
+            mediaType: 'photo'
           }).then(image => {
-            console.log(image);
-          });
+            this.pickSelected(image)
+          })
     }
+
+    async pickSelected(image){
+        let form = new FormData();
+
+            let name = image.path.split('/')
+            form.append('file',{
+                uri: image.path,
+                type: image.mime,
+                name: name[name.length-1]
+            })     
+            
+            console.log(form)     
+         try{ 
+            let res = await api.post('/files?role=user', form,
+                {
+                    headers:{
+                        Authorization : "Bearer " + this.state.token
+                    }
+                })
+            console.log(form)
+        } catch(res){
+            console.log(res)
+            console.log('sicaralho')
+        }
+    }
+    async componentWillUnmount(){
+        this.state.will_focus.remove(); 
+    } 
     render() {    
         return (
             <View style ={{backgroundColor: '#f5f5f5', height:hp('100%')}}>             

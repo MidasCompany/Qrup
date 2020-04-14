@@ -54,9 +54,7 @@ export default class Products extends Component {
                     Authorization : "Bearer " + this.state.token
                 }
             }) ;
-            console.log(response)
             this.setState({cupsList: response.data, refreshing:false})
-            //console.log(this.state.cupsList);
         } catch (response){
             //this.setState({errorMessage: response.data.error });     
             console.log(response)   

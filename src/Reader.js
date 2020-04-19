@@ -18,6 +18,7 @@ import LoadingScreen from './components/LoadingScreen';
         type: '550ml',
         qr:'',
         user_id:'',
+        load: false
     };
     onSuccess = async (e) => {
         await this.setState({qr: e.data, success: true });
@@ -36,10 +37,11 @@ import LoadingScreen from './components/LoadingScreen';
                       Authorization : "Bearer " + this.state.token
                   }
               }) ;
+              this.setState({load:false})
               this.props.navigation.navigate('Qrup')
-            } catch (response){
+            } catch (response){                
+              this.setState({load:false})
               //this.setState({errorMessage: response.data.error });     
-              console.log(response)   
               this.props.navigation.navigate('Qrup')
               alert('Copo já Cadastrado')
             }                        
@@ -66,13 +68,13 @@ import LoadingScreen from './components/LoadingScreen';
             <View>              
                 <LoadingScreen enabled = {this.state.load}/>
                 <QRCodeScanner
-                onRead={this.onSuccess}   
-                cameraStyle={styles.cameraContainer}
-                showMarker = {this.state.modeState === true ? (false): (true)}
-                reactivate ={true}
-                reactivateTimeout = {10000}
-                checkAndroid6Permissions={true}
-                fadeIn = {false}
+                    onRead={this.onSuccess}   
+                    cameraStyle={styles.cameraContainer}
+                    showMarker = {this.state.modeState === true ? (false): (true)}
+                    reactivate ={true}
+                    reactivateTimeout = {10000}
+                    checkAndroid6Permissions={true}
+                    fadeIn = {false}
                  />
                {/* {this.state.modeState === true ? (
                     <View>

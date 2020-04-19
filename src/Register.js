@@ -3,12 +3,10 @@ import {
   StyleSheet,
   View,
   Text,
-  Image,
-  TouchableOpacity,
   ScrollView,
-  ToastAndroid
+  ToastAndroid,
+  TextComponent
 } from 'react-native';
-import Logo from '../Images/qrup_semroda_semsombra.png'
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -37,28 +35,33 @@ export default class Register extends React.Component {
         password: '',
         contact: '',
         secureTextEntry: true  ,
-        load: false
+        load: false,
+        trueCpf: ''
     };
   }  
   Login = () => {
     this.props.navigation.navigate('Login')
   }
   Cadastra = async () => {
-    if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.cpf.length === 0 || this.state.contact.length === 0 ){
-      Alert.alert('Campo Vazio')
+    if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.trueCpf.length === 0 || this.state.contact.length === 0 ){
+      ToastAndroid.showWithGravityAndOffset(
+        'Para cadastrar todos os campos devem sem preenchidos',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        0,
+        200,
+      );
     } else{       
       this.setState({load:true})
-      console.log('SICARALHO')   
       try{
         const response = await api.post('/users',{
           email: this.state.email,
           password: this.state.password,
           name: this.state.user,
-          cpf: this.state.cpf,
-          birth: this.state.birhtDate,
+          cpf: this.state.trueCpf,
+          birth: (moment(this.state.birhtDate, 'DD/MM/YYYY').format('YYYY-MM-DD')),
           contact: this.state.contact
-        }) ;
-          Alert.alert('Cadastro Efetuado com Sucesso')
+        });
           this.setState({load:false})
           this.props.navigation.navigate('Login')
       } catch (response){
@@ -66,7 +69,7 @@ export default class Register extends React.Component {
         console.log(response)
         this.setState({load:false})
         ToastAndroid.showWithGravityAndOffset(
-          'Cadastro não efetuado com sucesso, virifique seus dados',
+          'Cadastro não efetuado com sucesso, verifique seus dados',
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
           0,
@@ -90,7 +93,7 @@ export default class Register extends React.Component {
     }
     return contact;
   }
-  cpfMask = value => {
+  cpfMask (value) {
     return value
       .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
       .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
@@ -173,7 +176,7 @@ export default class Register extends React.Component {
                 lineWidth = {2}
                 autoCapitalize = 'none'
                 fontSize = {17}
-                onSubmitEditing={() => { this.confirm.phone(); }}              
+                onSubmitEditing={() => { this.phone.focus(); }}              
                 onChangeText = {password =>{(this.setState({password}))}}
                 renderRightAccessory = {this.renderPasswordAccessory}
               />
@@ -187,7 +190,8 @@ export default class Register extends React.Component {
                 textColor = 'rgba(1, 168, 62, 1)'
                 lineWidth = {2}
                 fontSize = {17}
-                onSubmitEditing={() => { this.cpf.focus(); }}           
+                onSubmitEditing={() => { this.cpf.focus(); }}                  
+                onChangeText = {contact =>{(this.setState({contact}))}}         
                 formatText={value => this._addMaskContactBr(value)}
               />            
               <TextField
@@ -199,14 +203,14 @@ export default class Register extends React.Component {
                 baseColor = 'rgba(1, 168, 62, 1)'
                 textColor = 'rgba(1, 168, 62, 1)'
                 lineWidth = {2}
+                maxLength= {11}
                 fontSize = {17}
+                onChangeText = {trueCpf =>{this.setState({trueCpf})}}
                 onSubmitEditing={() => {this.showPicker()}}
-                onChangeText = {cpf =>{(this.setState({cpf}))}}
-                formatText = {value =>this.cpfMask(value)}
+                //formatText = {value =>this.cpfMask(value)}
               />             
               <TextField
                 style={styles.input}
-                ref={(input) => { this.cpf = input; }}
                 label = 'Aniversário'
                 keyboardType = 'phone-pad'
                 tintColor = 'rgba(1, 168, 62, 1)'
@@ -243,10 +247,6 @@ const styles = StyleSheet.create({
   divider:{
     height: wp('5%')
   },
-  main: {
-    backgroundColor: '#01A83E',
-    flex:1
-  },
 text:{
    alignSelf:'center',
    fontSize: wp('9%'),
@@ -258,64 +258,7 @@ text:{
   width: '80%',
   alignSelf: 'center',
 }, 
- Logo:{  
-   alignSelf: 'center',
-   width: wp('20%'),
-   height:hp('15%'),
-   resizeMode: 'contain'
- },
- input: {
-  marginTop: 2
-},
- btnImg:{
-    //marginStart: hp('30%'),
-    //marginTop: wp('%'),
-    //marginStart: wp('45%'),
-    width: wp('25%'),
-    height: hp('25%'),
-    resizeMode: 'contain'
- },
- birthDate2:{
-     marginTop: wp('3%'),
-     justifyContent : 'flex-start',
-     borderBottomColor: 'white',
-     borderBottomWidth: 2,
-     borderWidth: 0,
- },
- birthDate1:{
-   color: 'white',
-   alignItems:'flex-start',
-   justifyContent:'flex-start'
- },
- buttonLogin:{
-  //width: wp('10%'),
-  height: hp('15%'),
-  marginLeft: hp('30%'),
-  borderRadius: wp('10%'),
-  //backgroundColor: 'white',
-  alignContent: 'center',
-  alignContent: 'flex-end',
-  textAlignVertical: 'center',
-  resizeMode: 'contain',
-  marginBottom: wp('15%')
-},
-btnImg:{
-  //marginStart: hp('30%'),
-  //marginTop: wp('%'),
-  //marginStart: wp('45%'),
-  width: wp('25%'),
-  height: hp('25%'),
-  resizeMode: 'contain'
-},
-textMin1: {
-//  marginEnd: wp('65%'),
-  //marginTop: hp('15%')
-},
-textMin2:{
- /* , */
-  color: 'white',
-  fontSize: wp('8%'),
-},
+
 btnLogin:{
   marginTop: wp('5%'),
   alignSelf: 'center',

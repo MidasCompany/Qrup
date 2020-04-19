@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {Component} from 'react'
+import {Text, View}from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from './Login'
@@ -11,6 +12,7 @@ import PickCupons from './PickCupons'
 import AllHistory from './History/AllHistory'
 import UsedHistory from './History/UsedHistory'
 import WonHistory from './History/WonHistory'
+import MainHistory from './History/MainHistory'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
 import EditProfile  from './EditProfile'
 import EditPassword from './EditPassword'
@@ -20,8 +22,21 @@ import {
   } from 'react-native-responsive-screen';   
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
-import Icon3 from 'react-native-vector-icons/Entypo'
+import AsyncStorage from '@react-native-community/async-storage';
 
+class Header extends Component {
+  constructor (props){
+    super(props);
+    this.state={
+        pontos: ''
+    }
+  }
+   async componentDidMount(){
+     this.setState({
+       pontos: await AsyncStorage.getItem('@Qrup:u_points')
+     })
+   }
+}
 const EditNav = createStackNavigator({
     editProfile : {
       screen:EditProfile,
@@ -45,30 +60,18 @@ const EditNav = createStackNavigator({
   {initialRouteName : "editProfile"}
 )
 
-const History = createMaterialTopTabNavigator({
-        Todos: AllHistory,
-        Ganhos: WonHistory,
-        Usados: UsedHistory
-    },{
-      initialRouteName: 'Todos',
-      tabBarOptions:{
-        activeTintColor: 'white',
-        style:{
-            backgroundColor: '#01A83E',
-            height: hp('7%')
-        },
-        labelStyle:{
-            fontSize: wp('3.5%'),
-            marginTop: -wp('2%'),
-            fontWeight:'bold'
-        },
-        indicatorStyle:{
-            backgroundColor: '#ffffff',
-            height: wp('1%'),
-        },
-        showIcon: true,
-    }
-})
+const Qrups = createStackNavigator (
+  {
+  Qrup : Products,
+  Add : Reader
+  },{
+          initialRouteName: 'Qrup',
+          headerMode: 'none',
+          navigationOptions:{
+                  headerVisible: false
+          }
+  }
+);
 
 const ProfileNav = createStackNavigator({
         MainProf: {
@@ -89,11 +92,11 @@ const ProfileNav = createStackNavigator({
             },
           }
         },
-        History: {
-          screen:History,
+        Qrups: {
+          screen:Qrups,
           navigationOptions:{
             headerTintColor: 'white',
-            title: 'Histórico',
+            title: 'Meus Qrups',
             headerStyle:{
               backgroundColor: '#01A83E',
               elevation: 0,
@@ -169,7 +172,7 @@ const cupon = createStackNavigator({
             },
             headerTitleStyle: {
               fontSize: wp('7%'),
-              marginTop: wp('5%'),              
+              //marginTop: wp('5%'),              
               marginLeft: -wp('5%')
             },
           }
@@ -180,45 +183,33 @@ const cupon = createStackNavigator({
       }
 );
 
-const Qrups = createStackNavigator (
-        {
-        Qrup : Products,
-        Add : Reader
-        },{
-                initialRouteName: 'Qrup',
-                headerMode: 'none',
-                navigationOptions:{
-                        headerVisible: false
-                }
-        }
-);
 
 const User = createMaterialTopTabNavigator(
         {
             Profile: { screen: ProfileNav,
                       navigationOptions: {
                           tabBarLabel: 'Perfil',
-                          tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')}/>)
+                          tabBarIcon:({tintColor}) => (<Icon name="md-person" color={tintColor} size ={wp('6%')} style={{alignSelf:'center'}}/>)
                       }
             },
             Cupons: { screen: cupon,
                         navigationOptions:{
                             tabBarLabel: 'Cupons',
                             title: 'Cupons',
-                            tabBarIcon:({tintColor})=>(<Icon2 name='ticket-alt' size={ wp('5%')} color={tintColor} />)
+                            tabBarIcon:({tintColor})=>(<Icon2 name='ticket-alt' size={ wp('6%')} color={tintColor} style={{alignSelf:'center'}}/>)
                         } },
-            Products: { screen: Qrups,
+            MainHistory: { screen: MainHistory,
                         navigationOptions:{
-                            tabBarLabel: 'Qrups',
-                            title: "Meus Qrup's",
-                            tabBarIcon:({tintColor})=>(<Icon3 name="cup" size={wp('5%')} color={tintColor}/>)
+                            tabBarLabel: 'Pontos',
+                            title: "Meus Pontos",
+                            tabBarIcon:({tintColor})=>(<Icon2 name="coins" size={wp('6%')} color={tintColor} style={{alignSelf:'center'}}/>)
                         }
                      },
           },
           {
-            initialRouteName: 'Profile',
+            initialRouteName: 'MainHistory',
             tabBarPosition: 'bottom',
-            order: ['Cupons', 'Products', 'Profile'],
+            order: ['Cupons', 'MainHistory', 'Profile'],
             tabBarOptions:{
                 activeTintColor: '#01A83E',
                 inactiveTintColor: '#c4c4c4',
@@ -228,11 +219,14 @@ const User = createMaterialTopTabNavigator(
                 },
                 labelStyle:{
                     fontSize: wp('2.5%'),
-                    marginTop: -wp('1%')
+                    //marginTop: wp('1%')
                 },
                 indicatorStyle:{
-                    backgroundColor: '#ffffff',
-                    height: wp('1%'),
+                    height: 0,
+                },
+                iconStyle:{
+                  alignSelf:'center',
+                  width: wp('8%')
                 },
                 showIcon: true,
             },

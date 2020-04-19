@@ -50,7 +50,8 @@ export default class Login extends React.Component {
           email: this.state.email,
           password: this.state.password,
           type: 'user'
-        }) ;
+        }) ;        
+          console.log(response)
           await AsyncStorage.setItem('@Qrup:token',response.data.token )
           await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
           await AsyncStorage.setItem('@Qrup:u_id', response.data.user.id)          
@@ -61,8 +62,7 @@ export default class Login extends React.Component {
           await AsyncStorage.setItem('@Qrup:u_email', response.data.user.email)
           this.setState({load:false})
           this.props.navigation.navigate('User')
-      } catch (response){
-        //this.setState({errorMessage: response.data.error });     
+      } catch (response){  
         this.setState({load:false})
         ToastAndroid.showWithGravityAndOffset(
           'Credenciais não conferem',
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
 		flex: 1,
   	},
 	text:{
-		fontSize: 25,
+		fontSize: wp('5%'),
 		fontFamily: 'Roboto', 
 		color: 'white',
 		alignSelf: 'center'

@@ -3,7 +3,6 @@ import { Text,
         StyleSheet,
         View,
         TouchableOpacity,
-        Image
     } from 'react-native'
 import {
     widthPercentageToDP as wp,
@@ -14,6 +13,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import {Button, Avatar} from 'react-native-elements'
 import api from './services/api'
 import ImagePicker from 'react-native-image-crop-picker';
+
 export default class Profile extends Component {
     state={
         user:'',
@@ -36,10 +36,15 @@ export default class Profile extends Component {
               await AsyncStorage.setItem('@Qrup:u_avatar_id', response.data.avatar_id)
               await AsyncStorage.setItem('@Qrup:u_points', JSON.stringify(response.data.points.total))
               await AsyncStorage.setItem('@Qrup:u_email', response.data.email)
-              this.componentDidMount()
+              this.setState ({
+                user:  await AsyncStorage.getItem('@Qrup:user'),       
+                id: await AsyncStorage.getItem('@Qrup:u_id'),
+                token: await AsyncStorage.getItem('@Qrup:token'),            
+                pontos: await AsyncStorage.getItem('@Qrup:u_points'),
+                avatar : await AsyncStorage.getItem('@Qrup:u_avatar_id')
+             })
           } catch (response){
             //this.setState({errorMessage: response.data.error });     
-            console.log(response)
             this.setState({load:false})
           }
     }
@@ -78,8 +83,7 @@ export default class Profile extends Component {
                 type: image.mime,
                 name: name[name.length-1]
             })     
-            
-            console.log(form)     
+             
          try{ 
             let res = await api.post('/files?role=user', form,
                 {
@@ -87,10 +91,8 @@ export default class Profile extends Component {
                         Authorization : "Bearer " + this.state.token
                     }
                 })
-            console.log(form)
         } catch(res){
-            console.log(res)
-            console.log('sicaralho')
+            console.log('Falhou imagem update')
         }
     }
     async componentWillUnmount(){
@@ -101,6 +103,7 @@ export default class Profile extends Component {
             <View style ={{backgroundColor: '#f5f5f5', height:hp('100%')}}>             
                 <View style= {styles.Perfil}>
                     <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
+                        <View style ={{height: wp('2%')}}/>
                         <Avatar
                             rounded
                             size= 'xlarge'
@@ -111,13 +114,13 @@ export default class Profile extends Component {
                             onPress={()=>this.selectPick()}
                         />
                         <Text  style = {styles.nameDesg}>{this.state.user}</Text>
-                        <Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>
+                        {/*<Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>*/}
                     </View>
                     <View style = {styles.Butons}>
                         <TouchableOpacity 
-                            onPress = {()=>this.props.navigation.navigate('History')}>
-                            <Text style = {styles.btnTxt}>Histórico</Text>
-                            <Text style = {styles.subTxt}>Pontos Ganhos e Pontos Gastos</Text>
+                            onPress = {()=>this.props.navigation.navigate('Qrups')}>
+                            <Text style = {styles.btnTxt}>QRups</Text>
+                            <Text style = {styles.subTxt}>Gerencie seus Qrups</Text>
                         </TouchableOpacity>
                     </View>    
                     <View style = {styles.Sbutons}>
@@ -132,7 +135,7 @@ export default class Profile extends Component {
                         </TouchableOpacity>
                     </View>           
                 </View>
-                <View style = {{marginTop: wp('10%')}}> 
+                <View style = {{marginTop: wp('25%')}}> 
                     <Button
                         type = 'outline'
                         title = 'Sair'
@@ -164,6 +167,7 @@ const styles = StyleSheet.create({
         color:'white',
         marginTop:wp('5%'),
         fontSize: wp('6%'),
+        marginBottom: wp('2%')
     },
     pontDesgr:{
         color:'white',
@@ -192,32 +196,32 @@ const styles = StyleSheet.create({
         fontSize: wp('4%'),
         marginBottom: wp('3%'),
         marginLeft: wp('5%'),
-        color: '#006300'
+        color: '#707070'
     },
     btnTxt:{
         fontSize: wp('4%'),
         marginTop: wp('2%'),
         marginBottom: -wp('0.5%'),
         marginLeft: wp('5%'),
-        color: '#006300'
+        color: '#707070'
     },
     subTxt:{        
         fontSize: wp('3%'),
        // marginTop: wp('3%'),
         marginBottom: wp('2%'),
         marginLeft: wp('5%'),
-        color: '#006300'
+        color: '#707070'
     },
 	btnLogout:{
        // marginTop: wp('75%'),
         width: '40%',
         backgroundColor: 'white',
-        borderColor: '#006300',
+        borderColor: '#01A83E',
         borderWidth: 2,
 		alignSelf: 'center'
     },
 	btnLabel:{
-		color:'#006300',
+		color:'#01A83E',
 		fontSize: wp('5%'),
 	},
 })

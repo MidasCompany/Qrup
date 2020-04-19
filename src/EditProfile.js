@@ -95,7 +95,6 @@ export default class EditProfile extends Component {
           email: await AsyncStorage.getItem('@Qrup:u_email'),
           phone: await AsyncStorage.getItem('@Qrup:u_contact'),     
       })
-      console.log(this.state.pontos)
   }
   render() {
     return (

@@ -5,6 +5,7 @@ import {
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';  
 import QRCode from 'react-native-qrcode-svg'
+import AsyncStorage from '@react-native-community/async-storage';
 export default class PickCupons extends Component {
     constructor (props){
         super(props);
@@ -14,14 +15,15 @@ export default class PickCupons extends Component {
         }
     }
     async componentDidMount (){
-        const cuponId1 = JSON.stringify(this.props.navigation.getParam('cuponId'));
+        const cuponId = this.props.navigation.getParam('cuponId');
         const cuponName = this.props.navigation.getParam('cuponName');
         const cuponPoints = this.props.navigation.getParam('cuponPoints');
         
         this.setState({
             cuponName: cuponName,
             cuponPoints: cuponPoints,
-            cuponId: cuponId1,
+            cuponId: cuponId + ',' + await AsyncStorage.getItem('@Qrup:u_id')
+
         })
     }
     render() {        

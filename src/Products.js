@@ -57,7 +57,6 @@ export default class Products extends Component {
             this.setState({cupsList: response.data, refreshing:false})
         } catch (response){
             //this.setState({errorMessage: response.data.error });     
-            console.log(response)   
             this.setState({load:false, refreshing:false})
             ToastAndroid.showWithGravityAndOffset(
                 'Problema para carregar os copos',
@@ -105,7 +104,6 @@ export default class Products extends Component {
               this.loadProducts();
             } catch (response){
               //this.setState({errorMessage: response.data.error });     
-              console.log(response)   
                this.setState({load:false})
               alert("Código não confere")
             }                        
@@ -147,10 +145,10 @@ export default class Products extends Component {
         return (
             <>     
                 <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
-                    <Text  style = {{marginVertical: wp('5%'), fontSize: wp('7%'), color:'white'}}>Meus Qrup's</Text>
+                    {/*<Text  style = {{marginVertical: wp('5%'), fontSize: wp('7%'), color:'white'}}>Meus Qrup's</Text>*/}
                     <Text style = {{fontSize: wp('4%'), color:'white', marginBottom: wp('3.5%')}}> Seus qrups cadastrados ficam aqui</Text>
                 </View>
-                <View style ={{marginTop: -wp('1%'),height: hp('75%'), backgroundColor: '#f5f5f5'}}> 
+                <View style ={{marginTop: -wp('1%'),height: hp('80%'), backgroundColor: '#f5f5f5'}}> 
                     <FlatList
                         data={this.state.cupsList}
                         //data = {DATA}

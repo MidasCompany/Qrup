@@ -25,6 +25,9 @@ export default class ChoseCupons extends Component {
         refreshing: false
     }
     async loadCupon (){
+        this.setState({
+            pontos: await AsyncStorage.getItem('@Qrup:u_points')
+        }) 
         try{
             const response = await api.get('/coupons') ;
             this.setState({cuponsList: response.data, refreshing: false})
@@ -74,7 +77,9 @@ export default class ChoseCupons extends Component {
                                                                                                           })}}> 
                                                     <View style = {styles.terte}>
                                                         {/* Logo da Empresa */ }
-                                                        <View style = {styles.compLogo}/>
+                                                        <Image source={{
+                                                            uri:(api.defaults.baseURL + item.company.avatar_id)
+                                                        }} style = {styles.compLogo}/>
                                                         {/* Info do Cupom */}
                                                         <View style = {styles.stats}>
                                                             <Text style = {styles.title}>{item.name}</Text>

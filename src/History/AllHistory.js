@@ -47,12 +47,9 @@ export default class AllHistory extends Component {
               Authorization : "Bearer " + this.state.token
           }
       }) ;
-      console.log(response)
       this.setState({pointHistory: response.data.data, refreshing:false})
-      //console.log(this.state.cupsList);
   } catch (response){
       //this.setState({errorMessage: response.data.error });     
-      console.log(response)   
       this.setState({load:false, refreshing:false})
       ToastAndroid.showWithGravityAndOffset(
           'Problema para carregar o Histórico',
@@ -80,10 +77,18 @@ export default class AllHistory extends Component {
     this.state.will_focus.remove(); 
   } 
 
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+    console.log('navigationOptions', params);
+    return {
+      headerTitle: <Text>5521717</Text>,
+    };
+  };
+
   render() {
     return (
       <>
-        <View style ={{backgroundColor: '#f5f5f5', height: hp('76%')}}>
+        <View style ={{backgroundColor: '#f5f5f5', height: hp('83%')}}>
           <View style = {{marginTop: wp('2%')}}/>
           <FlatList
               //data={this.state.pointHistory}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, FlatList, TouchableOpacity, ToastAndroid} from 'react-native'
+import { Text, StyleSheet, View, TextInput, FlatList, TouchableOpacity, ToastAndroid, Alert} from 'react-native'
 import QrupLogo from '../Images/qrup_semroda_semsombra.png'
 import {Button} from 'react-native-elements'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
@@ -13,6 +13,8 @@ import Modal from 'react-native-modal'
 import api from './services/api';
 import LoadingScreen from './components/LoadingScreen';
 import Icon from 'react-native-vector-icons/Entypo'
+import Icon3 from 'react-native-vector-icons/FontAwesome5'
+
 
 const DATA =[
     {
@@ -29,9 +31,6 @@ export default class Products extends Component {
     Terte =() =>{
         alert("Testando Botão")
     }
-    state = {
-        cupsList: []
-    }
 
     constructor(props) {
         super(props);    
@@ -43,7 +42,8 @@ export default class Products extends Component {
             load: false,
             token: '',  
             will_update: null  ,
-            refreshing: false       
+            refreshing: false,
+            cupsList: []
         };
     }
     async loadProducts (){
@@ -72,7 +72,7 @@ export default class Products extends Component {
             user_id:  await AsyncStorage.getItem('@Qrup:u_id'),
             token: await AsyncStorage.getItem('@Qrup:token')
         })
-        this.state.will_focus = this.props.navigation.addListener('willFocus', async () =>(this.loadProducts()))
+        this.loadProducts()
     }
 
     handleRefresh = ()=>{
@@ -81,8 +81,44 @@ export default class Products extends Component {
         })
         this.loadProducts()
     }
-    async componentWillUnmount(){
-        this.state.will_focus.remove();
+    async confirmExclude(qrcup){
+        console.log('/users/'+this.state.user_id+'/cups/'+qrcup)
+        try{
+            const response = await api.delete('/users/'+this.state.user_id+'/cups/'+qrcup,
+            {
+                headers:{
+                    Authorization : "Bearer " + this.state.token
+                }
+            })
+            ToastAndroid.showWithGravityAndOffset(
+                'Copo excluido com sucesso',
+                ToastAndroid.SHORT,
+                ToastAndroid.BOTTOM,
+                0,
+                200,
+            );
+            this.componentDidMount()
+        }catch(response){
+            ToastAndroid.showWithGravityAndOffset(
+                'Problema para excluir o copo',
+                ToastAndroid.SHORT,
+                ToastAndroid.BOTTOM,
+                0,
+                200,
+            );
+        }
+    }
+    async onExcudeItem(qrcup, cupdescription){
+        Alert.alert(
+            'Tem certeza que deseja excluir o Copo ' + cupdescription +'?',
+            'Após excluir o item, o mesmo não poderá mais ser utilizado',
+            [
+                {text: 'Cancel', style: 'cancel'},
+                {text: 'Sim, excluir copo', onPress: ()=> this.confirmExclude(qrcup)}
+                
+            ],
+            {cancelable: true}
+        )
     }
     onTextInsert = async() =>{
         if (this.state.qr.length === 0 || this.state.description.length === 0){
@@ -152,15 +188,18 @@ export default class Products extends Component {
                     <FlatList
                         data={this.state.cupsList}
                         //data = {DATA}
-                        renderItem={({ item }) =>   <TouchableOpacity style = {styles.main}> 
+                        renderItem={({ item }) =>   <View style = {styles.main}> 
                                                         <View style = {styles.terte}>
                                                             <Icon size={wp('8%')} name= 'cup'  color='#01A83E' style ={{marginLeft: wp('4%')}}/>
                                                             <View style = {styles.stats}>
                                                                 <Text style = {{marginTop: -wp('1%'), fontSize: wp('5%')}}>{item.description}</Text>
                                                                 <Text style = {{fontSize: wp('3%')}}>{item.qr}</Text>
                                                             </View>
+                                                            <TouchableOpacity style={{marginRight: wp('4%')}} onPress ={()=>this.onExcudeItem(item.qr, item.description)}>
+                                                                <Icon3 size={wp('5%')} name= 'trash-alt'  color='red' style ={{marginLeft: wp('4%')}}/>
+                                                            </TouchableOpacity>
                                                         </View>
-                                                    </TouchableOpacity> }
+                                                    </View> }
                         keyExtractor={item => item.qr}                        
                         refreshing = {this.state.refreshing}
                         onRefresh ={this.handleRefresh}

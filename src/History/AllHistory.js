@@ -76,22 +76,13 @@ export default class AllHistory extends Component {
   async componentWillUnmount(){
     this.state.will_focus.remove(); 
   } 
-
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-    console.log('navigationOptions', params);
-    return {
-      headerTitle: <Text>5521717</Text>,
-    };
-  };
-
   render() {
     return (
       <>
         <View style ={{backgroundColor: '#f5f5f5', height: hp('83%')}}>
           <View style = {{marginTop: wp('2%')}}/>
           <FlatList
-              //data={this.state.pointHistory}
+              //data={DATA}
               data = {this.state.pointHistory}
               renderItem={({ item }) =>   <View style = {styles.main}> 
                                               <View style = {styles.terte}>
@@ -114,11 +105,7 @@ export default class AllHistory extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  terte:{
-      backgroundColor: 'red',
-      fontSize: 20
-  },   
+const styles = StyleSheet.create({  
   main:{
       marginTop: wp('2%'),
       backgroundColor: '#fff',

@@ -10,6 +10,7 @@ import UsedHistory from './UsedHistory'
 import WonHistory from './WonHistory'
 import { createAppContainer } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage'  
+
 const History = createAppContainer(
 createMaterialTopTabNavigator({
         Todos: AllHistory,

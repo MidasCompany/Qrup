@@ -207,9 +207,9 @@ const User = createMaterialTopTabNavigator(
                      },
           },
           {
-            initialRouteName: 'MainHistory',
+            initialRouteName: 'Cupons',
             tabBarPosition: 'bottom',
-            order: ['Cupons', 'MainHistory', 'Profile'],
+            order: ['MainHistory','Cupons', 'Profile'],
             tabBarOptions:{
                 activeTintColor: '#01A83E',
                 inactiveTintColor: '#c4c4c4',

@@ -261,6 +261,7 @@ text:{
 
 btnLogin:{
   marginTop: wp('5%'),
+  borderRadius: wp('2%'),
   alignSelf: 'center',
   width: '40%',
   backgroundColor: '#01A83E',

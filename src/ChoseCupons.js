@@ -47,6 +47,7 @@ export default class ChoseCupons extends Component {
             pontos: await AsyncStorage.getItem('@Qrup:u_points')
         }) 
         this.state.will_focus = this.props.navigation.addListener('willFocus', async () =>(this.loadCupon()) )
+        this.loadCupon()
     }
      async componentWillUnmount(){
          this.state.will_focus.remove();

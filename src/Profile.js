@@ -57,6 +57,7 @@ export default class Profile extends Component {
             avatar : await AsyncStorage.getItem('@Qrup:u_avatar_id')
         })
         this.state.will_focus = this.props.navigation.addListener('willFocus', async () =>(this.updateUserData()))
+        this.updateUserData()
     }
     Exit =async()=>{
         await AsyncStorage.clear();

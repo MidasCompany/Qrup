@@ -41,7 +41,7 @@ export default class AllHistory extends Component {
   };
   async loadHistory (){
     try{
-      const response = await api.get('/users/'+this.state.user_id+'/historic',
+      const response = await api.get('/historic/user_id='+this.state.user_id,
       {
           headers:{
               Authorization : "Bearer " + this.state.token
@@ -66,6 +66,7 @@ export default class AllHistory extends Component {
       token: await AsyncStorage.getItem('@Qrup:token')
     })
     this.state.will_focus = this.props.navigation.addListener('willFocus', async () =>(this.loadHistory()))
+    this.loadHistory()
   }
   handleRefresh = ()=>{
     this.setState({

@@ -41,12 +41,13 @@ export default class AllHistory extends Component {
   };
   async loadHistory (){
     try{
-      const response = await api.get('/historic/user_id='+this.state.user_id,
+      const response = await api.get('/historic?user_id='+this.state.user_id,
       {
           headers:{
               Authorization : "Bearer " + this.state.token
           }
       }) ;
+      console.log(response.data)
       this.setState({pointHistory: response.data.data, refreshing:false})
   } catch (response){
       //this.setState({errorMessage: response.data.error });     

@@ -154,12 +154,12 @@ export default class EditProfile extends Component {
                   onPress = {()=>this.atualizaCadastro()}
                 /> 
                 <View style ={{alignSelf: 'center',flexDirection: 'row', marginTop: wp('5%')}}>
-                    <Text style ={{color: 'rgba(1, 168, 62, 1)',fontSize: wp('4,85409%'),	textAlign: "center",marginBottom: 20}}>Quer trocar a senha? </Text>
-                    <TouchableOpacity 
-                        onPress = {()=>this.props.navigation.navigate('EditPassword')}>
-                      <Text style={styles.txtStyle}>pressione aqui</Text>
-                    </TouchableOpacity>
-                  </View>
+                  <Text style ={{color: 'rgba(1, 168, 62, 1)',fontSize: wp('4,85409%'),	textAlign: "center",marginBottom: 20}}>Quer trocar a senha? </Text>
+                  <TouchableOpacity 
+                      onPress = {()=>this.props.navigation.navigate('EditPassword')}>
+                    <Text style={styles.txtStyle}>pressione aqui</Text>
+                  </TouchableOpacity>
+                </View>
           </ScrollView>
         </>
     );

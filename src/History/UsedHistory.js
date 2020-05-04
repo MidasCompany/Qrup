@@ -41,7 +41,7 @@ export default class AllHistory extends Component {
   };
   async loadHistory (){
     try{
-      const response = await api.get('/historic/user_id='+this.state.user_id,
+      const response = await api.get('/historic?user_id='+this.state.user_id,
       {
           headers:{
               Authorization : "Bearer " + this.state.token

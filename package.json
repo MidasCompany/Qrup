@@ -13,6 +13,7 @@
     "@react-native-community/async-storage": "react-native-community/async-storage",
     "add": "^2.0.6",
     "axios": "^0.19.2",
+    "formik": "^2.1.4",
     "moment": "^2.24.0",
     "react": "16.9.0",
     "react-native": "0.61.2",
@@ -38,7 +39,8 @@
     "react-navigation-material-bottom-tabs": "^2.1.5",
     "react-navigation-stack": "^1.10.2",
     "react-navigation-tabs": "^2.5.6",
-    "yarn": "^1.19.1"
+    "yarn": "^1.19.1",
+    "yup": "^0.28.5"
   },
   "devDependencies": {
     "@babel/core": "7.6.4",

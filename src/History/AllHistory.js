@@ -47,7 +47,7 @@ export default class AllHistory extends Component {
               Authorization : "Bearer " + this.state.token
           }
       }) ;
-      console.log(response.data)
+      console.log(response.data.data)
       this.setState({pointHistory: response.data.data, refreshing:false})
   } catch (response){
       //this.setState({errorMessage: response.data.error });     

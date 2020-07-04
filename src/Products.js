@@ -82,7 +82,7 @@ export default class Products extends Component {
         this.loadProducts()
     }
     async confirmExclude(qrcup){
-        console.log('/users/'+this.state.user_id+'/cups/'+qrcup)
+        //console.log('/users/'+this.state.user_id+'/cups/'+qrcup)
         try{
             const response = await api.delete('/users/'+this.state.user_id+'/cups/'+qrcup,
             {

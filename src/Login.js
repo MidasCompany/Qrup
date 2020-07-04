@@ -51,7 +51,7 @@ export default class Login extends React.Component {
           password: this.state.password,
           type: 'user'
         }) ;        
-          console.log(response)
+          //console.log(response)
           await AsyncStorage.setItem('@Qrup:token',response.data.token )
           await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
           await AsyncStorage.setItem('@Qrup:u_id', response.data.user.id)          

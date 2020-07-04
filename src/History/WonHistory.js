@@ -80,8 +80,7 @@ export default class AllHistory extends Component {
   render() {
     return (
       <>
-        <View style ={{backgroundColor: '#f5f5f5', height: hp('83%')}}>
-          <View style = {{marginTop: wp('2%')}}/>
+        <View style ={{backgroundColor: '#f5f5f5', height: hp('76%')}}>
           <FlatList
               //data={this.state.pointHistory}
               data = {this.state.pointHistory}

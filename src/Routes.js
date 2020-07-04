@@ -219,7 +219,7 @@ const User = createMaterialTopTabNavigator(
                 },
                 labelStyle:{
                     fontSize: wp('2.5%'),
-                    //marginTop: wp('1%')
+                    marginTop: -3
                 },
                 indicatorStyle:{
                     height: 0,

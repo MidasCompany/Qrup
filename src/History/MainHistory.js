@@ -25,7 +25,7 @@ createMaterialTopTabNavigator({
         },
         labelStyle:{
             fontSize: wp('3.5%'),
-            marginTop: -wp('2%'),
+            marginTop: -10,
             fontWeight:'bold'
         },
         indicatorStyle:{

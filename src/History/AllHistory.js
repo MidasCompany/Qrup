@@ -47,7 +47,7 @@ export default class AllHistory extends Component {
               Authorization : "Bearer " + this.state.token
           }
       }) ;
-      console.log(response.data.data)
+      //console.log(response.data.data)
       this.setState({pointHistory: response.data.data, refreshing:false})
   } catch (response){
       //this.setState({errorMessage: response.data.error });     
@@ -81,8 +81,7 @@ export default class AllHistory extends Component {
   render() {
     return (
       <>
-        <View style ={{backgroundColor: '#f5f5f5', height: hp('83%')}}>
-          <View style = {{marginTop: wp('2%')}}/>
+        <View style ={{backgroundColor: '#f5f5f5', height: hp('76%')}}>
           <FlatList
               //data={DATA}
               data = {this.state.pointHistory}

@@ -43,7 +43,7 @@ export default class Register extends React.Component {
     };
   }  
   Cadastra = async () => {
-    if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.trueCpf.length === 0 || this.state.contact.length === 0 ){
+    if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.trueCpf.length === 0){
       ToastAndroid.showWithGravityAndOffset(
         'Para cadastrar todos os campos devem sem preenchidos',
         ToastAndroid.SHORT,
@@ -63,19 +63,42 @@ export default class Register extends React.Component {
           birth: (moment(this.state.birhtDate, 'DD/MM/YYYY').format('YYYY-MM-DD')),
           contact: this.state.contact
         });
-          this.setState({load:false})
+          this.setState({load:false})                
+          Alert.alert('Parabéns, seu cadastro foi efetuado com sucesso', 
+          'Para efetuar login, utilize seu E-mail com a sua Senha'
+          )
           this.props.navigation.navigate('Login')
       } catch (response){
-        //this.setState({errorMessage: response.data.error });
-        console.log(response)
-        this.setState({load:false})
-        ToastAndroid.showWithGravityAndOffset(
-          'Cadastro não efetuado com sucesso, verifique seus dados',
-          ToastAndroid.SHORT,
-          ToastAndroid.BOTTOM,
-          0,
-          200,
-        );
+        console.log(response.response.data)
+        let erro = response.response.data;
+        if (erro === 'CPF is invalid'){
+          this.setState({load:false})
+          ToastAndroid.showWithGravityAndOffset(
+            'CPF INVALIDO',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            0,
+            200,
+          );
+        } else if(error = 'User already exists'){
+          this.setState({load:false})
+          ToastAndroid.showWithGravityAndOffset(
+            'Email já cadastrado',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            0,
+            200,
+          );
+        }else {
+          this.setState({load:false})
+          ToastAndroid.showWithGravityAndOffset(
+            'Cadastro não efetuado, verifique seus dados',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            0,
+            200,
+          );
+        }
         
       }                        
     }   

@@ -75,7 +75,7 @@ export default class EditProfile extends Component {
       this.setState({load:false})
       this.props.navigation.navigate('MainProf')
     }catch(response){
-      console.log(response)      
+      //console.log(response)      
       this.setState({load:false})
       ToastAndroid.showWithGravityAndOffset(
         'Problema para efetuar atualização de dados',

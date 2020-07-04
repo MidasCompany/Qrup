@@ -3,6 +3,7 @@ import { Text,
         StyleSheet,
         View,
         TouchableOpacity,
+        Image
     } from 'react-native'
 import {
     widthPercentageToDP as wp,
@@ -13,6 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import {Button, Avatar} from 'react-native-elements'
 import api from './services/api'
 import ImagePicker from 'react-native-image-crop-picker';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Profile extends Component {
     state={
@@ -93,7 +95,7 @@ export default class Profile extends Component {
                     }
                 })
         } catch(res){
-            console.log('Falhou imagem update')
+            //console.log('Falhou imagem update')
         }
     }
     async componentWillUnmount(){
@@ -101,7 +103,7 @@ export default class Profile extends Component {
     } 
     render() {    
         return (
-            <View style ={{backgroundColor: '#f5f5f5', height:hp('100%')}}>             
+            <ScrollView style ={{backgroundColor: '#f5f5f5', height:hp('100%')}}>             
                 <View style= {styles.Perfil}>
                     <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
                         <View style ={{height: wp('2%')}}/>
@@ -115,7 +117,11 @@ export default class Profile extends Component {
                             onPress={()=>this.selectPick()}
                         />
                         <Text  style = {styles.nameDesg}>{this.state.user}</Text>
-                        {/*<Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>*/}
+                         {/*   <Image 
+                            source ={{
+                                uri : (api.defaults.baseURL + this.state.avatar)
+                            }} style = {{height:80, width:80, borderRadius: 40}}/>
+                        <Text style= {styles.pontDesgr}> {this.state.pontos} Pontos</Text>*/}
                     </View>
                     <View style = {styles.Butons}>
                         <TouchableOpacity 
@@ -134,18 +140,17 @@ export default class Profile extends Component {
                         <TouchableOpacity>
                             <Text style = {styles.btnTxtnS}>Me Ajuda</Text>                         
                         </TouchableOpacity>
-                    </View>           
-                </View>
-                <View style = {{marginTop: wp('25%')}}> 
-                    <Button
-                        type = 'outline'
-                        title = 'Sair'
-                        titleStyle = {styles.btnLabel}
-                        buttonStyle = {styles.btnLogout}
-                        onPress = {()=>this.Exit()}
-                    /> 
-                </View>
-            </View>            
+                    </View>                            
+                    <View style={{height:wp('5%')}}/>
+                        <Button
+                            type = 'outline'
+                            title = 'Sair'
+                            titleStyle = {styles.btnLabel}
+                            buttonStyle = {styles.btnLogout}
+                            onPress = {()=>this.Exit()}
+                        />    
+                </View>               
+            </ScrollView>   
         )
     }
 }
@@ -197,7 +202,9 @@ const styles = StyleSheet.create({
         fontSize: wp('4%'),
         marginBottom: wp('3%'),
         marginLeft: wp('5%'),
-        color: '#707070'
+        color: '#707070',
+        alignItems:'center',
+        justifyContent:'center'
     },
     btnTxt:{
         fontSize: wp('4%'),
@@ -215,14 +222,15 @@ const styles = StyleSheet.create({
     },
 	btnLogout:{
        // marginTop: wp('75%'),
-        width: '40%',
+        width: '50%',
         backgroundColor: 'white',
         borderColor: '#01A83E',
         borderWidth: 2,
-		alignSelf: 'center'
+        alignSelf: 'center',
     },
 	btnLabel:{
 		color:'#01A83E',
-		fontSize: wp('5%'),
+        fontSize: wp('5%'),
+        flex:1
 	},
 })

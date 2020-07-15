@@ -4,7 +4,7 @@
   <h1 align="center"> QRUP</h1>
 </p>
 
-## Sobre o Porjeto
+## Sobre o Projeto
 
 
 Aplicação movel que associa sustentabilidade urbana com benefícios, a partir da aplicação deste repositório, juntamente a um copo reutilizável com código QR.

@@ -7,8 +7,9 @@
 ## Sobre o Projeto
 
 
-Aplicação movel que associa sustentabilidade urbana com benefícios, a partir da aplicação deste repositório, juntamente a um copo reutilizável com código QR.
-A partir do código QR do copo o usuário pode ganhar pontos ao utilizar o mesmo nos restaurantes cadastrados
+Esse projeto tem como ideia principal uma aplicação móvel que atuará em conjunto com um copo reutilizável que possuirá um código QR impresso na sua lateral. Esse que o usuário deverá vincular à sua conta para assim utilizar no seu dia a dia e, caso seja usado nas empresas parceiras do projeto, ele ganhará uma pontuação à cada uso. 
+Assim, acumulando pontos (que poderão ser trocados por benefícios disponibilizados pelos parceiros) e contribuindo para a redução do desperdício de copos descartáveis.
+
 ## A Aplicação
 
 A aplicação em questão é voltada para o usuário que possuirá um copo com o código QR e possui as funções de:

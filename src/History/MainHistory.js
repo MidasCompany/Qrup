@@ -44,11 +44,21 @@ export default class MainHistory extends Component {
             points: ''
         }
       };
-    async componentDidMount(){
+    async loadPoints(){
         this.setState({
             points: await AsyncStorage.getItem('@Qrup:u_points')
         })
     }
+    async componentDidMount(){
+        this.setState({
+            pontos: await AsyncStorage.getItem('@Qrup:u_points')
+        }) 
+        this.state.will_focus = this.props.navigation.addListener('willFocus', async () =>(this.loadPoints()) )
+    }
+     async componentWillUnmount(){
+         this.state.will_focus.remove();
+     }
+
   render() {
     return (
         <>

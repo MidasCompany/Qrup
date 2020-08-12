@@ -109,12 +109,6 @@ const styles = StyleSheet.create({
     cameraContainer: {
         height: Dimensions.get('window').height,
     },
-    texto:{
-        color: 'red',
-        alignSelf: 'center',
-        marginTop: wp('20%'),
-        fontSize: wp('15%')
-    },
     selMode:{
         flexDirection: 'row',
         alignSelf: 'center',

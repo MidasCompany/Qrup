@@ -32,7 +32,7 @@ export default class PickCupons extends Component {
                 <View style = {styles.main}>
                     <Text style={styles.title}>{this.state.cuponName}</Text>
                     <Text style={styles.description}>Esse Cupom custa {this.state.cuponPoints}</Text>
-                    <Text style = {{marginTop : wp('5%'), fontSize: wp('3.5%'), marginBottom: wp('20%'), alignSelf: 'center', color:'white'}}>Apresente esse QRCode no caixa para receber seu desconto</Text>
+                    <Text style = {{marginTop : wp('5%'), fontSize: wp('3.5%'), marginBottom: hp('15%'), alignSelf: 'center', color:'white'}}>Apresente esse QRCode no caixa para receber seu desconto</Text>
                     <QRCode
                         value = {this.state.cuponId}
                         size = {wp('50%')}
@@ -53,15 +53,15 @@ const styles = StyleSheet.create({
         backgroundColor:'#01A83E',
     },
     title:{
-        //marginTop: wp('20%'),
         fontSize: wp('9,70818%'),
         color:'white',
     },    
     description:{
-        marginTop: wp('3,23606%'),
+        marginTop: hp('3%'),
         fontSize: wp('3,23606%'),
         paddingHorizontal: wp('2%'),
         alignSelf:'center',
-        color:'white'
+        color:'white',
+        textAlign:'center'
     }
 })

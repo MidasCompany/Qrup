@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, TextInput, FlatList, TouchableOpacity, ToastAndroid} from 'react-native'
+import { Text, StyleSheet, View, TextInput, FlatList, TouchableOpacity, ToastAndroid, Modal} from 'react-native'
 import {Button} from 'react-native-elements'
 import Icon2 from  'react-native-vector-icons/MaterialIcons'
 import {FloatingAction} from 'react-native-floating-action'
@@ -8,7 +8,6 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from 'react-native-responsive-screen';
-import Modal from 'react-native-modal'
 import api from '../services/api';
 import LoadingScreen from '../components/LoadingScreen';
 import Icon from 'react-native-vector-icons/Octicons'
@@ -37,6 +36,7 @@ export default class AllHistory extends Component {
       pointHistory: '',
       refreshing: false,      
       will_update: null,
+      noPoints:true
     }
   };
   async loadHistory (){
@@ -49,6 +49,7 @@ export default class AllHistory extends Component {
       }) ;
       //console.log(response.data.data)
       this.setState({pointHistory: response.data.data, refreshing:false})
+
   } catch (response){
       //this.setState({errorMessage: response.data.error });     
       this.setState({load:false, refreshing:false})
@@ -82,6 +83,9 @@ export default class AllHistory extends Component {
     return (
       <>
         <View style ={{backgroundColor: '#f5f5f5', height: hp('76%')}}>
+          {this.state.pointHistory ? (
+            <Text style = {{alignSelf:'center', marginTop:hp('2%')}}> Sem pontos ainda</Text>
+          ): <></>}
           <FlatList
               //data={DATA}
               data = {this.state.pointHistory}
@@ -100,6 +104,7 @@ export default class AllHistory extends Component {
               refreshing = {this.state.refreshing}
               onRefresh ={this.handleRefresh}   
           />
+          
         </View>  
       </>
     );
@@ -117,7 +122,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       alignSelf: 'center',
       elevation: wp('1%'),
-      marginBottom: wp('2%')
+      marginBottom: hp('2%')
   },
   title:{
       marginTop: wp('2%'),

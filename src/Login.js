@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
 		width: '80%',
 		alignSelf: 'center',
     marginVertical: 20,
-    marginTop: wp('10%')
+    marginTop: hp('10%')
 	},
 	input: {
 		paddingHorizontal: 10

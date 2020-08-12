@@ -160,7 +160,7 @@ export default class Register extends React.Component {
   return (
     <>    
       <LoadingScreen enabled = {this.state.load}/>
-      <View style = {{flexGrow:1, backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
+      <View style = {{flexGrow:1, backgroundColor: '#01A83E', marginBottom: hp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
         <Text style={{fontSize: wp('4%'), color:'white', marginHorizontal: wp('15%')}}> Faça seu cadastro para aproveitar os descontos dos parceiros participantes</Text>
       </View>
       <ScrollView style = {{ backgroundColor: "white"}}>     
@@ -396,7 +396,7 @@ export default class Register extends React.Component {
 
 const styles = StyleSheet.create({
   divider:{
-    height: wp('5%')
+    height: hp('5%')
   },
 text:{
    alignSelf:'center',
@@ -411,7 +411,7 @@ text:{
 }, 
 
 btnLogin:{
-  marginTop: wp('5%'),
+  marginTop: hp('4%'),
   borderRadius: wp('2%'),
   alignSelf: 'center',
   width: '40%',

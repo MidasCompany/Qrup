@@ -105,8 +105,8 @@ export default class Profile extends Component {
         return (
             <ScrollView style ={{backgroundColor: '#f5f5f5', height:hp('100%')}}>             
                 <View style= {styles.Perfil}>
-                    <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
-                        <View style ={{height: wp('2%')}}/>
+                    <View style = {{backgroundColor: '#01A83E', marginBottom: hp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
+                        <View style ={{height: hp('1%')}}/>
                         <Avatar
                             rounded
                             size= 'xlarge'
@@ -137,7 +137,7 @@ export default class Profile extends Component {
                         </TouchableOpacity>
                     </View>             
                     <View style = {styles.Sbutons}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {()=>this.props.navigation.navigate('About')}>
                             <Text style = {styles.btnTxtnS}>Me Ajuda</Text>                         
                         </TouchableOpacity>
                     </View>                            
@@ -162,45 +162,38 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         backgroundColor: '#f5f5f5'
     },
-    Disgraca:{ 
-        marginTop: wp('3%'),
-        width: wp('35%'),
-        height: wp('35%'),
-        borderRadius: wp('17.5%')
-        //backgroundColor: 'red'
-    },
     nameDesg:{
         color:'white',
         marginTop:wp('5%'),
         fontSize: wp('6%'),
-        marginBottom: wp('2%')
+        marginBottom: hp('2%')
     },
     pontDesgr:{
         color:'white',
-        marginTop: wp('2%'),
+        marginTop: hp('2%'),
         fontSize:wp('5%'),
-        marginBottom: wp('2%')
+        marginBottom: hp('2%')
     },
     Butons:{
         width: wp('90%'),
         marginTop:wp('5%'),
-        marginBottom: wp('5%'),
+        marginBottom: hp('3%'),
         borderRadius: wp('1%'),
         backgroundColor: 'white',
         elevation: 5
     },
     Sbutons:{        
         width: wp('90%'),
-        marginBottom: wp('5%'),
+        marginBottom: hp('3%'),
         elevation: 5,        
         borderRadius: wp('1%'),
         backgroundColor:'white',
-        height: wp('14%'),
+        height: hp('8%'),
         justifyContent: 'center'
     },
     btnTxtnS:{
         fontSize: wp('4%'),
-        marginBottom: wp('3%'),
+        marginBottom: hp('1.5%'),
         marginLeft: wp('5%'),
         color: '#707070',
         alignItems:'center',
@@ -208,24 +201,22 @@ const styles = StyleSheet.create({
     },
     btnTxt:{
         fontSize: wp('4%'),
-        marginTop: wp('2%'),
-        marginBottom: -wp('0.5%'),
+        marginTop: hp('2%'),
+        marginBottom: -hp('0.5%'),
         marginLeft: wp('5%'),
         color: '#707070'
     },
     subTxt:{        
         fontSize: wp('3%'),
-       // marginTop: wp('3%'),
-        marginBottom: wp('2%'),
+        marginBottom: hp('2%'),
         marginLeft: wp('5%'),
         color: '#707070'
     },
 	btnLogout:{
-       // marginTop: wp('75%'),
         width: '50%',
         backgroundColor: 'white',
         borderColor: '#01A83E',
-        borderWidth: 2,
+        borderWidth: wp('0.5%'),
         alignSelf: 'center',
     },
 	btnLabel:{

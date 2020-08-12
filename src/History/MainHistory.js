@@ -30,7 +30,7 @@ createMaterialTopTabNavigator({
         },
         indicatorStyle:{
             backgroundColor: '#ffffff',
-            height: wp('1%'),
+            height: hp('0.5%'),
         },
         showIcon: true,
     }

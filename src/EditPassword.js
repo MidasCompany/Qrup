@@ -96,7 +96,7 @@ export default class EditProfile extends Component {
     return (
         <>
              <LoadingScreen enabled = {this.state.load}/>
-             <View style = {{height: hp('10%'), backgroundColor: '#01A83E', marginBottom: wp('1%'),width:wp('100%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
+             <View style = {{height: hp('10%'), backgroundColor: '#01A83E', marginBottom: hp('1%'),width:wp('100%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
                 <Text style={{fontSize: wp('4%'), color:'white', marginHorizontal: wp('15%')}}> Atualize sua Senha</Text>
             </View>
             <View style = {styles.field}>
@@ -158,7 +158,7 @@ export default class EditProfile extends Component {
 }
 const styles = StyleSheet.create({
     divider:{
-      height: wp('50%')
+      height: hp('30%')
     },
    field:{
     color:'white',
@@ -169,7 +169,6 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   btnLogin:{
-    marginTop: wp('5%'),
     alignSelf: 'center',
     width: '40%',
     backgroundColor: '#01A83E',

@@ -9,9 +9,7 @@ import Profile from './Profile'
 import Products from './Products'
 import ChoseCupons from './ChoseCupons'
 import PickCupons from './PickCupons'
-import AllHistory from './History/AllHistory'
-import UsedHistory from './History/UsedHistory'
-import WonHistory from './History/WonHistory'
+import About from './About'
 import MainHistory from './History/MainHistory'
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs'
 import EditProfile  from './EditProfile'
@@ -88,7 +86,7 @@ const ProfileNav = createStackNavigator({
             },
             headerTitleStyle: {
               fontSize: wp('7%'),
-              marginTop: wp('5%'),
+              marginTop: hp('4%'),
             },
           }
         },
@@ -107,7 +105,6 @@ const ProfileNav = createStackNavigator({
             },
             headerTitleStyle: {
               fontSize: wp('7%'),
-              //marginTop: wp('5%'),
               marginLeft: -wp('4%')
             },
           }
@@ -128,7 +125,25 @@ const ProfileNav = createStackNavigator({
             headerTitleStyle: {
               fontSize: wp('7%'),
               marginLeft: -wp('4%')
-             // marginTop: wp('5%'),
+            },
+          }
+        },
+        About:{
+          screen: About,
+          navigationOptions:{
+            headerTintColor: 'white',
+            title: 'Me Ajuda',
+            headerStyle:{
+              backgroundColor: '#01A83E',
+              elevation: 0,
+            },
+            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' />),
+            headerTitleContainerStyle:{
+              justifyContent:'center'
+            },
+            headerTitleStyle: {
+              fontSize: wp('7%'),
+              marginLeft: -wp('4%')
             },
           }
         }
@@ -171,8 +186,7 @@ const cupon = createStackNavigator({
               justifyContent:'center'
             },
             headerTitleStyle: {
-              fontSize: wp('7%'),
-              //marginTop: wp('5%'),              
+              fontSize: wp('7%'),            
               marginLeft: -wp('5%')
             },
           }
@@ -202,7 +216,7 @@ const User = createMaterialTopTabNavigator(
                         navigationOptions:{
                             tabBarLabel: 'Pontos',
                             title: "Meus Pontos",
-                            tabBarIcon:({tintColor})=>(<Icon2 name="coins" size={wp('6%')} color={tintColor} style={{alignSelf:'center'}}/>)
+                            tabBarIcon:({tintColor})=>(<Icon2 name="coins" size={wp('5%')} color={tintColor} style={{alignSelf:'center'}}/>)
                         }
                      },
           },
@@ -219,7 +233,7 @@ const User = createMaterialTopTabNavigator(
                 },
                 labelStyle:{
                     fontSize: wp('2.5%'),
-                    marginTop: -3
+                    marginTop: -hp('0.5%')
                 },
                 indicatorStyle:{
                     height: 0,

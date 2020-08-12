@@ -100,7 +100,7 @@ export default class EditProfile extends Component {
     return (
         <>
           <LoadingScreen enabled = {this.state.load}/>
-          <View style = {{height: hp('10%'), backgroundColor: '#01A83E', marginBottom: wp('1%'),width:wp('100%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
+          <View style = {{height: hp('10%'), backgroundColor: '#01A83E', marginBottom: hp('1%'),width:wp('100%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center'}}>
             <Text style={{fontSize: wp('4%'), color:'white', marginHorizontal: wp('15%')}}> Atualize seus dados aqui</Text>
           </View>
           <ScrollView style = {{ backgroundColor: "white"}}>         
@@ -153,7 +153,7 @@ export default class EditProfile extends Component {
                   buttonStyle = {styles.btnLogin}
                   onPress = {()=>this.atualizaCadastro()}
                 /> 
-                <View style ={{alignSelf: 'center',flexDirection: 'row', marginTop: wp('5%')}}>
+                <View style ={{alignSelf: 'center',flexDirection: 'row', marginTop: hp('3%')}}>
                   <Text style ={{color: 'rgba(1, 168, 62, 1)',fontSize: wp('4,85409%'),	textAlign: "center",marginBottom: 20}}>Quer trocar a senha? </Text>
                   <TouchableOpacity 
                       onPress = {()=>this.props.navigation.navigate('EditPassword')}>
@@ -167,7 +167,7 @@ export default class EditProfile extends Component {
 }
 const styles = StyleSheet.create({
   divider:{
-    height: wp('50%')
+    height: hp('25%')
   },
  field:{
   color:'white',
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   marginTop: 2
 },
 btnLogin:{
-  marginTop: wp('5%'),
+  marginTop: hp('2%'),
   alignSelf: 'center',
   width: '40%',
   backgroundColor: '#01A83E',
@@ -191,7 +191,6 @@ txtStyle:{
   color: '#01A83E',
   fontSize: wp('4,85409%'),
   textAlign: "center",
-  marginBottom: 20,
   textDecorationLine: 'underline',
 }, 
 });

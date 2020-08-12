@@ -138,9 +138,9 @@ export default class Products extends Component {
               }) ;
               this.setState({load:false, insertCode: false})
               this.loadProducts();
-            } catch (response){
-              //this.setState({errorMessage: response.data.error });     
+            } catch (response){ 
                this.setState({load:false})
+               console.log(response.response.data);
               alert("Código não confere")
             }                        
           } 
@@ -180,11 +180,11 @@ export default class Products extends Component {
     render() {        
         return (
             <>     
-                <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
+                <View style = {{backgroundColor: '#01A83E', marginBottom: hp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
                     {/*<Text  style = {{marginVertical: wp('5%'), fontSize: wp('7%'), color:'white'}}>Meus Qrup's</Text>*/}
-                    <Text style = {{fontSize: wp('4%'), color:'white', marginBottom: wp('3.5%')}}> Seus qrups cadastrados ficam aqui</Text>
+                    <Text style = {{fontSize: wp('4%'), color:'white', marginBottom: hp('3.5%')}}> Seus qrups cadastrados ficam aqui</Text>
                 </View>
-                <View style ={{marginTop: -wp('1%'),height: hp('80%'), backgroundColor: '#f5f5f5'}}> 
+                <View style ={{marginTop: -hp('1%'),height: hp('80%'), backgroundColor: '#f5f5f5'}}> 
                     <FlatList
                         data={this.state.cupsList}
                         //data = {DATA}
@@ -264,16 +264,6 @@ const styles = StyleSheet.create({
     ad:{
         fontSize: wp('15%'),
     },   
-    Cup:{
-        alignSelf: 'center',
-        marginTop: wp('10%'),
-        fontSize: wp('15%')
-    },
-    Qrup:{
-        alignSelf: 'center',
-        fontSize: wp('8%'),
-        marginTop: wp('2%')
-    },
     actionButtonIcon: {
         fontSize: wp('6%'),
         height: 30,
@@ -288,7 +278,7 @@ const styles = StyleSheet.create({
     inputCode:{
         fontSize: wp('3%'),
         alignSelf: 'center',
-        marginTop: wp('90%'),
+        marginTop: hp('40%'),
         backgroundColor: '#FFFFFF',
         borderWidth: wp('0.3%'),
         borderColor: '#006300',
@@ -301,7 +291,7 @@ const styles = StyleSheet.create({
     inputCode2:{
         fontSize: wp('3%'),
         alignSelf: 'center',
-        marginTop: wp('2%'),
+        marginTop: hp('2%'),
         backgroundColor: '#FFFFFF',
         borderWidth: wp('0.3%'),
         borderColor: '#006300',
@@ -319,13 +309,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     btn:{
-        marginTop: wp('4%'),
+        marginTop: hp('4%'),
         backgroundColor: '#006300',
         width: wp('20%'),
 		alignSelf: 'center'
     }, 
     main:{
-        marginTop: wp('5%'),
+        marginTop: hp('3%'),
         backgroundColor: '#fff',
         height: hp('8%'),
         width: wp('85%'),
@@ -334,7 +324,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         elevation: wp('1%'),
-        marginBottom: wp('3%')
+        marginBottom: hp('3%')
     },
     qrupIcon:{
         height: hp('9%'),
@@ -344,7 +334,7 @@ const styles = StyleSheet.create({
         borderRadius: wp('1%')
     },
     title:{
-        marginTop: wp('2%'),
+        marginTop: hp('2%'),
         fontSize: wp('5%')
     },
     description:{
@@ -357,7 +347,6 @@ const styles = StyleSheet.create({
         flexGrow: 1,        
     },
     cost:{
-        //marginTop: wp('2%'),
         fontSize: wp('4,12%'),
         alignSelf: 'flex-end',
         marginEnd: wp('4%'),
@@ -367,7 +356,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     stats:{
-        marginStart: (wp('3%')),
+        marginStart: wp('3%'),
         flexGrow: 1,
         width:0,
     },

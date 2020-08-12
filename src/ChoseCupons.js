@@ -65,10 +65,10 @@ export default class ChoseCupons extends Component {
     render() {
         return (
         <> 
-            <View style = {{backgroundColor: '#01A83E', marginBottom: wp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
+            <View style = {{backgroundColor: '#01A83E', marginBottom: hp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
                 <Text style = {{fontSize: wp('4%'), color:'white', marginVertical: wp('5%')}}>Você Possui: {this.state.pontos} Pontos</Text>
             </View>
-            <View style ={{height: hp('100%'), backgroundColor: '#f5f5f5'}}> 
+            <View style ={{height: hp('100%'),marginTop: -hp('1%'), backgroundColor: '#f5f5f5'}}> 
                 <FlatList
                     data={this.state.cuponsList}
                     renderItem={({ item }) =>   <TouchableOpacity style = {styles.main} 
@@ -100,7 +100,7 @@ export default class ChoseCupons extends Component {
 
 const styles = StyleSheet.create({
     main:{
-        marginTop: wp('1%'),
+        marginTop: hp('1%'),
         backgroundColor: '#fff',
         height: hp('9%'),
         width: wp('85%'),
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         elevation: wp('1%'),
-        marginBottom: wp('5%')
+        marginBottom: hp('5%')
     },
     compLogo:{
         backgroundColor: 'gray',
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,        
     },
     cost:{
-        marginTop: wp('2%'),
+        marginTop: hp('2%'),
         fontSize: wp('3.5%'),
         alignSelf: 'center',
         marginEnd: wp('4%'),

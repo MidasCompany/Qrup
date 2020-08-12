@@ -81,6 +81,9 @@ export default class AllHistory extends Component {
     return (
       <>
         <View style ={{backgroundColor: '#f5f5f5', height: hp('76%')}}>
+        {this.state.pointHistory ? (
+            <Text style = {{alignSelf:'center', marginTop:hp('2%')}}> Você ainda não ganhou pontos</Text>
+          ): <></>}
           <FlatList
               //data={this.state.pointHistory}
               data = {this.state.pointHistory}
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       alignSelf: 'center',
       elevation: wp('1%'),
-      marginBottom: wp('2%')
+      marginBottom: hp('2%')
   },
   title:{
       marginTop: wp('2%'),

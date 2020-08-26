@@ -5,7 +5,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ToastAndroid
+  ToastAndroid,
+  Alert
 } from 'react-native';
 import {Button} from 'react-native-elements'
 import Logo from '../Images/qrup_semroda_semsombra.png'
@@ -51,18 +52,18 @@ export default class Login extends React.Component {
           password: this.state.password,
           type: 'user'
         }) ;        
-          //console.log(response)
-          await AsyncStorage.setItem('@Qrup:token',response.data.token )
-          await AsyncStorage.setItem('@Qrup:user',response.data.user.name)
-          await AsyncStorage.setItem('@Qrup:u_id', response.data.user.id)          
-          await AsyncStorage.setItem('@Qrup:u_contact', JSON.stringify(response.data.user.contact))
-          await AsyncStorage.setItem('@Qrup:u_avatar_id', response.data.user.avatar_id)
-          await AsyncStorage.setItem('@Qrup:u_points', JSON.stringify(response.data.user.points.total))
-          await AsyncStorage.setItem('@Qrup:u_bday', JSON.stringify(response.data.user.birth))
-          await AsyncStorage.setItem('@Qrup:u_email', response.data.user.email)
+          await AsyncStorage.setItem('@Qrup:token',response.data.body.token )
+          await AsyncStorage.setItem('@Qrup:user',response.data.body.user.name)
+          await AsyncStorage.setItem('@Qrup:u_id', response.data.body.user.id)          
+          await AsyncStorage.setItem('@Qrup:u_contact', JSON.stringify(response.data.body.user.contact))
+          await AsyncStorage.setItem('@Qrup:u_avatar_id', response.data.body.user.avatar_id)
+          await AsyncStorage.setItem('@Qrup:u_points', JSON.stringify(response.data.body.user.points.total))
+          await AsyncStorage.setItem('@Qrup:u_bday', JSON.stringify(response.data.body.user.birth))
+          await AsyncStorage.setItem('@Qrup:u_email', response.data.body.user.email)
           this.setState({load:false})
           this.props.navigation.navigate('User')
       } catch (response){  
+        console.log(response.data)
         this.setState({load:false})
         ToastAndroid.showWithGravityAndOffset(
           'Credenciais não conferem',

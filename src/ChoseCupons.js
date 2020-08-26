@@ -30,16 +30,16 @@ export default class ChoseCupons extends Component {
         }) 
         try{
             const response = await api.get('/coupons') ;
-            this.setState({cuponsList: response.data, refreshing: false})
+            this.setState({cuponsList: response.body.data, refreshing: false})
         } catch (response){
         this.setState({load:false, refreshing:false})
-        ToastAndroid.showWithGravityAndOffset(
+        /*ToastAndroid.showWithGravityAndOffset(
             'Problema para carregar os cupons',
             ToastAndroid.SHORT,
             ToastAndroid.BOTTOM,
             0,
             200,
-        );
+        );*/
         } 
     }
     async componentDidMount(){
@@ -67,8 +67,11 @@ export default class ChoseCupons extends Component {
         <> 
             <View style = {{backgroundColor: '#01A83E', marginBottom: hp('1%'), alignItems: 'center', justifyContent: 'center', alignSelf: 'center', width: wp('100%')}}>
                 <Text style = {{fontSize: wp('4%'), color:'white', marginVertical: wp('5%')}}>Você Possui: {this.state.pontos} Pontos</Text>
-            </View>
+            </View>            
             <View style ={{height: hp('100%'),marginTop: -hp('1%'), backgroundColor: '#f5f5f5'}}> 
+            {this.state.cuponsList ? (
+                <Text style = {{alignSelf:'center', marginTop:hp('3%')}}> Sem Cupons Disponiveis</Text>
+            ): <></>}
                 <FlatList
                     data={this.state.cuponsList}
                     renderItem={({ item }) =>   <TouchableOpacity style = {styles.main} 
@@ -76,7 +79,7 @@ export default class ChoseCupons extends Component {
                                                                                                           cuponName: item.name,
                                                                                                           cuponPoints: item.points
                                                                                                           })}}> 
-                                                    <View style = {styles.terte}>
+                                                    <View style = {styles.Qrup}>
                                                         {/* Logo da Empresa */ }
                                                         <Image source={{
                                                             uri:(api.defaults.baseURL + item.company.avatar_id)
@@ -133,12 +136,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginEnd: wp('4%'),
     },
-    terte:{
+    Qrup:{
         flexDirection: 'row',
         alignItems: 'center',
     },
     stats:{
-        marginStart: (wp('3%')),
+        marginStart: wp('3%'),
         flexGrow: 1,
         width:0,
     },

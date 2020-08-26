@@ -5,7 +5,8 @@ import {
   Text,
   ScrollView,
   ToastAndroid,
-  TextComponent
+  TextComponent,
+  Alert
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -37,42 +38,34 @@ export default class Register extends React.Component {
         birhtDate: '',
         password: '',
         contact: '',
-        secureTextEntry: true  ,
+        secureTextEntry: true ,
         load: false,
         trueCpf: '',
     };
   }  
-  Cadastra = async () => {
-    if (this.state.user.length === 0 || this.state.password.length === 0 || this.state.email.length === 0 || this.state.trueCpf.length === 0){
-      ToastAndroid.showWithGravityAndOffset(
-        'Para cadastrar todos os campos devem sem preenchidos',
-        ToastAndroid.SHORT,
-        ToastAndroid.BOTTOM,
-        0,
-        200,
-      );
-    } 
-    else{       
-      this.setState({load:true})
+  Cadastra = async (values) => {   
+      console.log(values)
       try{
+        this.setState({load:true})
         const response = await api.post('/users',{
-          email: this.state.email,
-          password: this.state.password,
-          name: this.state.user,
-          cpf: this.state.trueCpf,
+          email: values.email,
+          password: values.password,
+          name: values.user,
+          cpf: values.cpf,
           birth: (moment(this.state.birhtDate, 'DD/MM/YYYY').format('YYYY-MM-DD')),
-          contact: this.state.contact
+          contact: values.contact
         });
           this.setState({load:false})                
           Alert.alert('Parabéns, seu cadastro foi efetuado com sucesso', 
           'Para efetuar login, utilize seu E-mail com a sua Senha'
           )
+          console.log(response)
           this.props.navigation.navigate('Login')
       } catch (response){
-        console.log(response.response.data)
+        console.log(response)
+        this.setState({load:false})
         let erro = response.response.data;
         if (erro === 'CPF is invalid'){
-          this.setState({load:false})
           ToastAndroid.showWithGravityAndOffset(
             'CPF INVALIDO',
             ToastAndroid.SHORT,
@@ -98,9 +91,7 @@ export default class Register extends React.Component {
             0,
             200,
           );
-        }
-        
-      }                        
+        }                               
     }   
   } 
   _addMaskContactBr(contact){  
@@ -184,14 +175,8 @@ export default class Register extends React.Component {
                 })
               }
               onSubmit={(values)=>{
-                this.setState({
-                  user: values.user,
-                  email: values.email,
-                  password: values.password,
-                  contact: values.phone,
-                  trueCpf: values.cpf,
-                })
-                this.Cadastra()
+                console.log(values)
+                this.Cadastra(values)
               }}
             >
               {({values, handleChange,errors, handleSubmit})=>(    
@@ -206,6 +191,7 @@ export default class Register extends React.Component {
                     fontSize = {17}
                     value = {values.user}
                     onChangeText = {handleChange('user')}
+                    onSubmitEditing={() => this.password.focus()}    
                     error = {errors.user}
                   />
                   <TextField

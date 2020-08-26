@@ -28,7 +28,7 @@ export default class Products extends Component {
     Scan = () =>{
         this.props.navigation.navigate('Add')
     }
-    Terte =() =>{
+    Qrup =() =>{
         alert("Testando Botão")
     }
 
@@ -54,7 +54,7 @@ export default class Products extends Component {
                     Authorization : "Bearer " + this.state.token
                 }
             }) ;
-            this.setState({cupsList: response.data, refreshing:false})
+            this.setState({cupsList: response.body.data, refreshing:false})
         } catch (response){
             //this.setState({errorMessage: response.data.error });     
             this.setState({load:false, refreshing:false})
@@ -140,7 +140,7 @@ export default class Products extends Component {
               this.loadProducts();
             } catch (response){ 
                this.setState({load:false})
-               console.log(response.response.data);
+               console.log(response.code);
               alert("Código não confere")
             }                        
           } 
@@ -189,7 +189,7 @@ export default class Products extends Component {
                         data={this.state.cupsList}
                         //data = {DATA}
                         renderItem={({ item }) =>   <View style = {styles.main}> 
-                                                        <View style = {styles.terte}>
+                                                        <View style = {styles.Qrup}>
                                                             <Icon size={wp('8%')} name= 'cup'  color='#01A83E' style ={{marginLeft: wp('4%')}}/>
                                                             <View style = {styles.stats}>
                                                                 <Text style = {{marginTop: -wp('1%'), fontSize: wp('5%')}}>{item.description}</Text>
@@ -257,7 +257,7 @@ export default class Products extends Component {
 }
 
 const styles = StyleSheet.create({
-    terte:{
+    Qrup:{
         backgroundColor: 'red',
         fontSize: 20
     },
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         marginEnd: wp('4%'),
     },
-    terte:{
+    Qrup:{
         flexDirection: 'row',
         alignItems: 'center',
     },

@@ -1,4 +1,4 @@
-package com.terte;
+package com.Qrup;
 
 import android.app.Application;
 import android.content.Context;

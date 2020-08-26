@@ -19,10 +19,10 @@ export default class About extends Component {
   async componentDidMount(){
     try{
         const response = await api.get('/companies');
-        this.setState({companies: response.data})
-        console.log(response.data)
+        this.setState({companies: response.body.data})
+        console.log(response.body.data)
     }catch(reponse){
-        alert(response.response.data)
+        console.log(reponse.code)
     }
   }
 

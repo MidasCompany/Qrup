@@ -51,13 +51,13 @@ export default class AllHistory extends Component {
   } catch (response){
       //this.setState({errorMessage: response.data.error });     
       this.setState({load:false, refreshing:false})
-      ToastAndroid.showWithGravityAndOffset(
+      /*ToastAndroid.showWithGravityAndOffset(
           'Problema para carregar o Histórico',
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
           0,
           200,
-      );
+      );*/
   }
   }
   async componentDidMount(){
@@ -82,13 +82,13 @@ export default class AllHistory extends Component {
       <>
          <View style ={{backgroundColor: '#f5f5f5', height: hp('76%')}}>
          {this.state.pointHistory ? (
-            <Text style = {{alignSelf:'center', marginTop:hp('2%')}}> Você ainda não gastou pontos</Text>
-          ): <></>}
+            <></>
+          ):<Text style = {{alignSelf:'center', marginTop:hp('2%')}}> Você ainda não gastou pontos</Text> }
           <FlatList
               //data={this.state.pointHistory}
               data = {this.state.pointHistory}
               renderItem={({ item }) =>   <View style = {styles.main}> 
-                                              <View style = {styles.terte}>
+                                              <View style = {styles.Qrup}>
                                                   <View style = {styles.stats}>
                                                       <Text style = {{marginTop: -wp('1%'), fontSize: wp('5%')}}>{item.company.name}</Text>
                                                   </View>
@@ -109,7 +109,7 @@ export default class AllHistory extends Component {
 }
 
 const styles = StyleSheet.create({
-  terte:{
+  Qrup:{
       backgroundColor: 'red',
       fontSize: 20
   },   
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       fontSize: wp('3,23606%'),
   },
-  terte:{
+  Qrup:{
       flexDirection: 'row',
       alignItems: 'center',
   },

@@ -14,11 +14,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface terteTests : XCTestCase
+@interface QrupTests : XCTestCase
 
 @end
 
-@implementation terteTests
+@implementation QrupTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

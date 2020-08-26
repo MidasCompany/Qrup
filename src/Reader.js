@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
        alignItems: 'center',
        color: '#677D35'
     },
-    terteBtn:{
+    QrupBtn:{
         //backgroundColor: 'red',
         marginTop: hp('5%'),
         marginLeft: wp('75%')

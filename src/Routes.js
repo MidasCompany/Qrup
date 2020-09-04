@@ -99,7 +99,7 @@ const ProfileNav = createStackNavigator({
               backgroundColor: '#01A83E',
               elevation: 0,
             },
-            headerBackImage:(<Icon2 name='angle-left' size={ wp('10%')} color='white' />),
+            headerBackImage:(<Icon2 name='angle-left' size={wp('10%')} color='white' />),
             headerTitleContainerStyle:{
               justifyContent:'center'
             },
@@ -210,7 +210,7 @@ const User = createMaterialTopTabNavigator(
                         navigationOptions:{
                             tabBarLabel: 'Cupons',
                             title: 'Cupons',
-                            tabBarIcon:({tintColor})=>(<Icon2 name='ticket-alt' size={ wp('6%')} color={tintColor} style={{alignSelf:'center'}}/>)
+                            tabBarIcon:({tintColor})=>(<Icon2 name='ticket-alt' size={wp('6%')} color={tintColor} style={{alignSelf:'center'}}/>)
                         } },
             MainHistory: { screen: MainHistory,
                         navigationOptions:{
@@ -229,11 +229,11 @@ const User = createMaterialTopTabNavigator(
                 inactiveTintColor: '#c4c4c4',
                 style:{
                     backgroundColor: 'white',
-                    height: hp('7%')
+                    //height: hp('7%')
                 },
                 labelStyle:{
                     fontSize: wp('2.5%'),
-                    marginTop: -hp('0.5%')
+                    marginTop: -hp('0.6%')
                 },
                 indicatorStyle:{
                     height: 0,

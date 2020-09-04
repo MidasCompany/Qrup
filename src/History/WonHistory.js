@@ -81,7 +81,7 @@ export default class AllHistory extends Component {
     return (
       <>
         <View style ={{backgroundColor: '#f5f5f5', height: hp('76%')}}>
-        {this.state.pointHistory ? (
+        {this.state.pointHistory.length ? (
             <></>
           ): <Text style = {{alignSelf:'center', marginTop:hp('2%')}}> Você ainda não ganhou pontos</Text>}
           <FlatList

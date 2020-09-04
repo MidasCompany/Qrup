@@ -30,7 +30,7 @@ export default class ChoseCupons extends Component {
         }) 
         try{
             const response = await api.get('/coupons') ;
-            this.setState({cuponsList: response.body.data, refreshing: false})
+            this.setState({cuponsList: response.data.body, refreshing: false})
         } catch (response){
         this.setState({load:false, refreshing:false})
         /*ToastAndroid.showWithGravityAndOffset(
@@ -69,9 +69,9 @@ export default class ChoseCupons extends Component {
                 <Text style = {{fontSize: wp('4%'), color:'white', marginVertical: wp('5%')}}>Você Possui: {this.state.pontos} Pontos</Text>
             </View>            
             <View style ={{height: hp('100%'),marginTop: -hp('1%'), backgroundColor: '#f5f5f5'}}> 
-            {this.state.cuponsList ? (
-                <Text style = {{alignSelf:'center', marginTop:hp('3%')}}> Sem Cupons Disponiveis</Text>
-            ): <></>}
+            {this.state.cuponsList.length ? (
+                <></>
+            ): <Text style = {{alignSelf:'center', marginTop:hp('3%')}}> Sem Cupons Disponiveis</Text>}
                 <FlatList
                     data={this.state.cuponsList}
                     renderItem={({ item }) =>   <TouchableOpacity style = {styles.main} 

@@ -43,7 +43,7 @@ export default class Products extends Component {
             token: '',  
             will_update: null  ,
             refreshing: false,
-            cupsList: []
+            cupsList: '',
         };
     }
     async loadProducts (){
@@ -54,17 +54,17 @@ export default class Products extends Component {
                     Authorization : "Bearer " + this.state.token
                 }
             }) ;
-            this.setState({cupsList: response.body.data, refreshing:false})
+            this.setState({cupsList: response.data.body, refreshing:false})
         } catch (response){
             //this.setState({errorMessage: response.data.error });     
             this.setState({load:false, refreshing:false})
-            ToastAndroid.showWithGravityAndOffset(
+            /*ToastAndroid.showWithGravityAndOffset(
                 'Problema para carregar os copos',
                 ToastAndroid.SHORT,
                 ToastAndroid.BOTTOM,
                 0,
                 200,
-            );
+            );*/
         }
     }
     async componentDidMount(){
@@ -128,7 +128,6 @@ export default class Products extends Component {
             try{
               const response = await api.post('/users/'+this.state.user_id+'/cups',{
                 description : this.state.description,
-                type: '550ml',
                 qr: this.state.qr,
               },
               {
@@ -141,7 +140,7 @@ export default class Products extends Component {
             } catch (response){ 
                this.setState({load:false})
                console.log(response.code);
-              alert("Código não confere")
+               alert("Código não confere")
             }                        
           } 
     }
@@ -184,7 +183,11 @@ export default class Products extends Component {
                     {/*<Text  style = {{marginVertical: wp('5%'), fontSize: wp('7%'), color:'white'}}>Meus Qrup's</Text>*/}
                     <Text style = {{fontSize: wp('4%'), color:'white', marginBottom: hp('3.5%')}}> Seus qrups cadastrados ficam aqui</Text>
                 </View>
+                
                 <View style ={{marginTop: -hp('1%'),height: hp('80%'), backgroundColor: '#f5f5f5'}}> 
+                    {this.state.cupsList.length ? (
+                         <></>
+                    ):(<Text style = {{alignSelf:'center', marginTop:hp('3%')}}> Sem Copos Cadastrados</Text>)}
                     <FlatList
                         data={this.state.cupsList}
                         //data = {DATA}
@@ -212,7 +215,7 @@ export default class Products extends Component {
                         <View style = {styles.insertCode}>                            
                             <TextInput
                                 placeholder = {'Insira seu código Qrup Aqui'}
-                                autoCapitalize = 'characters'
+                                autoCapitalize = 'none'
                                 placeholderTextColor = '#006300'
                                 style = {styles.inputCode}
                                 onChangeText = {(qr)=>this.setState({qr})}
@@ -220,7 +223,7 @@ export default class Products extends Component {
                             />
                             <TextInput
                                 placeholder = {'De um nome para o seu Qrup'}
-                                autoCapitalize = 'characters'
+                                autoCapitalize = 'none'
                                 placeholderTextColor = '#006300'
                                 style = {styles.inputCode2}
                                 onChangeText = {(description)=>this.setState({description})}
@@ -249,6 +252,7 @@ export default class Products extends Component {
                         }}
                         color= '#01A83E'
                         dismissKeyboardOnPress = {true}
+                        distanceToEdge = {hp('20%'), wp('10%')}
                     />
                 </View>
             </>

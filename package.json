@@ -14,7 +14,7 @@
     "add": "^2.0.6",
     "axios": "^0.19.2",
     "formik": "^2.1.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.9.0",
     "react-native": "0.61.2",
     "react-native-camera": "^3.8.0",
